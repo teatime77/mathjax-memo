@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>1.6 情報理論</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+<h1>1.6. 情報理論</h1>
+N個の物体を箱に入れる方法の数$W$は
+$$
+W = \frac{N!}{\prod_i n_i !}
+\tag{1.94}
+$$
+ここで$\sum_i n_i = N $<br/>
+<br/>
+エントロピー$H$の定義
+$$
+H = \frac{1}{N} \ln W = \frac{1}{N} \ln N! - \frac{1}{N} \sum_i \ln n_i !
+\tag{1.95}
+$$
+
+スターリングの近似式
+$$
+\ln N! \simeq N \ln N - N
+\tag{1.96}
+$$
+
+$p_i = \frac{n_i}{N} $ とすると
+$$
+H = - \lim_{N \to \infty} \sum_i(\frac{n_i}{N}) \ln(\frac{n_i}{N}) = - \sum_i p_i ln p_i
+\tag{1.97}
+$$
+<hr/>
+<b>証明</b>
+(1.95)の$H$の定義から
+$$
+H = \lim_{N \to \infty}( \frac{1}{N} \ln N! - \frac{1}{N} \sum_i \ln n_i ! )
+$$
+
+$\ln N!$ と $\ln n_i !$スターリングの近似を使い
+$$
+= \lim_{N \to \infty}( \frac{ N \ln N - N }{N}  - \frac{1}{N} \sum_i (n_i \ln n_i - n_i) )
+$$
+
+整理して
+$$
+= \lim_{N \to \infty}( \ln N - 1 - \sum_i \frac{n_i}{N} \ln n_i - \frac{ \sum_i n_i }{N}  )
+$$
+
+$\sum_i n_i = N$を使い
+$$
+= \lim_{N \to \infty}( \ln N - 1  - \sum_i \frac{n_i}{N} \ln n_i + 1 )
+$$
+整理して
+$$
+= \lim_{N \to \infty}( \ln N - \sum_i \frac{n_i}{N} \ln n_i )
+$$
+$\lim$の最初の項に $\frac{\sum_i n_i}{N} = 1$ をかけて
+$$
+= \lim_{N \to \infty}( \sum_i \frac{n_i}{N} \ln N - \sum_i \frac{n_i}{N} \ln n_i )
+\\
+= - \lim_{N \to \infty} \sum_i \frac{n_i}{N} (\ln n_i - \ln N) 
+\\
+= - \lim_{N \to \infty} \sum_i \frac{n_i}{N} \ln \frac{n_i}{N} 
+$$
+$p_i = \displaystyle \lim_{N \to \infty} \frac{n_i}{N}$ なので
+$$
+= - \sum_i p_i \ln p_i
+$$
+
+<hr/>
+<h4>演習1.34 微分エントロピーを最大にする分布はガウス分布</h4>
+<b>証明</b><br/>
+
+微分エントロピーの制約条件
+$$
+\int_{-\infty}^\infty p(x) dx = 1
+\tag{1.105}
+$$
+
+$$
+\int_{-\infty}^\infty x p(x) dx = \mu
+\tag{1.106}
+$$
+
+$$
+\int_{-\infty}^\infty (x - \mu)^2 p(x) dx = \sigma^2
+\tag{1.107}
+$$
+
+
+
+(1.105)(1.106)(1.107)の制約もとで、エントロピー$H = - \int_{- \infty}^\infty p(x) \ln p(x) dx$を最大化する。
+$$
+F[p] = - \int_{- \infty}^\infty p(x) \ln p(x) dx + \lambda_1(\int_{- \infty}^\infty p(x) dx - 1)
++ \lambda_2(\int_{- \infty}^\infty x p(x) dx - \mu)
++ \lambda_3(\int_{- \infty}^\infty (x - \mu)^2 p(x) dx - \sigma^2)
+$$
+
+$F[p]$の各積分の中で$p$に関する項を抜き出すと
+$$
+G[p] = - p(x) \ln p(x) + \lambda_1 p(x) + \lambda_2 x p(x) + \lambda_3 (x - \mu)^2 p(x) 
+$$
+
+$F[p]$は以下のように書ける。
+$$
+F[p] = \int_{- \infty}^\infty G[p] dx - (\lambda_1 + \lambda_2 \mu + \lambda_3 \sigma^2)
+$$
+
+$G$を$p$で微分すると
+$$
+\frac{\partial G}{\partial p} = \frac{\partial}{\partial p}( - p(x) \ln p(x) + \lambda_1 p(x) + \lambda_2 x p(x) + \lambda_3 (x - \mu)^2 p(x) ) = 0
+$$
+
+$$
+- \ln p(x) - 1 + \lambda_1 + \lambda_2 x + \lambda_3 (x - \mu)^2 = 0
+$$
+
+$$
+\ln p(x) = - 1 + \lambda_1 + \lambda_2 x + \lambda_3 (x - \mu)^2
+$$
+
+$$
+p(x) = \exp( - 1 + \lambda_1 + \lambda_2 x + \lambda_3 (x - \mu)^2 )
+\tag{1.108}
+$$
+
+$$
+p(x) = \exp( - 1 + \lambda_1 + \lambda_2 x + \lambda_3 x^2 - 2 \lambda_3 x \mu + \lambda_3 \mu^2 )
+\\
+= \exp( - 1 + \lambda_1 + \lambda_3 ( x^2 - 2 x (\mu - \frac{\lambda_2}{2 \lambda_3}) ) + \lambda_3 \mu^2 )
+\\
+= \exp( - 1 + \lambda_1 + \lambda_3 ( x - (\mu - \frac{\lambda_2}{2 \lambda_3}) )^2 - \lambda_3 (\mu - \frac{\lambda_2}{2 \lambda_3})^2 + \lambda_3 \mu^2 )
+$$
+
+$m = \mu - \frac{\lambda_2}{2 \lambda_3}$ , $\lambda_3 = -\frac{1}{2 s^2}$ とすると
+
+$$
+= \exp( - 1 + \lambda_1 -\frac{1}{2 s^2} ( x - m )^2 - \lambda_3 m^2 + \lambda_3 \mu^2 )
+\\
+= \exp( - 1 + \lambda_1 - \lambda_3 m^2 + \lambda_3 \mu^2 ) \exp( - \frac{1}{2 s^2} ( x - m )^2 )
+$$
+
+式(1.105)から
+$$
+\int_{- \infty}^\infty \exp( - 1 + \lambda_1 - \lambda_3 m^2 + \lambda_3 \mu^2 ) \exp( - \frac{1}{2 s^2} ( x - m )^2 ) dx
+\\
+= \exp( - 1 + \lambda_1 - \lambda_3 m^2 + \lambda_3 \mu^2 ) \int_{- \infty}^\infty \exp( - \frac{1}{2 s^2} ( x - m )^2 ) dx = 1
+
+$$
+
+右辺の積分は正規分布の積分の式から
+$$
+\exp( - 1 + \lambda_1 - \lambda_3 m^2 + \lambda_3 \mu^2 ) = \frac{1}{ \sqrt{2 \pi s^2} }
+$$
+したがって
+$$
+p(x) = \frac{1}{ \sqrt{2 \pi s^2} } \int_{- \infty}^\infty \exp( - \frac{1}{2 s^2} ( x - m )^2 ) dx
+$$
+(1.49)と(1.106)から$m = \mu$, (1.51)と(1.107)から$s^2 = \sigma^2$が求まる。
+<hr/>
+<h4>演習 1.36 狭義凸関数と2階微分が正は同値</h4>
+$$
+a - x_0 = a - (\lambda a + (1 - \lambda)b) = (1 - \lambda)(a - b)
+\\
+b - x_0 = b - (\lambda a + (1 - \lambda)b) = \lambda (b - a)
+$$
+
+$$
+\lambda f(a) + (1 - \lambda) f(b) > \lambda (f(x_0) + f'(x_0)((1 - \lambda)(a - b)) )
++ (1 - \lambda)(f(x_0) + f'(x0)(\lambda(b - a))  )
+\\
+= f(x_0) = f(\lambda a + (1 - \lambda)b)
+$$
+
+</body>
+</html>

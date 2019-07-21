@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>数式のメモ</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+    <style>
+      ul {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+</head>
+<body>
+  <h1>数式のメモ</h1>
+$$
+\newcommand{\v}[1]{\mathrm{#1}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+$$
+
+小学生の算数レベルから最新のAIの論文を読むまで必要な数学を、分かりやすく説明するサイトを目指しています。<br/>
+<br/>
+先は長いですので、ときどき見に来てください。<br/>
+<br/>
+※ 数式の表示はChromeが速くておすすめです。<br/>
+<br/>
+ご意見・ご希望はこちらまで。<br/>
+<img src="img/abc.png" />
+<h2>PRML</h2>
+<ul style="line-height: 150%">
+  <li>
+    第1章 序論
+    <ul>
+      <li><a href="prml/1/1.1.html" >1.1. 例: 多項式曲線フィッティング</a> </li>
+      <li><a href="prml/1/1.2.html">1.2 確率論</a>
+        <ul>
+            <li><a href="prml/1/1.2.1.html" >1.2.1 確率密度</a> </li>
+            <li><a href="prml/1/1.2.2.html" >1.2.2 期待値と分散</a> </li>
+            <li><a href="prml/1/1.2.4.html" >1.2.4 ガウス分布</a> </li>
+            <li><a href="prml/1/1.2.5.html" >1.2.5 曲線フィッティング再訪</a> </li>
+        </ul>
+      </li>
+        <li><a href="prml/1/1.6.html" >1.6. 情報理論</a> </li>
+    </ul>
+  </li>
+  <li>
+    第2章 確率分布
+    <ul>
+      <li><a href="prml/2/2.1.html" >2.1 二値変数</a>       
+        <ul>
+          <li><a href="prml/2/2.1.1.html" >2.1.1 ベータ分布</a> </li>
+        </ul>
+      </li>
+      <li>2.3 ガウス分布
+        <ul>
+          <li><a href="prml/2/2.3.4.html" >2.3.4 ガウス分布の最尤推定</a> </li>
+          <li><a href="prml/2/2.3.6.html" >2.3.6 ガウス分布に対するベイズ推論</a> </li>
+          <li><a href="prml/2/2.3.7.html" >2.3.7 スチューデントのt分布</a> </li>
+        </ul>
+      </li>
+      <li><a href="prml/2/2.4.html" >2.4 指数型分布族</a> </li>
+    </ul>
+  </li>
+  
+  <li>
+    第3章 線形回帰モデル
+    <ul>
+      <li>3.1 線形基底関数モデル
+        <ul>
+          <li><a href="prml/3/3.1.1.html">3.1.1 最尤推定と最小二乗法</a></li>
+          <li><a href="prml/3/3.1.4.html">3.1.4 正則化最小二乗法</a></li>
+        </ul>
+      </li>
+      <li>3.3 ベイズ線形回帰
+        <ul>
+          <li><a href="prml/3/3.3.1.html">3.3.1 パラメータの分布</a></li>
+          <li><a href="prml/3/3.3.2.html">3.3.2 予測分布</a></li>
+          <li><a href="prml/3/3.3.3.html">3.3.3 等価カーネル</a></li>
+        </ul>
+      </li>
+      <li>3.5 エビデンス近似
+        <ul>
+          <li><a href="prml/3/3.5.1.html">3.5.1 エビデンス関数の評価</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    第4章 線形識別モデル
+    <ul>
+      <li><a href="prml/4/4.1.1.html" >4.1.1 2クラス</a> </li>
+    </ul>
+  </li>
+  
+  <li>
+    第9章 混合モデルとEM
+    <ul>
+        <li><a href="prml/9/9.4.html" >9.4. 一般のEMアルゴリズム</a> </li>
+    </ul>
+  </li>
+
+  <li>
+    第10章 近似推論法
+    <ul>
+        <li><a href="prml/10/10.1.html" >10.1. 変分推論</a> </li>
+    </ul>
+  </li>
+
+
+  <li><a href="prml/appx-c.html">付録C 行列の性質</a></li>
+  <li><a href="prml/errata.html" >正誤表</a> </li>
+</ul>
+
+<a href="matrix/matrix-cookbook.html">The Matrix Cookbook</a>
+</body></html>

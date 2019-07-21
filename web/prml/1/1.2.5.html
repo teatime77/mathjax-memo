@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title>1.2.5 曲線フィッティング再訪</title>
+  <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+
+<body>
+  <h1>1.2.5 曲線フィッティング再訪</h1>
+  $$
+  \newcommand{\x}{\m{x}}
+  \\
+  \newcommand{\y}{\m{y}}
+  \\
+  \newcommand{\b}{\m{b}}
+  \\
+  \newcommand{\w}{\m{w}}
+  $$
+
+観測された曲線は多項式曲線$y(x, \w)$にガウス分布の誤差が加えられたものとする。<br/>
+ここで$\beta$は精度で、分散$\sigma^2$の逆数。
+$$
+p(t | x, \w, \beta) = \N(t | y(x, \w), \beta^{-1})
+\tag{1.60}
+$$
+
+訓練データ$ \{ \vv{x}, \vv{t} \} $の尤度関数は
+$$
+p(\vv{t} | \vv{x}, \w, \beta) = \prod_{n=1}^N \N(t_n | y(x_n, \w), \beta^{-1})
+\tag{1.61}
+$$
+
+(1.54)を使って対数尤度関数は
+$$
+\ln p(\vv{t} | \vv{x}, \w, \beta) = - \frac{\beta}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 + \frac{N}{2} \ln \beta - \frac{N}{2} \ln (2\pi)
+\tag{1.62}
+$$
+
+$\w$の最大尤度を$\w_{ML}$とすると、$\beta$の最大尤度は
+$$
+\frac{1}{\beta_{ML}} = \frac{1}{N} \sum_{n=1}^N \{ y(x_n, \w_{ML}) - t_n \}^2
+\tag{1.63}
+$$
+
+$\w_{ML}$と$\beta_{ML}$を(1.60)に代入すると
+$$
+p(t | x, \w_{ML}, \beta_{ML}) = \N(t | y(x, \w_{ML}), \beta_{ML}^{-1})
+\tag{1.64}
+$$
+
+ベイズ的なアプローチをするため$\w$の事前分布を導入する。<br/>
+ここで$M + 1$は$M$次多項式のパラメータ数。
+$$
+p(\w | \alpha) = \N(\w | \v{0}, \alpha^{-1} \m{I})
+= (\frac{\alpha}{2\pi})^{(M+1)/2} \exp \{ - \frac{\alpha}{2} \w\T \w \}
+\tag{1.65}
+$$
+
+ベイズの定理により $\w$の事後分布は、尤度関数と$\w$の事前分布の積に比例する。
+$$
+p(\w | \vv{x}, \vv{t}, \alpha, \beta) \propto p(\vv{t} | \vv{x}, \w, \beta) \cdot p(\w | \alpha)
+\tag{1.66}
+$$
+
+(1.66)の右辺の負の対数尤度で$\w$に関する項は
+$$
+\frac{\beta}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 
++ \frac{\alpha}{2} \w\T \w \
+\tag{1.67}
+$$
+(1.67)を最小にする$\w$を求める。<br/>
+この方法を最大事後確率推定(MAP : maximum posterior)と言う。<br/>
+(1.67)で$\lambda = \frac{\alpha}{\beta}$とおくと、(1.67)は(1.4)に等しい。<br/>
+つまり、(1.4)の正則化は(1.67)のMAPと同じ意味になる。
+
+<hr/>
+<b>(1.67)の証明</b>
+<br/>
+(1.66)の右辺の負の対数尤度は
+$$
+- \ln ( p(\vv{t} | \vv{x}, \w, \beta) \cdot p(\w | \alpha) )
+$$
+
+$$
+= - \ln p(\vv{t} | \vv{x}, \w, \beta) - \ln p(\w | \alpha) )
+$$
+
+(1.62)から
+$$
+=  \frac{\beta}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 - \frac{N}{2} \ln \beta + \frac{N}{2} \ln (2\pi)
+\\
+- \ln p(\w | \alpha) )
+$$
+
+$\w$に関係ない項を取り除き
+$$
+=  \frac{\beta}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 
+- \ln p(\w | \alpha) ) + const
+$$
+
+(1.65)を使い、$\w$に関係ない項を取り除くと
+$$
+=  \frac{\beta}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 
++ \frac{\alpha}{2} \w\T \w \ + const
+$$
+
+$$
+$$
+
+$$
+$$
+
+
+
+
+</body>
+</html>

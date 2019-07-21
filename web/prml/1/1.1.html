@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>1.1. 例: 多項式曲線フィッティング</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>1.1. 例: 多項式曲線フィッティング</h1>
+
+M次の多項式で曲線のフィッティングをする。
+$$
+y(x, \w) = w_0 + w_1 x + w_2 x^2 + \cdots + w_M x^M 
+= \sum_{j=0}^M w_j x^j
+\tag{1.1}
+$$
+
+二乗和誤差で誤差関数$E(\v{w})$を定義する。
+$$
+E(\w) = \frac{1}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2
+\tag{1.2}
+$$
+
+正則化項$ \| \w \|^2  $を追加した誤差関数
+$$
+E(\w) = \frac{1}{2} \sum_{n=1}^N \{ y(x_n, \w) - t_n \}^2 + \frac{\lambda}{2} $ \| \w \|^2  $
+\tag{1.4}
+$$
+</body></html>

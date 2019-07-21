@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.1.1 最尤推定と最小二乗法</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+  <h1>3.1.1 最尤推定と最小二乗法</h1>
+$$
+\newcommand{\x}{\m{x}}
+\newcommand{\w}{\m{w}}
+$$
+
+$$
+t = y(\x, \w) + \epsilon
+\tag{3.7}
+$$
+
+$$
+p(t | \x, \w, \beta) = \N(t | y(\x, \w), \beta^{-1})
+\tag{3.8}
+$$
+
+$$
+\E[t | \x] = \int t \ p(t | \x) dt = y(\x, \w)
+\tag{3.9}
+$$
+
+$$
+p(\vv{t} | \m{X}, \w, \beta) = \prod_{n=1}^N \N(t_n | \w\T \v{\phi}(\x_n), \beta^{-1})
+\tag{3.10}
+$$
+
+$$
+\ln p(\vv{t} | \w, \beta) = \sum_{n=1}^N \ln \N(t_n | \w\T \v{\phi}(\x_n), \beta^{-1})
+\\
+= \frac{N}{2} \ln \beta - \frac{N}{2} \ln(2 \pi) - \beta E_D(\w)
+\tag{3.11}
+$$
+
+$$
+E_D(\w) = \frac{1}{2} \sum_{n=1}^N \{ t_n - \w\T \vv{\phi}(\x_n) \}^2
+\tag{3.12}
+$$
+
+<hr/>
+<h3>3.2</h3>
+$$
+(\v{y} - \v{t})\T \phi_j = (\Phi (\Phi\T \Phi)^{-1}\Phi\T \v{t} - \v{t} )\T \phi_j
+\\
+= ((\Phi (\Phi\T \Phi)^{-1}\Phi\T - I) \v{t} )\T \phi_j
+\\
+= \v{t}\T (\Phi (\Phi\T \Phi)^{-1}\Phi\T - I)\T \phi_j
+$$
+$(A +B)\T = A\T + B\T$なので
+$$
+= \v{t}\T (\Phi (\Phi\T \Phi)^{-1}\Phi\T \phi_j - \phi_j)
+$$
+
+$\Phi (\Phi\T \Phi)^{-1}\Phi\T$ は $\phi_1, \cdots, \phi_M$ で張られる線形部分空間への写像なので
+
+$$
+\Phi (\Phi\T \Phi)^{-1}\Phi\T \phi_j = \phi_j
+$$
+従って
+$$
+(\v{y} - \v{t})\T \phi_j = 0
+$$
+
+</body></html>

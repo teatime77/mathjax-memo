@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.3.6 ガウス分布に対するベイズ推論</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+  <h1>2.3.6 ガウス分布に対するベイズ推論</h1>
+$$
+\newcommand{\v}[1]{\mathrm{#1}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+$$
+
+<h3>2.38</h3>
+$$
+\mu_N = (\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}  )^{-1}(\frac{\mu_0}{\sigma_0^2} + \frac{1}{\sigma^2}\sum_{n=1}^N x_n)
+\tag{108} 
+$$
+
+$$
+= \frac{\sigma_0^2 \sigma^2}{N \sigma_0^2 + \sigma^2}
+(\frac{\mu_0}{\sigma_0^2} + \frac{N \mu_{ML}}{\sigma^2})
+\\
+= \frac{\sigma^2}{N \sigma_0^2 + \sigma^2} \mu_0
++ \frac{N \sigma_0^2}{N \sigma_0^2 + \sigma^2} \mu_{ML}
+\tag{109} 
+$$
+
+<hr/>
+<h3>2.40</h3>
+$$
+\Sigma_0^{-1} \mu_0 + \Sigma^{-1} \sum_{n=1}^N x_n
+\\
+= \Sigma_0^{-1} \mu_0 + \Sigma^{-1} N \mu_{ML}
+\\
+= (\Sigma_0^{-1} + N \Sigma^{-1})
+\frac{\Sigma_0^{-1} \mu_0 + \Sigma^{-1} N \mu_{ML} }{\Sigma_0^{-1} + N \Sigma^{-1}}
+$$
+
+<hr/>
+<h3>2.42</h3>
+平均の計算
+$$
+\mathbb{E}[\tau] = \frac{1}{\Gamma(a) } \int_0^\infty b^a \tau^{a-1} \tau \exp(-b \tau) d \tau
+$$
+
+$\tau = b^{-1}u$ とおくと
+$$
+= \frac{1}{\Gamma(a) } \int_0^\infty b^a (b^{-1}u)^{a-1} (b^{-1}u) \exp(-b (b^{-1}u) ) b^{-1} du
+\\
+= \frac{1}{\Gamma(a) } \int_0^\infty u^a \exp(-u ) du \cdot b^a b^{1-a} b^{-1} b^{-1}
+\\
+= \frac{ \Gamma(a+1) }{\Gamma(a) } \frac{1}{b}
+\\
+= \frac{ a! }{ (a-1)! }  \frac{1}{b}
+\\
+= \frac{a}{b}
+$$
+
+分散の計算
+$$
+\mathbb{E}[\tau^2] = \frac{1}{\Gamma(a) } \int_0^\infty b^a \tau^{a-1} \tau^2 \exp(-b \tau) d \tau
+$$
+
+$\tau = b^{-1}u$ とおくと
+$$
+= \frac{1}{\Gamma(a) } \int_0^\infty b^a (b^{-1}u)^{a-1} (b^{-1}u)^2 \exp(-b (b^{-1}u)) b^{-1} du
+\\
+= \frac{1}{\Gamma(a) } \int_0^\infty u^{a-1} u^2 \exp(- u) du
+\cdot b^a b^{1-a} b^{-2} b^{-1}
+\\
+= \frac{1}{\Gamma(a) } \int_0^\infty u^{a+1} \exp(- u) du
+\cdot \frac{1}{b^2}
+\\
+= \frac{ \Gamma(a+2) }{ b^2 \Gamma(a) }
+\\
+= \frac{ a(a+1) }{ b^2 }
+$$
+
+$$
+\mathrm{var}[\tau] = \mathbb{E}[\tau^2] - \mathbb{E}[\tau]^2
+= \frac{ a(a+1) }{ b^2 } - \frac{a^2}{b^2} = \frac{a}{b^2}
+$$
+
+</body></html>

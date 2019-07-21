@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>The Matrix Cookbook</title>
+    <script type="text/javascript" src="../js/mymathjax.js" ></script>
+</head>
+<body>
+  <h1>The Matrix Cookbook</h1>
+
+  <h3>1 Basics</h3>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+$$
+
+$$
+(\bm{A B})^{-1} = \bm{B}^{-1} \bm{A}^{-1}
+\\
+(\m{A B})^{-1} = \m{B}^{-1} \m{A}^{-1}
+\\
+(\mathrm{A B})^{-1} = \mathrm{B}^{-1} \mathrm{A}^{-1}
+\\
+(\mathbf{A B})^{-1} = \mathbf{B}^{-1} \mathbf{A}^{-1}
+\\
+(A B)^{-1} = B^{-1} A^{-1}
+\\
+\tag{1} 
+$$
+
+$$
+(\m{A}\T)^{-1} = (\m{A}^{-1})\T
+\\
+\tag{3} 
+$$
+
+$$
+(\m{A} + \m{B})\T = \m{A}\T + \m{B}\T
+\\
+\tag{4} 
+$$
+
+$$
+(\m{A B})\T = \m{B}\T \m{A}\T
+\\
+\tag{5} 
+$$
+
+<h3>1.1 Trace</h3>
+
+$$
+\Tr(\m{A}) = \Tr(\m{A}\T)
+\tag{13} 
+$$
+
+$$
+\Tr(\A \B) = \Tr(\B \A)
+\tag{14} 
+$$
+
+$$
+\Tr(\A + \B) = \Tr(\A) + \Tr(\B)
+\tag{15} 
+$$
+
+<h3>1.2 Determinant</h3>
+
+$$
+\det(\A\T) = \det(\A)
+\tag{20}
+$$
+
+$$
+\det(\A \B) = \det(\A) \det(\B)
+\tag{21}
+$$
+
+$$
+\det(\A^{-1}) = 1 / \det(\A)
+\tag{22}
+$$
+
+<h3>2 Derivatives</h3>
+
+$$
+\partial(\alpha \X) = \alpha \partial \X
+\tag{34}
+$$
+
+$$
+\partial(\X + \Y) = \partial \X + \partial \Y
+\tag{35}
+$$
+
+$$
+\partial(\Tr(\X)) = \Tr(\partial \X)
+\tag{36}
+$$
+
+$$
+\partial(\X \Y) = \partial(\X) \Y + X \partial(\Y)
+\tag{37}
+$$
+
+$$
+\partial(\X\T) = (\partial \X)\T
+\tag{44}
+$$
+</body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.3.3 等価カーネル</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>3.3.3 等価カーネル</h1>
+<h3>演習 3.14</h3>
+$$
+\m{S}_N = \beta^{-1} (\m{\Phi}\T \m{\Phi})^{-1}
+= \beta^{-1} \{ ( (\m{\Psi}{\m{V}^T}^{-1})\T \m{\Psi}{\m{V}^T}^{-1} \}^{-1}
+\\
+= \beta^{-1} \{ \m{V}^{-1} \m{\Psi}\T \m{\Psi}{\m{V}^T}^{-1} \}^{-1}
+\\
+= \beta^{-1} \{ \m{V}^{-1} {\m{V}^T}^{-1} \}^{-1}
+\\
+= \beta^{-1} \m{V}\T \m{V}
+$$
+<hr/>
+$$
+\mathrm{cov}[y(\x), y(\x')] = \mathrm{cov}[ \v{w}\T \v{\phi}(\x), \v{w}\T \v{\phi}(\x')]
+\\
+= \v{\phi}(\x)\T \m{S}_N \v{\phi}(\x') = \beta^{-1} k(\x, \x')
+\tag{3.63}
+$$
+<h5>証明</h5>
+<a href="https://math.stackexchange.com/questions/2796446/formula-of-prml3-63">https://math.stackexchange.com/questions/2796446/formula-of-prml3-63</a>
+$$
+\mathrm{cov}[y(\x), y(\x')] = \mathrm{cov}[ \v{w}\T \v{\phi}(\x), \v{w}\T \v{\phi}(\x')]
+\\
+= \E_{\v{w}}[ \v{w}\T \v{\phi}(\x) \v{\phi}(\x')\T \v{w} ] - \E_{\v{w}}[\v{w}\T \v{\phi}(\x)] \cdot \E_{\v{w}}[\v{w}\T \v{\phi}(\x')]
+\\
+= \v{\phi}(\x)\T \E_{\v{w}}[ \v{w}  \v{w}\T ] \v{\phi}(\x') - \v{\phi}(\x)\T \E_{\v{w}}[\v{w}] \cdot \v{\phi}(\x')\T \E_{\v{w}}[\v{w} ]
+\\
+= \v{\phi}(\x)\T (\mathrm{cov}[\v{w}] + \E_{\v{w}}[\v{w}] \E_{\v{w}}[\v{w}\T] ) \v{\phi}(\x') - \v{\phi}(\x)\T \E_{\v{w}}[\v{w}] \cdot \v{\phi}(\x')\T \E_{\v{w}}[\v{w} ]
+$$
+
+(3.49)より$p(\w | \vv{t}) = \N(\w | \v{m}_N, \m{S}_N)$なので
+$$
+= \v{\phi}(\x)\T (\mathrm{cov}[\v{w}] + \v{m}_N \v{m}_N\T  ) \v{\phi}(\x') - \v{\phi}(\x)\T \v{m}_N \cdot \v{\phi}(\x')\T \v{m}_N
+\\
+= \v{\phi}(\x)\T (\mathrm{cov}[\v{w}]) \v{\phi}(\x') + \v{\phi}(\x)\T \v{m}_N \v{m}_N\T \v{\phi}(\x')  - \v{\phi}(\x)\T \v{m}_N \v{m}_N\T \v{\phi}(\x')
+\\
+= \v{\phi}(\x)\T (\mathrm{cov}[\v{w}]) \v{\phi}(\x')
+$$
+
+再度3.49より
+$$
+= \v{\phi}(\x)\T \m{S}_N \v{\phi}(\x') = \beta^{-1} k(\x, \x')
+$$
+
+</body></html>

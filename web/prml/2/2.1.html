@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.1 二値変数</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+  <h1>2.1 二値変数</h1>
+<h3>2.3</h3>
+$$
+\binom{N}{n} + \binom{N}{n-1} = \frac{N!}{n!(N-n)!} + \frac{N!}{(n-1)!(N+1-n)!}
+\\
+= \frac{(N+1-n)N!}{n!(N+1-n)!} + \frac{nN!}{n!(N+1-n)!}
+\\
+= \frac{(N+1)!}{n!(N+1-n)!} = \binom{N+1}{n}
+\tag{78}
+$$
+
+<hr/>
+<h3>2.5</h3>
+$$
+\Gamma(x) = \int_0^\infty u^{x-1} e^{-u} du
+\tag{1.141}
+$$
+
+$$
+\Gamma(a)\Gamma(b) = \int_0^\infty x^{a-1} e^{-x} dx \int_0^\infty y^{b-1} e^{-y} dy
+$$
+$t = y+x$とおいて
+
+$$
+= \int_0^\infty x^{a-1} e^{-x} \{\int_x^\infty (t-x)^{b-1} e^{-(t-x)} dt\} dx
+\\
+= \int_0^\infty x^{a-1} \{\int_x^\infty e^{-t}(t-x)^{b-1} dt\} dx
+\\
+= \iint_{(x,t) \in [0,\infty]\times[0,\infty] , x \le t} x^{a-1} e^{-t}(t-x)^{b-1} dt dx dt
+\\
+= \int_0^\infty \int_0^t x^{a-1} e^{-t}(t-x)^{b-1} dx dt
+$$
+$x = t \mu$とおいて
+$$
+= \int_0^\infty \int_0^1 (t \mu)^{a-1} e^{-t}(t-(t \mu))^{b-1} t d\mu dt
+\\
+= \int_0^\infty \int_0^1 (t \mu)^{a-1} e^{-t}(t (1 - \mu))^{b-1} t d\mu dt
+\\
+= \int_0^\infty e^{-t} t^{a-1} t^{b-1} t dt 
+\int_0^1 \mu^{a-1} (1  - \mu)^{b-1}  d\mu
+\\
+= \int_0^\infty e^{-t} t^{(a+b)-1} dt 
+\int_0^1 \mu^{a-1} (1  - \mu)^{b-1}  d\mu
+\\
+= \Gamma(a + b) \int_0^1 \mu^{a-1} (1  - \mu)^{b-1}  d\mu
+$$
+</body>
+</html>

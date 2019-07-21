@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.3.1 パラメータの分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+  <h1>3.3.1 パラメータの分布</h1>
+$$
+\newcommand{\x}{\m{x}}
+\newcommand{\w}{\m{w}}
+$$
+
+$$
+p(\w) = \N(\w | \v{m}_0, \m{S}_0)
+\tag{3.48}
+$$
+
+$$
+p(\w | \vv{t}) = \N(\w | \v{m}_N, \m{S}_N)
+\tag{3.49}
+$$
+ただし
+$$
+\v{m}_N = \m{S}_N (\m{S}_0^{-1} \v{m}_0 + \beta \m{\Phi}\T \vv{t})
+\tag{3.50}
+$$
+
+$$
+\m{S}_N^{-1} = \m{S}_0^{-1} + \beta \m{\Phi}\T \m{\Phi}
+\tag{3.51}
+$$
+
+$$
+p(\w | \alpha) = \N(\w | \v{0}, \alpha^{-1} \m{I})
+\tag{3.52}
+$$
+</body></html>

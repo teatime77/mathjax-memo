@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.3.2 予測分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>3.3.2 予測分布</h1>
+<h3>演習 3.13</h3>
+(3.113)を使って予測分布は以下になる。
+$$
+p(t | \vv{x}, \vv{t}) = p(t | \v{w}, \beta) p(\v{w}, \beta | \vv{t})
+\\
+= \int \int \N(t | \v{\phi}(\vv{x})\T \v{w}, \beta^{-1} ) d \v{w} 
+\N(\v{w} | \v{m}_N, \beta^{-1} \m{S}_N ) \mathrm{Gam}(\beta | a_N, b_N) d \beta
+\tag{139}
+$$
+
+(2.113) と (2.114)のガウス分布$\N$を上の式の2つのガウス分布$\N$に対応させると
+$$
+\begin{array}{cc}
+  \hline
+  (2.113) & (2.114) \\
+  \N(\x | \v{\mu}, \m{\Lambda}^{-1})   & \N(\y | \A \x + \b, \m{L}^{-1})   \\
+  \downarrow   & \downarrow \\
+  \N(\v{w} | \v{m}_N, \beta^{-1} \m{S}_N )   & \N(t | \v{\phi}(\vv{x})\T \v{w}, \beta^{-1} )  \\
+  \hline
+\end{array}
+$$
+
+各項目は以下のように対応する。
+$$
+\begin{array}{ccccccc}
+  \hline
+  \x & \v{\mu} & \m{\Lambda}^{-1} & \y & \A & \b & \m{L}^{-1} \\
+  \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\
+  \v{w}  & \v{m}_N & \beta^{-1} \m{S}_N & t & \v{\phi}(\vv{x})\T & \v{0} & \beta^{-1} \\
+  \hline
+\end{array}
+$$
+
+(2.115)にこの対応表を適用すると
+$$
+\begin{array}{c}
+  \hline
+  (2.115) \\
+  \N(\y | \A \v{\mu} + \v{b}, \m{L}^{-1} + \A \m{\Lambda}^{-1} \A\T) \\
+  \downarrow  \\
+  \N(t | \v{\phi}(\vv{x})\T \v{m}_N, \beta^{-1} + \v{\phi}(\vv{x})\T \beta^{-1} \m{S}_N \v{\phi}(\vv{x})) \\
+  \hline
+\end{array}
+$$
+上式を整理すると
+$$
+= \N(t | \v{\phi}(\vv{x})\T \v{m}_N, \beta^{-1}(1 + \v{\phi}(\vv{x})\T \m{S}_N \v{\phi}(\vv{x}) ) )
+$$
+$s = 1 + \v{\phi}(\vv{x})\T \m{S}_N \v{\phi}(\vv{x})$ とおいて
+$$
+= \N(t | \v{\phi}(\vv{x})\T \v{m}_N, \beta^{-1}s )
+$$
+
+これを(139)に代入すると
+$$
+p(t | \vv{x}, \vv{t})
+= \int \N(t | \v{\phi}(\vv{x})\T \v{m}_N, \beta^{-1}s ) \mathrm{Gam}(\beta | a_N, b_N) d \beta
+$$
+正規分布とガンマ関数の定義から
+$$
+= \int \frac{1}{\Gamma(a_N)} b_N^{a_N} \beta^{a_N-1} \exp(- b_N \beta)
+\frac{1}{(2 \pi \beta^{-1}s)^{1/2} }
+\exp(- \frac{1}{2 \beta^{-1}s}(t - \v{\phi}(\vv{x})\T \v{m}_N)^2) d \beta
+\\
+= \frac{b_N^{a_N}}{\Gamma(a_N)} (\frac{s^{-1}}{2 \pi})^{1/2}
+\int \beta^{a_N+1/2-1} 
+
+\exp(- (b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2}) \beta ) d \beta
+$$
+
+$\beta = (b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{-1}u$とおくと
+$$
+= \frac{b_N^{a_N}}{\Gamma(a_N)} (\frac{s^{-1}}{2 \pi})^{1/2}
+\int ( (b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{-1}u )^{a_N+1/2-1} 
+
+\exp(- u) (b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{-1} du
+\\
+= \frac{b_N^{a_N}}{\Gamma(a_N)} (\frac{s^{-1}}{2 \pi})^{1/2}
+(b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{-(a_N+1/2-1) - 1 }
+\int u^{a_N+1/2-1} \exp(- u) du
+$$
+ガンマ関数の定義から
+$$
+= \frac{b_N^{a_N}}{\Gamma(a_N)} (\frac{s^{-1}}{2 \pi})^{1/2}
+(b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{- a_N - 1/2}
+\Gamma(a_N+1/2)
+\\
+= \frac{ \Gamma(a_N+1/2) }{\Gamma(a_N)} 
+(\frac{s^{-1}}{2 \pi})^{1/2}
+b_N^{a_N}  (b_N + \frac{s^{-1} (t - \v{\phi}(\vv{x})\T \v{m}_N)^2 }{2})^{- a_N - 1/2}
+$$
+
+$\mu = \v{\phi}(\vv{x})\T \v{m}_N$として、$b_N^{a_N} = b_N^{a_N + 1/2} b_N^{-1/2}$なので
+$$
+= \frac{ \Gamma(a_N+1/2) }{\Gamma(a_N)} 
+(\frac{s^{-1}}{2 \pi})^{1/2}
+b_N^{-1/2}  (1 + \frac{s^{-1} (t - \mu)^2 }{2 b_N})^{- a_N - 1/2}
+\\
+= \frac{ \Gamma(a_N+1/2) }{\Gamma(a_N)} 
+(\frac{s^{-1}}{2 \pi b_N})^{1/2}
+(1 + \frac{s^{-1} (t - \mu)^2 }{2 b_N})^{- a_N - 1/2}
+$$
+(2.159)の式と比べると
+$$
+a_N = \nu/2 \\
+\frac{s^{-1}}{2 b_N} = \frac{\lambda}{\nu} \\
+\frac{s^{-1}} {2 b_N} = \frac{\lambda}{\nu}
+$$
+$\mu, \lambda, \nu$についてまとめると
+$$
+\mu = \v{\phi}(\vv{x})\T \v{m}_N \quad \lambda = \frac{a_N}{b_N}s^{-1} \quad \nu = 2 a_N
+$$
+<hr/>
+$$
+
+\mathrm{St}(x | \mu, \lambda, \nu) = \int_0^\infty \N(x | \mu, (\eta \lambda)^{-1}) \mathrm{Gam}(\eta | \nu/2, \nu/2) d \eta
+$$
+<hr/>
+
+<h3>演習 3.11</h3>
+
+$$
+(\m{M} + \v{v} \v{v}\T)^{-1} = \m{M}^{-1} - \frac{ (\m{M}^{-1} \v{v})(\v{v}\T \m{M}^{-1}) }{1 + \v{v}\T \m{M}^{-1} \v{v}}
+\tag{3.110}
+$$
+
+$$
+\sigma_{N+1}^2(\x) \le \sigma_N^2(\x)
+\tag{3.111}
+$$
+<hr/>
+<h3>演習 3.12</h3>
+平均と精度(分散)が未知のガウス分布は正規-ガウス分布になる。<br/>
+$\m{w}$と$\beta$の共役事前分布は
+$$
+p(\v{w}, \beta) = \N(\v{w}, | \v{m}_0, \beta^{-1} \m{S}_0 ) \mathrm{Gam}(\beta | a_0, b_0)
+\tag{3.112}
+$$
+
+事後分布は以下になる。
+$$
+p(\v{w}, \beta | \vv{t}) = \N(\v{w}, | \v{m}_N, \beta^{-1} \m{S}_N ) \mathrm{Gam}(\beta | a_N, b_N)
+\tag{3.113}
+$$
+<h5>証明</h5>
+
+ベイズの定理から
+$$
+\ln p(\v{w}, \beta | \vv{t}) = \ln \frac{ p(\v{w}, \beta) p(\vv{t} | \v{w}, \beta) }{ p(\vv{t}) } 
+\\
+= \ln p(\v{w}, \beta) + \ln p(\vv{t} | \v{w}, \beta) + const
+$$
+第1項は(3.112)を使い、第2項は線形ガウス分布の定義から
+$$
+= \ln \N(\v{w}, | \v{m}_0, \beta^{-1} \m{S}_0 ) + \ln \mathrm{Gam}(\beta | a_0, b_0) + \sum_{n=1}^N \ln \N(t_n | \v{w}\T \v{\phi}(\v{x}_n), \beta^{-1}) + const
+\tag{1}
+$$
+(1)の右辺の第1項は
+$$
+= \ln ( \frac{1}{(2 \pi)^{M/2} \ {| \beta^{-1} \m{S}_0 |}^{1/2} }
+\exp(- \frac{1}{2}(\v{w} - \v{m}_0)\T (\beta^{-1} \m{S}_0)^{-1} (\v{w} - \v{m}_0)) )
+\\
+= \ln ( \frac{1}{ \beta^{-M/2} \ {| \m{S}_0 |}^{1/2} }
+- \frac{1}{2}(\v{w} - \v{m}_0)\T (\beta^{-1} \m{S}_0)^{-1} (\v{w} - \v{m}_0) + const
+\\
+= \frac{M}{2} \ln \beta - \frac{1}{2} \ln {| \m{S}_0 |}
+- \frac{\beta}{2}(\v{w} - \v{m}_0)\T \m{S}_0^{-1} (\v{w} - \v{m}_0) + const
+$$
+
+(1)の右辺の第2項は(2.146)のガンマ関数の定義から
+$$
+= \ln \frac{1}{\Gamma(a_0)} \ b_0^{a_0} \ \beta^{a_0-1} \ \exp(-b_0 \beta)
+\\
+= (a_0 - 1) \ln \beta - b_0 \beta + const
+\tag{2}
+$$
+
+(1)の右辺の第3項は(2.42)の正規分布の定義から
+$$
+= \sum_{n=1}^N \ln \frac{1}{(2 \pi \beta^{-1})^{1/2} }
+- \sum_{n=1}^N \frac{1}{2 \beta^{-1}}(t_n - \v{w}\T \v{\phi}(\v{x}_n))^2
+\\
+= \frac{N}{2} \ln \beta - \frac{\beta}{2} \sum_{n=1}^N (t_n - \v{w}\T \v{\phi}(\v{x}_n))^2 + const
+$$
+
+(1)の右辺の第1項, 第2項, 第3項の結果をまとめると
+$$
+\ln p(\v{w}, \beta | \vv{t})
+\\
+= \frac{M}{2} \ln \beta - \frac{1}{2} \ln {| \m{S}_0 |}
+- \frac{\beta}{2}(\v{w} - \v{m}_0)\T \m{S}_0^{-1} (\v{w} - \v{m}_0)
+\\
++ (a_0 - 1) \ln \beta - b_0 \beta
+\\
++ \frac{N}{2} \ln \beta - \frac{\beta}{2} \sum_{n=1}^N (t_n - \v{w}\T \v{\phi}(\v{x}_n))^2
++ const
+$$
+
+$ \ln p(\v{w}, \beta | \vv{t}) = \ln p(\v{w} | \beta, \vv{t}) p(\beta | \vv{t})  $ と分解できるので、
+$\v{w}$についてまとめると
+$$
+p(\v{w} | \beta, \vv{t}) = - \frac{\beta}{2} \v{w}\T [\m{S}_0^{-1} + \sum_{n=1}^N \v{\phi}(\v{x}_n) \v{\phi}(\v{x}_n)\T  ] \v{w}
++ \v{w}\T [ \beta \m{S}_0^{-1} \v{m}_0 + \beta \sum_{n=1}^N \v{\phi}(\v{x}_n) t_n]
+\\
+= - \frac{\beta}{2} \v{w}\T [\m{S}_0^{-1} + (\v{\phi}(\v{x}_1), \cdots, \v{\phi}(\v{x}_N))(\v{\phi}(\v{x}_1), \cdots, \v{\phi}(\v{x}_N))\T  ] \v{w}
++ \v{w}\T [ \beta \m{S}_0^{-1} \v{m}_0 + \beta (\v{\phi}(\v{x}_1), \cdots, \v{\phi}(\v{x}_N)) \vv{t} ]
+\\
+= - \frac{\beta}{2} \v{w}\T [ \m{S}_0^{-1} + \m{\Phi}\T\m{\Phi} ] \v{w}
++ \v{w}\T [ \beta \m{S}_0^{-1} \v{m}_0 + \beta \m{\Phi}\T \vv{t} ]
+$$
+
+$p(\v{w} | \beta, \vv{t})$ をガウス分布とみなすと平均と共分散は
+$$
+\v{m}_N = \m{S}_N [ \m{S}_0^{-1} \v{m}_0 + \m{\Phi}\T \vv{t} ]
+\\
+\beta \m{S}_N^{-1} = \beta (\m{S}_0^{-1} + \m{\Phi}\T\m{\Phi})
+$$
+この平均と共分散をガウス分布の式(2.43)に代入すると以下の式になる。
+$$
+\ln p(\v{w} | \beta, \vv{t}) =\ln [ \frac{1}{(2 \pi)^{M/2} \ {| \beta^{-1} \m{S}_N |}^{1/2} }
+\exp(- \frac{1}{2}(\x - \v{m}_N)\T \beta \m{S}_N^{-1} (\x - \v{m}_N)) ]
+\\
+= - \ln ( (2 \pi)^{M/2} \ {| \beta^{-1} \m{S}_N |}^{1/2} )
+- \frac{1}{2}(\x - \v{m}_N)\T \beta \m{S}_N^{-1} (\x - \v{m}_N)
+$$
+
+$\v{w}$に関する項を取り除き、$\beta$の項のみを取り出すと
+$$
+\frac{M}{2} \ln \beta - \frac{\beta}{2} \v{m}_N\T \m{S}_N^{-1} \v{m}_N
+\tag{3}
+$$
+
+
+<br/>
+(1)の$p(\beta | \vv{t})$については$\beta$の項をまとめる。<br/>
+(3)の$\beta$が$\ln p(\v{w}, \beta | \vv{t})$に含まれることを考慮する。
+$$
+\ln p(\beta | \vv{t}) = 
+ - \frac{\beta}{2} \v{m}_0\T \m{S}_0^{-1} \v{m}_0
+ + \frac{\beta}{2} \v{m}_N\T \m{S}_N^{-1} \v{m}_N
+ \\
+ + (a_0 - 1) \ln \beta - b_0 \beta
+ \\
+ + \frac{N}{2} \ln \beta - \frac{\beta}{2} \sum_{n=1}^N t_n^2 + const
+ $$
+
+$\ln \beta$ と $\beta$ でまとめると
+ $$
+ = (a_0 - 1 + \frac{N}{2}) \ln \beta - (b_0 + \frac{1}{2}(\v{m}_0\T \m{S}_0^{-1} \v{m}_0
+ - \v{m}_N\T \m{S}_N^{-1} + \sum_{n=1}^N t_n^2 ) \beta + const
+$$
+
+<hr/>
+$$
+\N(x | \mu, \sigma^2) = \frac{1}{(2 \pi \sigma^2)^{1/2} }
+\exp(- \frac{1}{2 \sigma^2}(x - \mu)^2)
+\tag{2.42}
+$$
+$$
+\N(\x | \v{\mu}, \m{\Sigma}) = \frac{1}{(2 \pi)^{D/2} \ {| \m{\Sigma} |}^{1/2} }
+\exp(- \frac{1}{2}(\x - \v{\mu})\T \m{\Sigma}^{-1}(\x - \v{\mu}))
+\tag{2.43}
+$$
+
+<hr/>
+$$
+\mathrm{Gam}(\lambda \mid a, b) = \frac{1}{\Gamma(a)}b^a \lambda^{a-1} \exp(-b\lambda)
+\tag{2.146} 
+$$
+
+<hr/>
+<h3>演習 3.10</h3>
+
+
+新しい値$\x$に対する$t$の予測分布を求めたい。<br/>
+ここで$\vv{t}$は訓練集合の目標値のベクトル。
+$$
+p(t | \vv{t}, \alpha, \beta) = \int p(t | \m{w}, \beta) \ p(\m{w} | \vv{t}, \alpha, \beta) \ d\m{w}
+\tag{3.57}
+$$
+
+条件分布$p(t | \vv{x}, \w, \beta)$は式(3.8)を使い、
+事後分布$p(\w | \vv{t})$は、式(3.49)を使う。<br/>
+
+式(2.115)から予測分布は以下になる。
+$$
+p(t | \vv{x}, \vv{t}, \alpha, \beta) = \N(t | \v{m}_N\T \v{\phi(\vv{x})}, \sigma_N^2(\vv{x})  )
+\tag{3.58}
+$$
+ただし
+$$
+\sigma_N^2(\vv{x}) = \frac{1}{\beta} + \v{\phi(\vv{x})}\T \m{S}_N \v{\phi(\vv{x})}
+\tag{3.59}
+$$
+<h5>証明</h5>
+(3.57)を簡単に書くと
+$$
+p(t) = \int p(t | \m{w}) \ p(\m{w}) \ d\m{w}
+$$
+つまり、$p(t | \m{w})$と$p(\m{w})$を使い、 $\m{w}$を周辺化して $p(t)$を求めている。
+<br/>
+一方、(2.115)では、$p(\y | \x)$と$p(\x)$を使い、 $\x$を周辺化して $p(\y)$を求めた。
+<br/>
+$\y$を $t$、 $\x$ を $\m{w}$ に置き換えて解く。
+<br/>
+
+(3.57)の $p(t | \m{w}, \beta)$を(3.8)で置き換え、$p(\m{w} | \vv{t}, \alpha, \beta)$を(3.49)で置き換えると、
+$$
+p(\m{w} | \vv{t}, \alpha, \beta) = \N(\w | \v{m}_N, \m{S}_N)
+\\
+p(t | \m{w}, \beta) = \N(t | \w\T \phi(\vv{x}), \beta^{-1})
+$$
+これを(2.113)と(2.117)と比較すると、以下のように対応する。
+
+$$
+\begin{array}{ccc}
+  \v{\mu}          & \to & \v{m}_N \\
+  \m{\Lambda}^{-1} & \to & \m{S}_N \\
+  \A               & \to & \phi(\vv{x})\T \\
+  \b               & \to & \v{0}  \\
+  \m{L}^{-1}       & \to & \beta^{-1}
+\end{array}
+$$
+
+これを(2.115)に代入すると
+$$
+p(t | \vv{x}, \vv{t}, \alpha, \beta) = \N(t | \phi(\vv{x})\T \v{m}_N, \beta^{-1} + \phi(\vv{x})\T \m{S}_N \phi(\vv{x}))
+$$
+
+<hr/>
+$$
+y(\vv{x}, \w) = \sum_{j=0}^{M-1} w_j \phi_j(\vv{x}) = \w\T \phi(\vv{x})
+\tag{3.3}
+$$
+<hr/>
+$$
+p(t | \vv{x}, \w, \beta) = \N(t | y(\vv{x}, \w), \beta^{-1})
+\tag{3.8}
+$$
+(3.3)から
+$$
+= \N(t | \w\T \phi(\vv{x}), \beta^{-1})
+$$
+
+<hr/>
+周辺ガウス分布$p(\x)$と 条件ガウス分布$\ p(\y|\x) \ $を次式とする。
+$$
+p(\x) = \N(\x | \v{\mu}, \m{\Lambda}^{-1})
+\tag{2.113}
+$$
+
+$$
+p(\y|\x) = \N(\y | \A \x + \b, \m{L}^{-1})
+\tag{2.114}
+$$
+
+周辺ガウス分布$p(\y)$と 条件ガウス分布$\ p(\x|\y) \ $ は以下になる。
+$$
+p(\y) = \N(\y | \A \v{\mu} + \v{b}, \m{L}^{-1} + \A \m{\Lambda}^{-1} \A\T)
+\tag{2.115}
+$$
+
+$$
+p(\x|\y) = \N(\x | \m{\Sigma}( \A\T \m{L}(\y - \b) + \m{\Lambda \mu} ), \m{\Sigma})
+\tag{2.116}
+$$
+
+ここで
+$$
+\m{\Sigma} = (\m{\Lambda} + \A\T \m{L} \A)^{-1}
+\tag{2.117}
+$$
+
+
+</body></html>

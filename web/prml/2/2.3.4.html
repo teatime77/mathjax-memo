@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.3.4 ガウス分布の最尤推定</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+  <h1>2.3.4 ガウス分布の最尤推定</h1>
+$$
+  \newcommand{\v}[1]{\mathrm{#1}}
+$$
+
+$$
+\ln p(X \mid \mu, \Sigma)
+ = \ln \prod_{n=1}^N \frac{1}{ {(2 \pi)}^{D/2}  } \frac{1}{ {\mid \Sigma \mid}^{ 1/2 }  } 
+\exp \{ - \frac{1}{2}   {(\v{x_n} - \v{\mu})}^T \Sigma^{-1} (\v{x_n} - \v{\mu}) \}
+\\
+= \sum_{n=1}^N \ln \frac{1}{ {(2 \pi)}^{D/2}  } \frac{1}{ {\mid \Sigma \mid}^{ 1/2 }  } 
+\exp \{ - \frac{1}{2}   {(\v{x_n} - \v{\mu})}^T \Sigma^{-1} (\v{x_n} - \v{\mu}) \}
+\\
+= \sum_{n=1}^N \{ -\ln {(2 \pi)}^{D/2} - \ln  {\mid \Sigma \mid}^{ 1/2 } 
+ - \frac{1}{2}   {(\v{x_n} - \v{\mu})}^T \Sigma^{-1} (\v{x_n} - \v{\mu}) \}
+ \\
+ = - \frac{N D}{2}  \ln (2 \pi) - \frac{N}{2} \ln {\mid \Sigma \mid}
+  - \frac{1}{2} \sum_{n=1}^N {(\v{x_n} - \v{\mu})}^T \Sigma^{-1} (\v{x_n} - \v{\mu})
+\tag{2.118} 
+$$
+
+右辺で$\v{x_n}$に依存する部分のみ取り出すと
+$$
+\sum_{n=1}^N {(\v{x_n} - \v{\mu})}^T \Sigma^{-1} (\v{x_n} - \v{\mu})
+\\
+\sum_{n=1}^N \v{x_n}^T \Sigma^{-1} \v{x_n}
+- \sum_{n=1}^N \v{x_n}^T \Sigma^{-1} \v{\mu}
+- \sum_{n=1}^N \v{\mu}^T \Sigma^{-1} \v{x_n}
++ const
+$$
+
+</body></html>

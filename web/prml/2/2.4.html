@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.4 指数型分布族</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+  <h1>2.4 指数型分布族</h1>
+$$
+\newcommand{\v}[1]{\mathrm{#1}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+$$
+<hr/>
+<h3>2.199</h3>
+$$
+\eta = \ln(\frac{\mu}{1 - \mu})
+\tag{2.198} 
+$$
+
+$$
+\exp(-\eta) = \exp(- \ln(\frac{\mu}{1 - \mu}))
+= \frac{1}{ \frac{\mu}{1 - \mu} } = \frac{1 - \mu}{\mu}
+\\
+\mu \exp(-\eta) = 1 - \mu
+\\
+\mu = \frac{1}{1 + \exp(-\eta)}
+$$
+
+<hr/>
+$1 - \sigma(\eta) = \sigma(- \eta)$の証明
+
+$$
+1 - \sigma(\eta) = 1 - \frac{1}{1 + \exp(-\eta)}
+= \frac{\exp(-\eta)}{1 + \exp(-\eta)}
+$$
+
+$$
+\sigma(- \eta) = \frac{1}{1 + \exp(\eta)}
+= \frac{ \exp(-\eta) }{\exp(-\eta) + 1}
+$$
+
+<hr/>
+<h3>(2.213)の証明</h3>
+(2.212)から
+$$
+\exp(\eta_k) = \frac{\mu_k}{1 - \sum_j \mu_j}
+$$
+
+$$
+\mu_k = \exp(\eta_k) (1 - \sum_j \mu_j)
+\tag{1} 
+$$
+
+$k$について足し合わせて
+$$
+\sum_k \mu_k = \sum_k \exp(\eta_k) (1 - \sum_j \mu_j)
+$$
+
+$$
+(1 + \sum_k \exp(\eta_k)) \sum_j \mu_j = \sum_k \exp(\eta_k)
+$$
+
+$$
+\sum_j \mu_j = \frac{\sum_j \exp(\eta_j)}{(1 + \sum_j \exp(\eta_j))}
+$$
+
+これを(1)式に代入して
+$$
+\mu_k = \exp(\eta_k) (1 - \frac{\sum_j \exp(\eta_j)}{(1 + \sum_j \exp(\eta_j))})
+\\
+= \frac{\exp(\eta_k)}{1 + \sum_j \exp(\eta_j)}
+\tag{2.213} 
+$$
+
+<hr/>
+<h3>(2.214)の証明</h3>
+
+(2.211)の$\exp$の中の式は
+$$
+1 - \sum_k \mu_k = 1 - \sum_k \frac{\exp(\eta_k)}{1 + \sum_j \exp(\eta_j)}
+\\
+= 1 - \frac{\sum_k \exp(\eta_k)}{1 + \sum_j \exp(\eta_j)}
+\\
+= \frac{1}{1 + \sum_j \exp(\eta_j)}
+$$
+
+
+</body></html>

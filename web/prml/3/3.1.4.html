@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.1.4 正則化最小二乗法</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>3.1.4 正則化最小二乗法</h1>
+
+$$
+E_D(\w) + \lambda E_W(\w)
+\tag{3.24}
+$$
+
+$$
+E_W(\w) = \frac{1}{2} \w\T \w
+\tag{3.25}
+$$
+
+$$
+E(\w) = \frac{1}{2} \sum_{n=1}^N \{ t_n - \w\T \v{\phi}(\x_n) \}^2
+\tag{3.26}
+$$
+
+$$
+\frac{1}{2} \sum_{n=1}^N \{ t_n - \w\T \v{\phi}(\x_n) \}^2
++ \frac{\lambda}{2} \w\T \w
+\tag{3.27}
+$$
+
+$$
+\w = (\lambda \m{I} + \m{\Phi}\T \m{\Phi})^{-1} \m{\Phi}\T \vv{t}
+\tag{3.28}
+$$
+<hr/>
+<h3>式3.28</h3>
+(3.27)を$\v{w}$で微分して0とおくと
+$$
+\frac{\partial }{\partial \v{w}}( \frac{1}{2} \sum_{n=1}^N (t_n - \v{w}\T \v{\phi}(\v{x_n}))^2 + \frac{\lambda}{2} \v{w}\T \v{w})
+\\
+= - \sum_{n=1}^N (t_n - \v{w}\T \v{\phi}(\v{x_n})) \v{\phi}(\v{x_n}) + \lambda \v{w}
+\\
+= 0
+$$
+
+$$
+\sum_{n=1}^N \v{w}\T \v{\phi}(\v{x_n}) \v{\phi}(\v{x_n})  + \lambda \v{w} = \sum_{n=1}^N t_n \v{\phi}(\v{x_n}) 
+$$
+
+<hr/>
+
+$$
+\frac{1}{2} \sum_{n=1}^N \{ t_n - \w\T \v{\phi}(\x_n) \}^2
++ \frac{\lambda}{2} \sum_{j=1}^M {| w_j |}^q
+\tag{3.29}
+$$
+
+</body></html>

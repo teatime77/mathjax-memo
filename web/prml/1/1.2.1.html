@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>1.2.1 確率密度</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>1.2.1 確率密度</h1>
+
+$$
+p(x \in (a,b)) = \int_a^b p(x) dx
+\tag{1.24}
+$$
+
+$$
+0 \le p(x)
+\tag{1.25}
+$$
+
+$$
+\int_{-\infty}^\infty p(x) dx  = 1
+\tag{1.26}
+$$
+
+<h5>確率密度関数の変数変換</h5>
+$x = g(y)$とすると
+$$
+p_y(y) p_x(x) | \frac{dx}{dy} | = p_x(g(y)) |g'(y)|
+\tag{1.27}
+$$
+
+<h5>累積分布関数</h5>
+$$
+P(z) = \int_{-\infty}^z p(x) dx
+\tag{1.28}
+$$
+
+
+加法定理
+$$
+p(x) = \int p(x,y) dy
+\tag{1.31}
+$$
+
+乗法定理
+$$
+p(x,y) = p(y | x) p(x)
+\tag{1.32}
+$$
+
+</body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.3.7 スチューデントのt分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+  <h1>2.3.7 スチューデントのt分布</h1>
+$$
+\newcommand{\tri}{\mathrm{tri}}
+$$
+
+<h3>2.46</h3>
+$$
+\frac{b^a}{\Gamma(a)} (\frac{1}{2 \pi})^\frac{1}{2} \Delta^{-a-1/2} \Gamma(a + 1/2)
+$$
+
+$\Delta = b + \frac{(x - \mu)^2}{2}, a = \frac{\nu}{2}, b = \frac{\nu}{2\lambda} $ を代入すると
+
+$$
+= \frac{ (\frac{\nu}{2\lambda})^\frac{\nu}{2}}{\Gamma(\frac{\nu}{2})} (\frac{1}{2 \pi})^\frac{1}{2} ( \frac{\nu}{2\lambda} + (x - \mu)^2/2)^{- \frac{\nu}{2} - \frac{1}{2}} \Gamma(\frac{\nu}{2} + \frac{1}{2} )
+\\
+= \frac{ \Gamma(\frac{\nu + 1}{2} ) }{\Gamma(\frac{\nu}{2})}
+{(\frac{\nu}{2\lambda})}^\frac{\nu}{2}
+ (\frac{1}{2 \pi})^\frac{1}{2}
+  {( \frac{\nu}{2\lambda} + \frac{(x - \mu)^2}{2})}^{- \frac{\nu + 1}{2} }
+\\   
+= \frac{ \Gamma(\frac{\nu + 1}{2} ) }{\Gamma(\frac{\nu}{2})}
+{(\frac{\nu}{2\lambda})}^\frac{\nu}{2}
+ (\frac{1}{2 \pi})^\frac{1}{2}
+ {(\frac{\nu}{2\lambda})}^{- \frac{\nu + 1}{2} }
+  {(1  + \frac{\lambda (x - \mu)^2}{\nu})}^{- \frac{\nu + 1}{2} }
+\\   
+= \frac{ \Gamma(\frac{\nu + 1}{2} ) }{\Gamma(\frac{\nu}{2})}
+ {(\frac{ 2\lambda }{ \nu })}^\frac{1}{2}
+ (\frac{1}{2 \pi})^\frac{1}{2}
+  {(1  + \frac{\lambda (x - \mu)^2}{\nu})}^{- \frac{\nu + 1}{2} }
+\\   
+= \frac{ \Gamma(\frac{\nu + 1}{2} ) }{\Gamma(\frac{\nu}{2})}
+ {(\frac{ \lambda }{ \nu \pi })}^\frac{1}{2}
+ {(1  + \frac{\lambda (x - \mu)^2}{\nu})}^{- \frac{\nu + 1}{2} }
+$$
+
+ <hr/>
+ <h3>2.47</h3>
+$$ 
+ \exp(\ln {[1  + \frac{\lambda (x - \mu)^2}{\nu}]}^{- \frac{\nu + 1}{2} }  )
+\\
+= \exp( - \frac{\nu + 1}{2} \ln [1  + \frac{\lambda (x - \mu)^2}{\nu}] )
+$$
+
+
+<hr/>
+<h3>2.48</h3>
+
+$$
+\mathrm{St}(\v{x} \mid \mu, \Lambda, \nu)
+= \int_0^\infty N(\v{x} \mid \mu , (\eta \Lambda)^{-1}) \mathrm{Gam}(\eta \mid \nu/2, \nu/2) d\eta
+\\
+\int_0^\infty
+\frac{1}{ (2\pi)^{D/2} } \frac{1}{ {| (\eta \Lambda)^{-1} |}^{1/2} }
+\exp( - \frac{1}{2} (\v{x} - \mu)^T (\eta \Lambda) (\v{x} - \mu)             )
+\cdot
+\frac{1}{\Gamma(\nu/2)}(\nu/2)^{\nu/2} \eta^{\nu/2-1} \exp(- \nu/2 \cdot \eta)
+d\eta
+\\
+= \frac{ (\nu/2)^{\nu/2} }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} }{ (2\pi)^{D/2} }
+\int_0^\infty
+ \eta^{D/2}
+ \eta^{\nu/2-1}
+ e^{- \nu \eta / 2}
+ e^{ - \eta \Delta^2 / 2 }
+d\eta
+\\
+= \frac{ (\nu/2)^{\nu/2} }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} }{ (2\pi)^{D/2} }
+\int_0^\infty
+ \eta^{D/2 + \nu/2 - 1}
+ e^{- \eta [\frac{\nu}{2} + \frac{1}{2} \Delta^2]   }
+d\eta
+$$
+
+$\eta = \tau [\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{-1}$ とおくと
+$$
+= \frac{ (\nu/2)^{\nu/2} }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} }{ (2\pi)^{D/2} }
+[\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{-1}
+\int_0^\infty
+ (\tau [\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{-1})^{D/2 + \nu/2 - 1}
+ e^{- \tau }
+d\tau
+$$
+積分内の定数を外に出し
+$$
+= \frac{ (\nu/2)^{\nu/2} }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} }{ (2\pi)^{D/2} } \cdot
+[\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{-1}
+[\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{- D/2 - \nu/2 + 1} \cdot
+\int_0^\infty
+ \tau^{D/2 + \nu/2 - 1}
+ e^{- \tau }
+d\tau
+$$
+$\Gamma$関数の定義から
+$$
+= \frac{ \Gamma(\nu/2 + D/2) }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} (\nu/2)^{\nu/2} }{ (2\pi)^{D/2} }
+{[\frac{\nu}{2} + \frac{1}{2} \Delta^2]}^{- D/2 - \nu/2}
+$$
+$\frac{\nu}{2}^{- D/2 - \nu/2}$ を外に出して
+$$
+= \frac{ \Gamma(\nu/2 + D/2) }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} (\nu/2)^{\nu/2} }{ (2\pi)^{D/2} }
+{(\frac{\nu}{2})}^{- D/2 - \nu/2}
+{[1 + \frac{\Delta^2}{\nu}]}^{- D/2 - \nu/2}
+$$
+$\frac{\nu}{2}$ の項を整理して
+$$
+= \frac{ \Gamma(\nu/2 + D/2) }{\Gamma(\nu/2)}
+\frac{ {| \Lambda |}^{1/2} }{ (\pi \nu)^{D/2} }
+{[1 + \frac{\Delta^2}{\nu}]}^{- D/2 - \nu/2}
+
+$$
+
+分散
+$$
+\mathrm{cov}[\v{x}] = \int_0^\infty \eta^{-1} \Lambda^{-1} \mathrm{Gam}(\eta \mid \nu/2, \nu/2) d\eta
+$$
+
+$\mathrm{Gam}$の定義(2.146)から
+$$
+= \int_0^\infty \eta^{-1} \Lambda^{-1} 
+\frac{1}{ \Gamma(\nu/2)}(\nu/2)^{\nu/2} \eta^{(\nu/2) -1}\exp(- \nu/2 \cdot \eta)
+$$
+
+定数を積分の外に出し、$\eta$のべき乗を整理して
+
+$$
+= \frac{1}{ \Gamma(\nu/2)} (\frac{\nu}{2})^{\nu/2}
+ \int_0^\infty 
+ \eta^{(\nu/2) - 2} \exp(- \nu \eta /2 ) d\eta
+ \Lambda^{-1} 
+$$
+
+$u = \nu \eta /2$とおくと、$\eta = \frac{2u}{\nu}$ なので
+$$
+= \frac{1}{ \Gamma(\nu/2)} (\frac{\nu}{2})^{\nu/2}
+ \int_0^\infty 
+{(\frac{2u}{\nu})}^{(\nu/2) - 2} \exp(- u) \frac{2}{\nu} du
+ \Lambda^{-1} 
+$$
+
+定数を積分の外に出して
+$$
+= \frac{1}{ \Gamma(\nu/2)} (\frac{\nu}{2})^{\nu/2}
+{(\frac{2}{\nu})}^{(\nu/2) - 2}
+\frac{2}{\nu}
+ \int_0^\infty 
+ u^{(\nu/2) - 2} \exp(- u) du
+ \Lambda^{-1} 
+$$
+
+$\Gamma$関数の定義を使い、$\frac{2}{\nu}$を整理して
+$$
+= \frac{\nu}{2} \frac{ \Gamma(\nu/2 - 1) }{ \Gamma(\nu/2)} 
+ \Lambda^{-1} 
+$$
+
+$\Gamma$関数の性質から  
+$$
+= \frac{\nu}{2} \frac{ \Gamma(\nu/2 - 1) }{ (\nu/2 - 1)\Gamma(\nu/2 - 1)} 
+ \Lambda^{-1} 
+\\
+= \frac{\nu}{\nu - 2} \Lambda^{-1}
+$$
+
+<hr/>
+<h3>2次形式の偏微分</h3>
+
+$$
+\frac{\partial}{\partial x_k}(\v{x}^T A \v{x})
+= \frac{\partial}{\partial x_k}(\sum_i \sum_j a_{ij} x_i x_j)
+\\
+= \frac{\partial}{\partial x_k}(
+  \sum_{j \ne k} a_{kj} x_k x_j +
+  \sum_{i \ne k}  a_{ik} x_i x_k +
+  a_{kk} x_k x_k
+  )
+\\
+= \sum_j a_{kj} x_j + \sum_i a_{ik} x_i
+$$
+
+$A$が対称行列なら
+$$
+= 2 \sum_j a_{kj} x_j
+$$
+
+ベクトルで書くと
+$$
+\frac{\partial}{\partial \v{x}}(\v{x}^T A \v{x}) = 2 A \v{x}
+$$
+
+</body></html>

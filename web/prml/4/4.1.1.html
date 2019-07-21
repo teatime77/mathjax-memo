@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.1 2クラス</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.1 2クラス</h1>
+
+$$
+y(\x) = \w\T + w_0
+\tag{4.4}
+$$
+
+$$
+\frac{\w\T \x}{ \| \w \| } = - \frac{w_0}{ \| \w \| }
+\tag{4.5}
+$$
+
+$$
+\x = x_{\perp} + r \frac{\w}{ \| \w \| }
+\tag{4.6}
+$$
+
+$x_{\perp}$ は決定面の上にあるので
+$$
+y(x_{\perp}) = \w\T x_{\perp} + w_0 = 0
+\tag{4.6.1}
+$$
+
+
+(4.6)の両辺に$\w\T$をかけて
+
+$$
+\w\T \x = \w\T x_{\perp} + r \frac{\w\T \w}{ \| \w \| }
+$$
+
+両辺に$w_0$を足して
+$$
+\w\T \x + w_0 = \w\T x_{\perp} + w_0 + r \frac{\w\T \w}{ \| \w \| }
+$$
+
+(4.4)から左辺は$y(\x)$で、(4.6.1)から右辺の$\w\T x_{\perp} + w_0$は0なので、
+$$
+y(\x) = r \frac{\w\T \w}{ \| \w \| }
+$$
+
+$ \w\T \w = { \| \w \| }^2 $なので
+$$
+y(\x) = r \| \w \|
+$$
+整理すると(4.7)になる。<br/>
+<br/>
+$x_0 = 1, \ \tilde{\w} = (w_0, \w), \ \tilde{\x} = (x_0, \x) $ とすると
+
+$$
+y(\x) = \tilde{\w}\T \tilde{\x}
+\tag{4.8}
+$$
+
+</body></html>

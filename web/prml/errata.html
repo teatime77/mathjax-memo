@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>PRML 正誤表</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+</head>
+<body>
+  <h1>PRML 正誤表</h1>
+$$
+\newcommand{\v}[1]{\mathrm{#1}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+$$
+<hr/>
+<h3>2.154</h3>
+日本語版p.99の式(2.154)の2行上の$a = (1 + \beta)/2 $ は英語版では $a = 1 + \beta/2$ となっており英語版が正しいはず。
+<hr/>
+<h3>2.47</h3>
+解答の $- (\nu - 1)/2 $ は$- (\nu + 1)/2 $のはず。
+
+<hr/>
+<h3>2.160</h3>
+
+$$
+p(x \mid \mu, a, b) = \int_0^\infty N(x \mid \mu, \tau^{-1}) \mathrm{Gam}(\tau \mid a, b) d\tau
+$$
+
+ガンマ分布の定義から
+$$
+\mathrm{Gam}(\tau \mid a, b) = \frac{1}{\Gamma(a)}b^a \tau^{a-1} \exp(-b\tau)
+$$
+
+$\nu = 2a, \lambda = a/b, and \eta = \tau b/a$  とすると
+
+$$
+a = \frac{\nu}{2}
+\\
+b = \frac{a}{\lambda} = \frac{\nu}{2 \lambda}
+\\
+\tau = \eta \frac{a}{b} = \eta \lambda 
+$$
+
+$a, b, \tau$に代入して
+
+$$
+= \frac{1}{\Gamma(\frac{\nu}{2})} (\frac{\nu}{2 \lambda})^\frac{\nu}{2} (\eta \lambda)^{\frac{\nu}{2}-1} \exp(- \frac{\nu}{2 \lambda} \eta \lambda)
+\\
+= \frac{1}{\Gamma(\frac{\nu}{2})} (\frac{\nu \eta}{2})^\frac{\nu}{2} (\eta \lambda)^{-1} \exp(- \frac{\nu}{2} \eta)
+\\
+= \frac{1}{\Gamma(\frac{\nu}{2})} (\frac{\nu}{2})^{\frac{\nu}{2} - 1} \frac{\nu}{2} \eta^\frac{\nu}{2} (\eta \lambda)^{-1} \exp(- \frac{\nu}{2} \eta)
+\\
+= \frac{1}{\Gamma(\frac{\nu}{2})} (\frac{\nu}{2})^{\frac{\nu}{2} - 1} \eta^\frac{\nu}{2} \exp(- \frac{\nu}{2} \eta) \cdot \frac{\nu}{2 \eta \lambda}
+\\
+\mathrm{Gam}(\eta \mid \frac{\nu}{2}, \frac{\nu}{2}) \frac{\nu}{2 \eta \lambda}
+$$
+
+
+<hr/>
+<h3>2.48の解答</h3>
+$\eta = \tau [\frac{\nu}{2} + \frac{1}{2} \Delta^2]^{-1}$のはず
+
+<hr/>
+<h3>2.49の解答で分散の計算</h3>
+$\mathrm{cov}[\v{x}]$ の途中の式は以下が正しいはず
+$$
+= \frac{\nu}{2} \frac{ \Gamma(\nu/2 - 1) }{ \Gamma(\nu/2)} 
+ \Lambda^{-1} 
+$$
+
+<hr/>
+<h3>2.49の解答でmodeの計算</h3>
+
+(2.162)の式を$\v{x}$で微分したとき、以下になるはず
+$$
+\frac{\partial}{\partial \v{x}}[1 + \frac{\Delta^2}{\nu}]^{-D/2 - \nu/2}
+= (-D/2 - \nu/2) [1 + \frac{\Delta^2}{\nu}]^{-D/2 - \nu/2 - 1} \frac{1}{\nu} 2 \Lambda (\v{x} - \v{\mu})
+$$
+
+</body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>3.5.1 エビデンス関数の評価</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>3.5.1 エビデンス関数の評価</h1>
+
+$$
+p(\vv{t} | \alpha, \beta) = \int p(\vv{t} | \w, \beta) p(\w | \alpha) d\w
+\tag{3.77}
+$$
+
+$$
+p(\vv{t} | \alpha, \beta) = ( \frac{\beta }{2 \pi} )^{N/2}
+( \frac{\alpha}{2 \pi} )^{M/2}
+\int \exp(- E(\w) ) d\w
+\tag{3.78}
+$$
+
+$$
+E(\w) = \beta E_D(\w) + \alpha E_W(\w) = \frac{\beta}{2} \| \vv{t} - \m{\Phi}\w \|^2 + \frac{\alpha}{2}\w\T\w
+\tag{3.79}
+$$
+
+$$
+E(\w) = E(\v{m}_N) + \frac{1}{2}(\w - \v{m}_N)\T \m{A} (\w - \v{m}_N)
+\tag{3.80}
+$$
+
+$$
+\m{A} = \alpha \m{I} + \beta \m{\Phi}\T\m{\Phi}
+\tag{3.81}
+$$
+
+$$
+E(\v{m}_N) = \frac{\beta}{2} \| \vv{t} - \m{\Phi} \v{m}_N \|^2 + \frac{\alpha}{2} \v{m}_N\T \v{m}_N
+\tag{3.82}
+$$
+
+$$
+\A = \nabla \nabla E(\w)
+\tag{3.83}
+$$
+
+$$
+\v{m}_N = \beta \A^{-1} \m{\Phi}\T \vv{t}
+\tag{3.84}
+$$
+<hr/>
+<h3>演習 3.17</h3>
+
+(3.77)から
+$$
+p(\vv{t} | \alpha, \beta) = \int p(\vv{t} | \w, \beta) p(\w | \alpha) d\w
+$$
+
+(3.10)と(3.52)から
+$$
+= \int \prod_{n=1}^N 
+  \N(t_n | \w\T \v{\phi}(\x_n), \beta^{-1}) 
+  \N(\w | \v{0}, \alpha^{-1} \m{I}) 
+  d\w
+$$
+
+ガウス分布の定義から
+$$
+= \int \prod_{n=1}^N 
+  \frac{1}{(2 \pi \beta^{-1} )^{1/2} } 
+  \exp(- \frac{1}{2 \beta^{-1}}(t_n - \w\T \v{\phi}(\x_n))^2)
+\\
+\frac{1}{(2 \pi)^{M/2} \ \alpha^{ - M/2} }
+\exp(- \frac{\alpha}{2} \w\T \w)
+d\w
+$$
+
+整理して
+$$
+= (\frac{\beta}{2 \pi} )^{N/2}
+( \frac{\alpha}{2 \pi} )^{M/2}
+\int  
+  \exp(- \frac{\beta}{2} \sum_{n=1}^N (t_n - \w\T \v{\phi}(\x_n))^2)
+\\
+\exp(- \frac{\alpha}{2} \w\T \w)
+d\w
+$$
+
+(3.12)から
+$$
+= ( \frac{\beta }{2 \pi} )^{N/2}
+  ( \frac{\alpha}{2 \pi} )^{M/2}
+\int  
+  \exp(- \beta E_D(\w) )
+  \exp(- \frac{\alpha}{2} \w\T \w)
+d\w
+$$
+
+(3.25)から
+$$
+= ( \frac{\beta }{2 \pi} )^{N/2}
+  ( \frac{\alpha}{2 \pi} )^{M/2}
+\int  
+  \exp(- (\beta E_D(\w) + \alpha E_W(\w) ))
+d\w
+$$
+
+(3.79)から
+$$
+= ( \frac{\beta }{2 \pi} )^{N/2}
+  ( \frac{\alpha}{2 \pi} )^{M/2}
+\int \exp(- E(\w) ) d\w
+$$
+
+<hr/>
+<h3>演習 3.16</h3>
+
+$$
+p(\vv{t} | \v{w}, \beta) = \N(\vv{t} | \m{\Phi} \v{w}, \beta^{-1}\m{I}_N)
+\tag{142}
+$$
+
+$$
+p(\v{w}) = \N(\v{w} | \v{0}, \alpha^{-1}\m{I})
+$$
+
+
+
+(2.113) と (2.114)のガウス分布$\N$を上の式の2つのガウス分布$\N$に対応させると
+$$
+\begin{array}{cc}
+  \hline
+  (2.113) & (2.114) \\
+  \N(\x | \v{\mu}, \m{\Lambda}^{-1})   & \N(\y | \A \x + \b, \m{L}^{-1})   \\
+  \downarrow   & \downarrow \\
+  \N(\v{w} | \v{0}, \alpha^{-1}\m{I}_M)   & \N(\vv{t} | \m{\Phi} \v{w}, \beta^{-1}\m{I}_N)  \\
+  \hline
+\end{array}
+$$
+
+各項目は以下のように対応する。
+$$
+\begin{array}{ccccccc}
+  \hline
+  \x & \v{\mu} & \m{\Lambda}^{-1} & \y & \A & \b & \m{L}^{-1} \\
+  \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\
+  \v{w}  & \v{0} & \alpha^{-1}\m{I}_M & \vv{t} & \m{\Phi} & \v{0} & \beta^{-1}\m{I}_N \\
+  \hline
+\end{array}
+$$
+
+(2.115)にこの対応表を適用すると
+$$
+\begin{array}{c}
+  \hline
+  (2.115) \\
+  \N(\y | \A \v{\mu} + \v{b}, \m{L}^{-1} + \A \m{\Lambda}^{-1} \A\T) \\
+  \downarrow  \\
+  \N(\vv{t} | \v{0}, \beta^{-1}\m{I}_N + \alpha^{-1} \m{\Phi} \m{\Phi}\T) \\
+  \hline
+\end{array}
+$$
+
+</body></html>
