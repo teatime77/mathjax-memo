@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.5 最小二乗との関連</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.5 最小二乗との関連</h1>
+
+$$
+N_1 \eqdef \jp{ クラス C_1 に含まれるデータの数。 }
+\\
+N_2 \eqdef \jp{ クラス C_1 に含まれるデータの数。 }
+$$
+
+$$
+t_n \eqdef
+\begin{cases}
+    \frac{N}{N_1}   & ( t_n \in C_1 ) \\
+    - \frac{N}{N_2} & ( t_n \in C_2 )
+\end{cases}
+$$
+
+二乗和誤差関数は
+$$
+E \eqdef \frac{1}{2} \sum_{n=1}^N (\w\T \x_n + w_0 - t_n)^2
+\tag{4.31}
+$$
+
+(4.31)を$w_0$で微分して0とおくと
+$$
+\sum_{n=1}^N (\w\T \x_n + w_0 - t_n) = 0
+\tag{4.32}
+$$
+
+同様に$\w$で微分して0とおくと
+$$
+\sum_{n=1}^N (\w\T \x_n + w_0 - t_n)\x_n = \v{0}
+\tag{4.33}
+$$
+
+$$
+w_0 = - \w\T \v{m}
+\tag{4.34}
+$$
+
+$t_n$の定義から
+$$
+\sum_{n=1}^N t_n = N_1 \frac{N}{N_1} - N_2 \frac{N}{N_2} = 0
+\tag{4.35}
+$$
+
+$\v{m}$は $\{\x_n\}$ の平均とする。ここで$\v{m}_1$と$\v{m}_2$は(4.21)で定義した。
+$$
+\v{m} \eqdef \frac{1}{N} \sum_{n=1}^N \x_n = \frac{1}{N}(N_1 \v{m}_1 + N_2 \v{m}_2)
+\tag{4.36}
+$$
+
+<hr/>
+<h5>(4.34)の証明</h5>
+(4.32)から
+$$
+w_0 = \frac{1}{N} \sum_{n=1}^N t_n - \frac{1}{N} \sum_{n=1}^N \w\T \x_n
+$$
+
+(4.35)から
+$$
+= - \frac{1}{N} \sum_{n=1}^N \w\T \x_n
+$$
+
+ベクトルの内積は線形変換なので、$\w\T$を$\sum$の外に出して
+$$
+= - \w\T \frac{1}{N} \sum_{n=1}^N \x_n
+$$
+
+$\v{m}$の定義から
+$$
+= - \w\T \v{m}
+$$
+
+<hr/>
+$$
+(\m{S}_W + \frac{N_1 N_2}{N} \m{S}_B) \w = N(\v{m}_1 - \v{m}_2)
+\tag{4.37}
+$$
+
+<h5>演習 4.6</h5>
+<h6>補題 1</h6>
+$$
+\sum_{n=1}^N (\w\T \x_n + w_0 - t_n)\x_n
+\\
+= (\sum_{n \in C_1} \x_n \x_n\T + \sum_{n \in C_2} \x_n \x_n\T - (N_1 \v{m}_1 + N_2 \v{m}_2) \v{m}\T ) \w
+\\
+ - N (\v{m}_1 - \v{m}_2)
+\tag{154}
+$$
+
+
+(4.33)の右辺は
+$$
+\sum_{n=1}^N (\w\T \x_n + w_0 - t_n)\x_n
+$$
+
+(4.34)から
+$$
+= \sum_{n=1}^N (\w\T \x_n - \w\T \v{m} - t_n)\x_n
+$$
+
+内積の順序を逆にして
+$$
+= \sum_{n=1}^N ( \x_n\T \w - \v{m}\T \w - t_n)\x_n
+$$
+
+一般に$\v{a}\T \v{b} \v{c} = \v{c} \v{a}\T \v{b}$なので
+$$
+= \sum_{n=1}^N ( \x_n \x_n\T \w - \x_n \v{m}\T \w - \x_n t_n )
+$$
+
+$\w$でまとめて
+$$
+= \sum_{n=1}^N \{ ( \x_n \x_n\T - \x_n \v{m}\T ) \w - \x_n t_n \}
+$$
+
+クラスごとに和をとって
+$$
+= \sum_{n \in C_1} \{ ( \x_n \x_n\T - \x_n \v{m}\T ) \w - \x_n t_n \}
+\\
++ \sum_{n \in C_2} \{ ( \x_n \x_n\T - \x_n \v{m}\T ) \w - \x_n t_n \}
+$$
+
+(4.21)と$t_n$の定義から
+$$
+= (\sum_{n \in C_1} \x_n \x_n\T - N_1 \v{m}_1 \v{m}\T ) \w - N_1 \v{m}_1 \frac{N}{N_1}
+\\
++ ( \sum_{n \in C_2} \x_n \x_n\T - N_2 \v{m}_2 \v{m}\T ) \w + N_2 \v{m}_2 \frac{N}{N_2}
+$$
+
+整理して
+$$
+= (\sum_{n \in C_1} \x_n \x_n\T + \sum_{n \in C_2} \x_n \x_n\T - (N_1 \v{m}_1 + N_2 \v{m}_2) \v{m}\T ) \w
+\\
+ - N (\v{m}_1 - \v{m}_2)
+$$
+
+<h6>補題2</h6>
+$$
+\sum_{i \in C_k} (\x_i - \v{m}_k) (\x_i - \v{m}_k)\T
+\\
+= \sum_{i \in C_k} (\x_i \x_i\T  - \x_i \v{m}_k\T - \v{m}_k \x_i\T + \v{m}_k \v{m}_k\T)
+\\
+= \sum_{i \in C_k} \x_i \x_i\T - N_k \v{m}_k \v{m}_k\T
+\tag{154.1}
+$$
+
+(4.28)と(154.1)を使うと
+$$
+\sum_{n \in C_1} \x_n \x_n\T + \sum_{n \in C_2} \x_n \x_n\T
+\\
+= \m{S}_w + N_1 \v{m}_1 \v{m}_1\T + N_2 \v{m}_2 \v{m}_2\T
+\tag{154.2}
+$$
+
+(154.2)を(154)の右辺に代入すると
+$$
+(\m{S}_w + N_1 \v{m}_1 \v{m}_1\T + N_2 \v{m}_2 \v{m}_2\T - (N_1 \v{m}_1 + N_2 \v{m}_2) \v{m}\T ) \w
+\\
+ - N (\v{m}_1 - \v{m}_2)
+$$
+
+(4.36)から
+$$
+= (\m{S}_w + N_1 \v{m}_1 \v{m}_1\T + N_2 \v{m}_2 \v{m}_2\T
+\\
+- (N_1 \v{m}_1 + N_2 \v{m}_2) (\frac{1}{N}(N_1 \v{m}_1 + N_2 \v{m}_2)) \T ) \w
+\\
+ - N (\v{m}_1 - \v{m}_2)
+$$
+
+$\v{m}_1, \v{m}_2$ で整理して
+$$
+= (\m{S}_w + (N_1 - \frac{N_1^2}{N}) \v{m}_1 \v{m}_1\T 
+- \frac{N_1 N_2}{N}(\v{m}_1 \v{m}_2\T + \v{m}_2 \v{m}_1\T    )
+\\
++ (N_2 - \frac{N_2^2}{N}) \v{m}_2 \v{m}_2\T) \w
+ - N (\v{m}_1 - \v{m}_2)
+ \tag{154.3}
+$$
+
+ここで以下を使う。
+$$
+N_1 - \frac{N_1^2}{N} = \frac{N N_1 -  N_1^2}{N}
+= \frac{  N_1 (N -  N_1) }{N} = \frac{ N_1 N_2 }{N}
+\\
+N_2 - \frac{N_2^2}{N} = \frac{N N_2 -  N_2^2}{N}
+= \frac{ (N -  N_2) N_2 }{N} = \frac{ N_1 N_2 }{N}
+$$
+
+これを(154.3)に使うと
+$$
+= (\m{S}_w + \frac{ N_1 N_2 }{N}
+( \v{m}_1 \v{m}_1\T - \v{m}_1 \v{m}_2\T - \v{m}_2 \v{m}_1\T + \v{m}_2 \v{m}_2\T) \w
+- N (\v{m}_1 - \v{m}_2)
+$$
+
+整理して
+$$
+= (\m{S}_w + \frac{ N_1 N_2 }{N} (\v{m}_2 - \v{m}_1)(\v{m}_2 - \v{m}_1)\T) \w
+- N (\v{m}_1 - \v{m}_2)
+$$
+
+(4.27)から
+$$
+= (\m{S}_w + \frac{ N_1 N_2 }{N} \m{S}_B) \w
+- N (\v{m}_1 - \v{m}_2)
+$$
+
+</body></html>

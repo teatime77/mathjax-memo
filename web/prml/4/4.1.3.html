@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.3 分類における最小二乗</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.3 分類における最小二乗</h1>
+
+$$
+y_k(\x) = \w_k\T \x + w_{k0}
+\tag{4.13}
+$$
+
+
+$$
+\y(\x) = \tilde{\m{W}} \T \tilde{\x}
+\\
+\tilde{\m{W}} = (\w_1, \ldots, \w_k)
+\tag{4.14}
+$$
+
+以下を訓練データ集合とする。
+$$
+\{ \vv{x}_n, \vv{t}_n \} \quad n = 1, \ldots, N
+$$
+
+$\m{T}$と$\tilde{\m{X}}$を以下で定義する。
+$$
+\m{T} = ( \vv{t}_1, \ldots, \vv{t}_N)\T
+\\
+\tilde{\m{X}} = (\tilde{\x_1}, \ldots, \tilde{\x_N}  )\T
+$$
+
+<hr/>
+二乗和誤差関数$E_D(\tilde{\m{W}})$は以下になる。
+$$
+E_D(\tilde{\m{W}}) = \frac{1}{2} \Tr \{ ( \tilde{\m{X}} \tilde{\m{W}} - \m{T} )\T ( \tilde{\m{X}} \tilde{\m{W}} - \m{T} ) \}
+\tag{4.15}
+$$
+
+<h5>証明</h5>
+二乗和誤差関数の定義から
+$$
+E_D(\tilde{\m{W}}) = \frac{1}{2} \sum_{n=1}^N {\| \y(\vv{x}_n) - \vv{t}_n \|}^2 
+$$
+
+(4.14)から
+$$
+= \frac{1}{2} \sum_{n=1}^N {\| \tilde{\m{W}} \T \tilde{\x}_n - \vv{t}_n \|}^2 
+$$
+
+$ \| \cdot \| $ の定義から
+$$
+= \frac{1}{2} \sum_{n=1}^N (\tilde{\m{W}} \T \tilde{\x}_n - \vv{t}_n)\T (\tilde{\m{W}} \T \tilde{\x}_n - \vv{t}_n)
+$$
+
+一般に$\sum_{n=1}^N \v{a}_n\T \v{b}_n = \Tr(\A\T \B )$ なので
+$$
+= \frac{1}{2} \Tr \{ (\tilde{\m{W}} \T \tilde{\X}\T - \m{T}\T)\T (\tilde{\m{W}} \T \tilde{\X}\T - \m{T}\T) ) \}
+$$
+
+行列の転置を整理すると
+$$
+= \frac{1}{2} \Tr \{ (\tilde{\X} \tilde{\m{W}} - \m{T}) (\tilde{\X} \tilde{\m{W}} - \m{T})\T ) \}
+$$
+
+$\Tr(\A \B) = \Tr(\B \A)$を使って
+$$
+= \frac{1}{2} \Tr \{ (\tilde{\X} \tilde{\m{W}} - \m{T})\T (\tilde{\X} \tilde{\m{W}} - \m{T}) ) \}
+$$
+
+<hr/>
+
+$$
+\tilde{\m{W}} = (\tilde{\X}\T \tilde{\X} )^{-1} \tilde{X}\T \m{T} = \tilde{\X}^\dagger \m{T}
+\tag{4.16}
+$$
+ここで$\tilde{\X}^\dagger$ は(3.17)で定義される疑似逆行列。
+
+<h5>証明</h5>
+以下の証明では煩雑なので$\tilde{\cdot}$は省略。
+
+$$
+\frac{\partial}{\partial w_{ij}} E_D(\m{W}) = \frac{1}{2} \frac{\partial}{\partial w_{ij}} \sum_t [ (\X \m{W} - \m{T})\T (\X \m{W} - \m{T})]_{tt}
+\\
+= \frac{1}{2} \frac{\partial}{\partial w_{ij}} \sum_t \sum_s (\X \m{W} - \m{T})_{st} (\X \m{W} - \m{T})_{st}
+\\
+= \frac{1}{2} \frac{\partial}{\partial w_{ij}} \sum_{s,t} ((\X \m{W} - \m{T})_{st})^2
+\\
+= \sum_{s,t} (\X \m{W} - \m{T})_{st} \frac{\partial}{\partial w_{ij}} (\X \m{W} - \m{T})_{st}
+\\
+= \sum_{s,t} (\X \m{W} - \m{T})_{st} \frac{\partial}{\partial w_{ij}} \sum_u x_{su} w_{ut} 
+\\
+= \sum_{s, (u,t)=(i,j)}  (\X \m{W} - \m{T})_{st} \frac{\partial}{\partial w_{ij}} x_{su} w_{ut} 
+\\
+= \sum_{s} (\X \m{W} - \m{T})_{sj} x_{si}
+\\
+= \sum_{s} (\X\T)_{is} (\X \m{W} - \m{T})_{sj} 
+\\
+(\X\T (\X \m{W} - \m{T}) )_{ij}
+$$
+
+よって
+$$
+\frac{\partial}{\partial \m{W}} E_D(\m{W}) = \X\T (\X \m{W} - \m{T})
+$$
+
+これを0とおくと
+$$
+\X\T \X \m{W} = \X\T \m{T}
+$$
+
+$\m{W}$について解いて
+$$
+\m{W} = (\X\T \X)^{-1} \X\T \m{T}
+$$
+
+<hr/>
+
+$$
+\y(\x) = \tilde{\m{W}}\T \tilde{\x} = \m{T}\T (\tilde{\X}^\dagger)\T \tilde{\x}
+\tag{4.17}
+$$
+</body></html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.6 多クラスにおけるフィッシャーの判別</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.6 多クラスにおけるフィッシャーの判別</h1>
+
+重みベクトルの行列$\m{W}$の定義
+$$
+\m{W} = (\w_1, \ldots, \w_{D'})
+$$
+
+特徴$\y$の定義
+$$
+\y = \m{W}\T \x
+\tag{4.39}
+$$
+
+クラス内共分散
+$$
+\m{S}_W = \sum_{k=1}^K \m{S}_K
+\tag{4.40}
+$$
+
+$$
+\m{S}_k = \sum_{n \in C_k} (\x_n - \v{m}_k) (\x_n - \v{m}_k)\T
+\tag{4.41}
+$$
+
+$$
+\v{m}_k = \frac{1}{N_k} \sum_{n \in C_k} \x_n
+\tag{4.42}
+$$
+
+総共分散行列の定義
+$$
+\m{S}_T = \sum_{n=1}^N (\x_n - \v{m})(\x_n - \v{m})\T
+\tag{4.43}
+$$
+
+$$
+\v{m} = \frac{1}{N} \sum_{n=1}^N \x_n = \frac{1}{N} \sum_{k=1}^K N_k \v{m}_k
+\tag{4.44}
+$$
+
+$$
+N = \sum_k N_k
+$$
+
+$$
+\m{S}_T = \m{S}_W + \m{S}_B
+\tag{4.45}
+$$
+
+$$
+\m{S}_B = \sum_{k=1}^K N_k (\v{m}_k - \v{m}) (\v{m}_k - \v{m})\T
+\tag{4.46}
+$$
+
+<h5>(4.45)の証明</h5>
+(4.43)から
+$$
+\m{S}_T = \sum_{n=1}^N (\x_n - \v{m})(\x_n - \v{m})\T
+$$
+
+クラスごとに分割して
+$$
+= \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m})(\x_n - \v{m})\T
+$$
+
+$$
+= \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m}_k + \v{m}_k - \v{m})(\x_n - \v{m}_k + \v{m}_k - \v{m})\T
+$$
+
+$$
+= \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m}_k) (\x_n - \v{m}_k)\T
+- \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m}_k) (\v{m}_k - \v{m})\T
+\\
+- \sum_{k=1}^K \sum_{n \in C_k} (\v{m}_k - \v{m}) (\x_n - \v{m}_k)\T
++ \sum_{k=1}^K \sum_{n \in C_k} (\v{m}_k - \v{m}) (\v{m}_k - \v{m})\T
+$$
+
+(4.41)と(4.46)から
+$$
+= \sum_{k=1}^K \m{S}_k
+- \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m}_k) (\v{m}_k - \v{m})\T
+\\
+- \sum_{k=1}^K \sum_{n \in C_k} (\v{m}_k - \v{m}) (\x_n - \v{m}_k)\T
++ \m{S}_B
+$$
+
+(4.40)から
+$$
+= \m{S}_W
+- \sum_{k=1}^K \sum_{n \in C_k} (\x_n - \v{m}_k) (\v{m}_k - \v{m})\T
+\\
+- \sum_{k=1}^K \sum_{n \in C_k} (\v{m}_k - \v{m}) (\x_n - \v{m}_k)\T
++ \m{S}_B
+$$
+
+$\x_n - \v{m}_k$を含む$\sum_{n \in C_k}$の項は消えるので
+$$
+= \m{S}_W + \m{S}_B
+$$
+
+<hr/>
+
+$$
+\m{S}_W = \sum_{k=1}^K \sum_{n \in C_k} (\y_n - \v{\mu}_k) (\y_n - \v{\mu}_k)\T
+\tag{4.47}
+$$
+
+$$
+\m{S}_B = \sum_{k=1}^K N_k (\v{\mu}_k - \v{\mu}) (\v{\mu}_k - \v{\mu})\T
+\tag{4.48}
+$$
+
+$$
+\v{\mu}_k = \frac{1}{N_k} \sum_{n \in C_k} \v{y}_n
+\\
+\v{\mu} = \frac{1}{N} \sum_{k=1}^K N_k \v{\mu}_k
+\tag{4.49}
+$$
+
+$$
+J(\m{W}) = \Tr(\m{S}_W^{-1} \m{S}_B)
+\tag{4.50}
+$$
+
+$$
+J(\m{W}) = \Tr\{ ( \m{W} \m{S}_W^{-1} \m{W}\T )^{-1} ( \m{W} \m{S}_B \m{W}\T ) \} )
+\tag{4.51}
+$$
+
+
+</body></html>

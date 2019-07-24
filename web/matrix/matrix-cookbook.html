@@ -9,7 +9,6 @@
 <body>
   <h1>The Matrix Cookbook</h1>
 
-  <h3>1 Basics</h3>
 $$
 \newcommand{\det}{\mathrm{det}}
 \\
@@ -22,7 +21,25 @@ $$
 \newcommand{\X}{\m{X}}
 \\
 \newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\v{x}}
 $$
+
+<h3>ベクトル</h3>
+$$
+\v{a}\T \v{b} \v{c} = \v{c} \v{a}\T \v{b}
+$$
+
+<h5>証明</h5>
+$$
+(\v{a}\T \v{b} \v{c})_i = \sum_j a_j b_j c_i
+$$
+
+$$
+(\v{c} \v{a}\T \v{b})_i = \sum_j (\v{c} \v{a}\T )_{ij} b_j
+= \sum_j c_i a_j b_j
+$$
+<h3>1 Basics</h3>
 
 $$
 (\bm{A B})^{-1} = \bm{B}^{-1} \bm{A}^{-1}
@@ -73,6 +90,37 @@ $$
 \tag{15} 
 $$
 
+$$
+\v{a}\T \v{a} = \Tr(\v{a} \v{a}\T )
+\tag{17} 
+$$
+
+$\A, \B$を以下で定義する。
+$$
+\A = (\v{a}_1, \ldots, \v{a}_N)
+\\
+\B = (\v{b}_1, \ldots, \v{b}_N)
+$$
+
+$$
+\sum_{n=1}^N \v{a}_n\T \v{b}_n = \Tr(\A\T \B )
+$$
+
+<h5>証明</h5>
+$$
+\A\T \B = (\v{a}_1, \ldots, \v{a}_N)\T 
+(\v{b}_1, \ldots, \v{b}_N)
+\\
+= \left( \begin{array}{c} \v{a}_1\T \\ \vdots \\ \v{a}_N\T  \end{array} \right)
+(\v{b}_1, \ldots, \v{b}_N)
+\\
+= \left(  \begin{array}{ccc}
+\v{a}_1\T \v{b}_1 & \ldots & \v{a}_1\T \v{b}_N \\    
+  \vdots & \ddots & \vdots \\    
+  \v{a}_N\T \v{b}_1 & \ldots & \v{a}_N\T \v{b}_N 
+\end{array}\right)
+$$
+
 <h3>1.2 Determinant</h3>
 
 $$
@@ -116,4 +164,66 @@ $$
 \partial(\X\T) = (\partial \X)\T
 \tag{44}
 $$
+
+<h5>2.4.2 Second Order</h5>
+
+$$
+\frac{\partial \x\T\B\x}{\partial \x} = (\B + \B\T)\x
+\tag{81}
+$$
+
+<h6>証明</h6>
+$$
+\frac{\partial \x\T \B \x}{\partial x_i}
+= \sum_{s,t} b_{st} \frac{\partial x_s x_t}{\partial x_i}
+\\
+= \sum_t b_{it} x_t + \sum_s b_{si} x_s
+\\
+= (\B \x)_i + (\B\T \x)_i = ((\B + \B\T)\x)_i
+
+$$
+<hr/>
+$\B$ が対称行列なら
+$$
+\frac{\partial \x\T\B\x}{\partial \x} = 2 \B \x
+\tag{81.1}
+$$
+
+<h4>2.5 Derivatives of Traces</h4>
+$$
+\frac{\partial }{\partial \X} \Tr(\X \A) = \A\T
+\tag{100}
+$$
+
+<h5>証明</h5>
+$$
+( \frac{\partial }{\partial \X} \Tr(\X \A) )_{ij}
+= \frac{\partial }{\partial x_{ij}} \sum_{s,t} x_{st} a_{ts} = a_{ji}
+
+$$
+
+<hr/>
+$$
+\frac{\partial }{\partial \X} \Tr(\X \B \X\T) = \X \B\T + \X \B
+\tag{111}
+$$
+
+<h5>証明</h5>
+$$
+\frac{\partial }{\partial x_{ij}} \Tr(\X \B \X\T)
+= \frac{\partial }{\partial x_{ij}} \sum_{s,t,u} x_{st} b_{tu} x_{su}
+\\
+= \sum_{s,t,u} b_{tu} \frac{\partial }{\partial x_{ij}} x_{st} x_{su}
+\\
+\sum_u \sum_{(s,t) = (i,j)} \frac{\partial }{\partial x_{ij}} x_{st} x_{su} + \sum_t \sum_{(s,u) = (i,j)  } x_{st} x_{su}
+\\
+= \sum_u b_{ju} x_{iu} + \sum_t b_{tj} x_{it}
+\\
+= \sum_u x_{iu} b_{ju} + \sum_t x_{it} b_{tj} 
+\\
+= (\X \B\T)_{ij} + (\X \B)_{ij} = (\X \B\T + \X \B)_{ij}
+
+$$
+
+
 </body></html>

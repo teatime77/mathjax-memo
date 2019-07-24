@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.4 フィッシャーの線形判別</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.4 フィッシャーの線形判別</h1>
+
+$$
+y = \w\T \x
+\tag{4.20}
+$$
+
+$$
+\v{m}_1 = \frac{1}{N_1} \sum_{n \in C_1} \x_n
+\\
+\v{m}_2 = \frac{1}{N_2} \sum_{n \in C_2} \x_n
+\tag{4.21}
+$$
+
+$$
+m_2 - m_1 = \w\T(\v{m}_2 - \v{m}_1  )
+\tag{4.22}
+$$
+
+$$
+m_k = \w\T \v{m}_k
+\tag{4.23}
+$$
+
+<hr/>
+
+以下の制約をつける。
+$$
+\sum_i w_i^2 = 1
+$$
+
+(4.22)を最大化すると
+$$
+\w = \propto \v{m}_2 - \v{m}_1
+$$
+
+<h5>証明</h5>
+
+ラグランジュの未定乗数法で$f$を以下のように定義する。
+$$
+f(\w) = \w\T ( \v{m}_2 - \v{m}_1 ) + \lambda (1 - {\| \w \|}^2)
+$$
+
+$$
+\frac{\partial f}{\partial \w} = \v{m}_2 - \v{m}_1 - 2 \lambda \w = 0
+$$
+
+よって
+$$
+\w = \frac{1}{2 \lambda}(\v{m}_2 - \v{m}_1) \propto \v{m}_2 - \v{m}_1
+$$
+
+<hr/>
+クラス内分散を以下で定義する。
+$$
+s_k^2 = \sum_{n \in C_k} (y_n - m_k)^2
+\tag{4.24}
+$$
+
+ここで
+$$
+y_n = \w\T \x_n
+\tag{4.24.1}
+$$
+
+総クラス内分散を以下で定義する。
+$$
+s_1^2 + s_2^2
+$$
+
+フィッシャーの判別基準$J$をクラス間分散とクラス内分散の比で定義する。
+$$
+J(\w) = \frac{(m_2 - m_1)^2}{s_1^2 + s_2^2}
+\tag{4.25}
+$$
+
+<hr/>
+<h4>演習 4.5</h4>
+フィッシャーの判別基準$J$は以下のように書ける。
+$$
+J(\w) = \frac{\w\T \m{S}_B \w}{\w\T \m{S}_W \w}
+\tag{4.26}
+$$
+
+$\m{S}_B$ はクラス間共分散行列で
+$$
+\m{S}_B = (\v{m}_2 - \v{m}_1) (\v{m}_2 - \v{m}_1)\T
+\tag{4.27}
+$$
+
+$\m{S}_W$ は総クラス内共分散行列で
+$$
+\m{S}_W = \sum_{n \in C_1} (\x_n - \v{m}_1) (\x_n - \v{m}_1)\T
++ \sum_{n \in C_2} (\x_n - \v{m}_2) (\x_n - \v{m}_2)\T
+\tag{4.28}
+$$
+
+<h5>証明</h5>
+(4.23)から
+$$
+(m_2 - m_1)^2 = (\w\T(\v{m}_2 - \v{m}_1))^2
+\\
+= \w\T (\v{m}_2 - \v{m}_1) (\v{m}_2 - \v{m}_1)\T \w 
+\\
+= \w\T \m{S}_B \w
+\tag{152}
+$$
+
+
+(4.24)から
+$$
+s_1^2 + s_2^2 = \sum_{n \in C_1} (y_n - m_1)^2 + \sum_{n \in C_2} (y_n - m_2)^2
+$$
+
+(4.24.1)と(4.23)から
+$$
+= \sum_{n \in C_1} (\w\T(\x_n - \v{m}_1))^2 + \sum_{n \in C_2} (\w\T(\x_n - \v{m}_2))^2
+$$
+
+二乗を展開して
+$$
+= \sum_{n \in C_1} \w\T (\x_n - \v{m}_1) (\x_n - \v{m}_1)\T \w
++ \sum_{n \in C_2} \w\T (\x_n - \v{m}_2) (\x_n - \v{m}_2)\T \w
+$$
+
+(4.28)から
+$$
+= \w\T \m{S}_W \w
+$$
+
+<hr/>
+$\w$が以下の時に$J(\w)$は最大になる。
+$$
+(\w\T \m{S}_B \w) \m{S}_w \w = (\w\T \m{S}_W \w) \m{S}_B \w
+\tag{4.29}
+$$
+
+<h5>証明</h5>
+
+$$
+\frac{\partial }{\partial \w} J(\w)
+= \frac{\partial }{\partial \w} \frac{\w\T \m{S}_B \w}{\w\T \m{S}_W \w}
+\\
+= \frac{\partial \w\T \m{S}_B \w}{\partial \w}  \frac{1} {\w\T \m{S}_W \w}
++ (\w\T \m{S}_B \w) \frac{\partial }{\partial \w} \frac{1}{\w\T \m{S}_W \w}
+\\
+= \frac{ 2 \m{S}_B \w } {\w\T \m{S}_W \w}
+- \frac{ \w\T \m{S}_B \w }{(\w\T \m{S}_W \w)^2} 
+\\
+= \frac{ (\w\T \m{S}_W \w) \cdot 2 \m{S}_B \w - (\w\T \m{S}_B \w) \cdot 2 \m{S}_W \w }{(\w\T \m{S}_W \w)^2} = 0
+$$
+
+<hr/>
+</body></html>

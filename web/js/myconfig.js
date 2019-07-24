@@ -12,6 +12,8 @@ MathJax.Hub.Config({
         m  : ["\\boldsymbol{#1}", 1],
         vv : ["\\mathsf{#1}", 1],
         E  : ["\\mathbb{E}"],
+        jp : ["\\small{#1}", 1],
+        eqdef : ["\\ \\overset{\\mathrm{def}}{=\\mathrel{\\mkern-3mu}=} \\"],
       },
       extensions: ["AMSmath.js","AMSsymbols.js"],
       equationNumbers: { autoNumber: "AMS" } },

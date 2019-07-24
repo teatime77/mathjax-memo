@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.1.2 多クラス</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.1.2 多クラス</h1>
+
+$$
+y_k(\x) = \w_k\T \x + w_{k0}
+\tag{4.9}
+$$
+
+<hr/>
+$$
+(\w_k - \w_j)\T \x + (w_{k0} - w_{j0}) = 0
+\tag{4.10}
+$$
+<h5>証明</h5>
+境界は$y_k(\x) = y_j(\x) $ なので、(4.9)を代入すると
+$$
+\w_k\T \x + w_{k0} = \w_j\T \x + w_{j0}
+$$
+これを変形するとと(4.10)になる。
+
+<hr/>
+$$
+\hat{\x} = \lambda \x_A + (1 - \lambda)\x_B
+\\
+0 \le \lambda \le 1
+\tag{4.11}
+$$
+
+<hr/>
+$$
+y_k(\hat{\x}) = \lambda y_k(\x_A) + (1 - \lambda)y_k(\x_B)
+\tag{4.12}
+$$
+<h5>証明</h5>
+(4.11)から $y_k(\hat{\x}) = y_k( \lambda \x_A + (1 - \lambda)\x_B )$ なので、$y_k$の線形性から明らか。
+<hr/>
+
+</body></html>
