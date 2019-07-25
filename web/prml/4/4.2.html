@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.2 確率的生成モデル</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.2 確率的生成モデル</h1>
+
+$$
+p(C_1 | \x) = \frac{ p(\x | C_1) p(C_1) }{p(\x | C_1) p(C_1) + p(\x | C_2)p(C_2)}
+\\
+= \frac{1}{1 + \exp(-a)} = \sigma(a)
+\tag{4.57}
+$$
+
+$$
+a = \ln \frac{p(\x | C_1) p(C_1)}{p(\x | C_2) p(C_2)}
+\tag{4.58}
+$$
+
+$$
+\sigma(a) = \frac{1}{1 + \exp(-a)}
+\tag{4.59}
+$$
+
+<h5>(4.57)の証明</h5>
+分母と分子に$\exp(a)$をかけて
+$$
+\frac{1}{1 + \exp(-a)} = \frac{\exp(a)}{\exp(a) + 1}
+$$
+
+(4.58)を代入して
+$$
+= \frac{\frac{p(\x | C_1) p(C_1)}{p(\x | C_2) p(C_2)}}{\frac{p(\x | C_1) p(C_1)}{p(\x | C_2) p(C_2)} + 1}
+$$
+
+分母と分子に$p(\x | C_2) p(C_2)$をかけて
+$$
+= \frac{p(\x | C_1) p(C_1)}{p(\x | C_1) p(C_1) + p(\x | C_2) p(C_2)}
+$$
+
+<hr/>
+$$
+\sigma(-a) = 1 - \sigma(a)
+\tag{4.60}
+$$
+<h5>証明</h5>
+(4.59)から
+$$
+\sigma(-a) = \frac{1}{1 + \exp(a)}
+$$
+
+分母と分子に$\exp(-a)$をかけて
+$$
+= \frac{\exp(-a)}{\exp(-a) + 1}
+$$
+
+分子に$1 - 1 = 0$を追加して
+$$
+= \frac{1 + \exp(-a) - 1}{1 + \exp(-a)}
+$$
+
+整理して
+$$
+= 1 -  \frac{1}{1 + \exp(-a)} = 1 - \sigma(a)
+$$
+
+<hr/>
+
+ロジスティックスシグモイド関数の逆関数のロジット関数
+$$
+a = \ln(\frac{\sigma}{1 - \sigma})
+\tag{4.61}
+$$
+<h5>証明</h5>
+$$
+\sigma(a) = \frac{1}{1 + \frac{1 - \sigma}{\sigma} } = \sigma
+$$
+
+<hr/>
+
+対数オッズ
+$$
+a = \ln \frac{p(C_1 | \x)}{p(C_2 | \x)}
+$$
+
+<b>正規化指数関数</b><br/>
+$$
+p(C_k | \x) = \frac{p(\x | C_k) p(C_k)}{\sum_j p(\x | C_j) p(C_j) }
+\\
+= \frac{\exp(a_k)}{\sum_j \exp(a_j)}
+\tag{4.62}
+$$
+
+$$
+a_k = \ln( p(\x | C_k) p(C_k) )
+\tag{4.63}
+$$
+
+</body></html>

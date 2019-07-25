@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.2.1 連続値入力</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>4.2.1 連続値入力</h1>
+
+$$
+p(\x | C_k) = \frac{1}{(2 \pi)^{D/2}} \frac{1}{{| \Sigma |}^{1/2}}
+\exp\{ - \frac{1}{2}(\x - \v{\mu}_k)\T \Sigma^{-1}  (\x - \v{\mu}_k) \}
+\tag{4.64}
+$$
+
+$$
+p(C_1 | \x) = \sigma(\w\T\x + w_0)
+\tag{4.65}
+$$
+
+$$
+\w = \Sigma^{-1}(\v{\mu}_1 - \v{\mu}_2)
+\tag{4.66}
+$$
+
+$$
+w_0 = - \frac{1}{2} \v{\mu}_1\T \Sigma^{-1} \v{\mu}_1
+      + \frac{1}{2} \v{\mu}_2\T \Sigma^{-1} \v{\mu}_2
+      + \ln \frac{p(C_1)}{p(C_2)}
+\tag{4.67}
+$$
+
+<h5>証明</h5>
+(4.58)から
+$$
+a = \ln \frac{p(\x | C_1) p(C_1)}{p(\x | C_2) p(C_2)}
+$$
+
+(4.64)を代入して
+$$
+a = \ln \frac{\frac{1}{(2 \pi)^{D/2}} \frac{1}{{| \Sigma |}^{1/2}}
+\exp\{ - \frac{1}{2}(\x - \v{\mu}_1)\T \Sigma^{-1}  (\x - \v{\mu}_1) \} p(C_1)}
+{ \frac{1}{(2 \pi)^{D/2}} \frac{1}{{| \Sigma |}^{1/2}}
+\exp\{ - \frac{1}{2}(\x - \v{\mu}_2)\T \Sigma^{-1}  (\x - \v{\mu}_2) \}
+    p(C_2)}
+$$
+
+整理して
+$$
+- \frac{1}{2}(\x - \v{\mu}_1)\T \Sigma^{-1}  (\x - \v{\mu}_1)
+\\
++ \frac{1}{2}(\x - \v{\mu}_2)\T \Sigma^{-1}  (\x - \v{\mu}_2)
+\\
++ \ln \frac{p(C_1)}{p(C_2)}
+$$
+
+展開して
+$$
+= - \frac{1}{2}(
+    \x\T \Sigma^{-1} \x - \x\T \Sigma^{-1} \v{\mu}_1
+  - \v{\mu}_1\T \Sigma^{-1} \x + \v{\mu}_1\T \Sigma^{-1} \v{\mu}_1
+\\
+- \x\T \Sigma^{-1} \x + \x\T \Sigma^{-1} \v{\mu}_2
++ \v{\mu}_2\T \Sigma^{-1} \x - \v{\mu}_2\T \Sigma^{-1} \v{\mu}_2
+   )
+   \\
+   + \ln \frac{p(C_1)}{p(C_2)}
+$$
+
+整理して
+$$
+= - \frac{1}{2}(
+    \x\T \Sigma^{-1} (\v{\mu}_2 - \v{\mu}_1)
+  + (\v{\mu}_2\T - \v{\mu}_1\T) \Sigma^{-1} \x )
+\\
+- \frac{1}{2}(\v{\mu}_1\T \Sigma^{-1} \v{\mu}_1 - \v{\mu}_2\T \Sigma^{-1} \v{\mu}_2)
+\\
+   + \ln \frac{p(C_1)}{p(C_2)}
+$$
+
+$(\Sigma^{-1})^T = \Sigma^{-1}$を使い
+$$
+= (\v{\mu}_1 - \v{\mu}_2)^T \Sigma^{-1} \x 
+- \frac{1}{2}(\v{\mu}_1\T \Sigma^{-1} \v{\mu}_1 - \v{\mu}_2\T \Sigma^{-1} \v{\mu}_2)
+   + \ln \frac{p(C_1)}{p(C_2)}
+$$
+
+<hr/>
+Kクラスの場合は(4.62)と(4.63)から
+$$
+a_k(\x) = \w_k\T \x + w_{k0}
+\tag{4.68}
+$$
+
+$$
+\w_k \eqdef \Sigma^{-1} \v{\mu}_k
+\tag{4.69}
+$$
+
+$$
+w_{k0} \eqdef - \frac{1}{2} \v{\mu}_k\T \Sigma^{-1} \v{\mu}_k + \ln p(C_k)
+\tag{4.70}
+$$
+
+<h5>証明</h5>
+(4.63)に(4.64)を代入すると
+$$
+a_k = \ln( \frac{1}{(2 \pi)^{D/2}} \frac{1}{{| \Sigma |}^{1/2}}
+\exp\{ - \frac{1}{2}(\x - \v{\mu}_k)\T \Sigma^{-1}  (\x - \v{\mu}_k) \} p(C_k) )
+$$
+
+整理して
+$$
+= - \frac{1}{2}(\x - \v{\mu}_k)\T \Sigma^{-1}  (\x - \v{\mu}_k) + \ln p(C_k) + const
+$$
+
+展開して
+$$
+= - \frac{1}{2} \x\T \Sigma^{-1} \x
+ + \frac{1}{2} \x\T \Sigma^{-1} \v{\mu}_k
+ \\
++ \frac{1}{2} \v{\mu}_k\T \Sigma^{-1} \x
+- \frac{1}{2} \v{\mu}_k\T \Sigma^{-1} \v{\mu}_k
+\\
++ \ln p(C_k) + const
+$$
+
+整理して
+$$
+= - \frac{1}{2} \x\T \Sigma^{-1} \x
++ \v{\mu}_k\T \Sigma^{-1} \x
+\\
+- \frac{1}{2} \v{\mu}_k\T \Sigma^{-1} \v{\mu}_k + \ln p(C_k) + const
+$$
+
+(4.68)を(4.69)と(4.70)で表すには、以下が取り除かれなければならない。
+$$
+- \frac{1}{2} \x\T \Sigma^{-1} \x  + const
+$$
+
+$a_k'$を以下のように定義する。
+$$
+a_k = a_k' - \frac{1}{2} \x\T \Sigma^{-1} \x  + const
+$$
+
+(4.62)の左辺と最後の右辺から
+$$
+p(C_k | \x) = \frac{\exp(a_k)}{\sum_j \exp(a_j)}
+$$
+
+$a_k'$を使い
+$$
+= \frac{\exp( a_k' - \frac{1}{2} \x\T \Sigma^{-1} \x  + const )}{\sum_j \exp( a_j' - \frac{1}{2} \x\T \Sigma^{-1} \x  + const )}
+$$
+
+$\exp$の中を2つに分けて
+$$
+= \frac{\exp( a_k' ) \exp( - \frac{1}{2} \x\T \Sigma^{-1} \x  + const )}{\sum_j \exp( a_j') \exp( - \frac{1}{2} \x\T \Sigma^{-1} \x  + const )}
+$$
+
+約分して
+$$
+= \frac{\exp( a_k' )}{\sum_j \exp( a_j') }
+$$
+
+</body></html>
