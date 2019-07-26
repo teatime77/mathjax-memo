@@ -23,6 +23,8 @@ $$
 \newcommand{\Y}{\m{Y}}
 \\
 \newcommand{\x}{\v{x}}
+\\
+\newcommand{\y}{\v{y}}
 $$
 
 <h3>ベクトル</h3>
@@ -120,6 +122,19 @@ $$
   \v{a}_N\T \v{b}_1 & \ldots & \v{a}_N\T \v{b}_N 
 \end{array}\right)
 $$
+
+<hr/>
+$$
+\x\T \A \y = \Tr(\A \y \x\T)
+$$
+<h5>証明</h5>
+$$
+\x\T \A \y = \sum_i x_i (\A \y)_i = \sum_i x_i (\sum_k a_{ik} y_k )
+\\
+\Tr(\A \y \x\T) = \sum_i (\A \y \x\T)_{ii} = \sum_i \sum_k a_{ik} (\y \x\T)_{ki} = \sum_i \sum_k a_{ik} y_k x_i
+$$
+
+
 
 <h3>1.2 Determinant</h3>
 

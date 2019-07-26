@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.2.2 最尤解</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>4.2.2 最尤解</h1>
+
+2クラスで、クラスの条件付き確率がガウス分布で、共分散行列がおなじ場合は
+$$
+p(\x_n, C_1) = p(C_1) p(\x_n | C_1) = \pi \N(\x_n | \v{\mu}_1, \Sigma)
+\\
+p(\x_n, C_2) = p(C_2) p(\x_n | C_2) = \pi \N(\x_n | \v{\mu}_2, \Sigma)
+$$
+
+尤度関数は
+$$
+p(\vv{t} | \pi, \mmu_1, \mmu_2, \Sigma) = \prod_{n=1}^N [\pi \N(\x_n | \v{\mu}_1, \Sigma) ]^{t_n} [(1 - \pi) \N(\x_n | \v{\mu}_2, \Sigma) ]^{1 - t_n}
+\tag{4.71}
+$$
+ここで
+$$
+\vv{t} = (t_1, \ldots, t_N)\T
+$$
+
+(4.71)の対数尤度関数は
+$$
+\ln p(\vv{t} | \pi, \mmu_1, \mmu_2, \Sigma) = \ln \{ \prod_{n=1}^N [\pi \N(\x_n | \v{\mu}_1, \Sigma) ]^{t_n} [(1 - \pi) \N(\x_n | \v{\mu}_2, \Sigma) ]^{1 - t_n} \}
+$$
+
+整理して
+$$
+= \sum_{n=1}^N [ t_n(\ln \pi + \ln \N(\x_n | \v{\mu}_1, \Sigma) )
+\\
++ (1 - t_n)(\ln(1 - \pi) + \ln \N(\x_n | \v{\mu}_2, \Sigma) ) ]
+\tag{4.71.1}
+$$
+
+$\pi$に関する部分のみ取り出すと
+$$
+\sum_{n=1}^N [ t_n \ln \pi + (1 - t_n) \ln(1 - \pi) ]
+\tag{4.72}
+$$
+
+(4.72)を$\pi$で微分すると
+$$
+\sum_{n=1}^N [ \frac{t_n}{\pi} - \frac{1 - t_n}{1 - \pi}
+$$
+
+$$
+= \frac{1}{\pi(1 - \pi)} \sum_{n=1}^N [ t_n(1 - \pi) - (1 - t_n)\pi]
+$$
+
+$$
+= \frac{1}{\pi(1 - \pi)} \sum_{n=1}^N [ t_n - \pi]
+$$
+
+$$
+= \frac{ \sum_{n=1}^N t_n - N \pi }{\pi(1 - \pi)}
+$$
+
+これを0とおくと
+$$
+\pi = \frac{1}{N} \sum_{n=1}^N t_n = \frac{N_1}{N} = \frac{N_1}{N_1 + N_2}
+\tag{4.73}
+$$
+
+ここで
+$$
+N_1 \eqdef \jp{C_1のデータ数}
+\\
+N_2 \eqdef \jp{C_2のデータ数}
+$$
+
+<h5>演習4.9</h5>
+多クラスの場合は以下になる。
+$$
+\pi_k = \frac{N_k}{N}
+\tag{4.159}
+$$
+ただし
+$$
+N_k \eqdef \jp{C_kのデータ数}
+$$
+<h5>証明</h5>
+尤度関数は
+$$
+p(\{ \phi_n, t_n \} | \{\pi_k\}  ) = \prod_{n=1}^N \prod_{k=1}^K [p(\phi_n | C_k) \pi_k]^{t_{nk}}
+$$
+
+対数をとると
+$$
+\ln p(\{ \phi_n, t_n \} | \{\pi_k\}  ) = \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln p(\phi_n | C_k) + \ln \pi_k]
+\tag{155}
+$$
+
+$\sum_k \pi_k = 1$の制約があるのでラグランジュ乗数$\lambda$を使い、以下を最大化する。
+$$
+\ln p(\{ \phi_n, t_n \} | \{\pi_k\} ) + \lambda(\sum_{k=1}^K \pi_k - 1)
+$$
+
+$\pi_k$で微分して0とおくと
+$$
+\sum_{n=1}^N \frac{t_{nk}}{\pi_k} + \lambda = 0
+$$
+
+変形すると
+$$
+- \pi_k \lambda = \sum_{n=1}^N t_{nk} = N_k
+\tag{156}
+$$
+
+両辺を$k$について足し合わせると
+$$
+\lambda = - N
+$$
+
+この$\lambda$を(156)に代入すると(4.159)が得られる。
+
+<hr/>
+$\mmu_1$について最大化すると
+$$
+\mmu_1 = \frac{1}{N_1} \sum_{n=1}^N t_n \x_n
+\tag{4.75}
+$$
+
+
+(4.71.1)の$\mmu_1$に関する項を取り出すと
+$$
+\sum_{n=1}^N t_n \ln \N(\x_n | \v{\mu}_1, \Sigma)
+$$
+
+ガウス分布$\N$の定義から
+$$
+= - \frac{1}{2} \sum_{n=1}^N t_n (\x_n - \mmu_1)\T \Sigma^{-1} (\x_n - \mmu_1) + const
+\tag{4.74}
+$$
+
+展開すると
+$$
+= - \frac{1}{2} \sum_{n=1}^N t_n
+[
+\x_n\T \Sigma^{-1} \x_n
+- \x_n\T \Sigma^{-1} \mmu_1
+\\
+- \mmu_1\T \Sigma^{-1} \x_n
++ \mmu_1\T \Sigma^{-1} \mmu_1
+]
++ const
+$$
+
+$\mmu_1$に関する項のみ取り出して、整理すると
+$$
+= - \frac{1}{2} \sum_{n=1}^N t_n
+[
+\mmu_1\T \Sigma^{-1} \mmu_1
+- 2 \mmu_1^T \Sigma^{-1} \x_n
+]
++ const
+$$
+
+$\mmu_1$で微分して0とおくと
+$$
+\sum_{n=1}^N t_n [ 2 \Sigma^{-1} \mmu_1 - 2 \Sigma^{-1} \x_n  ] = 0
+$$
+
+$\Sigma$をかけて整理すると
+$$
+\sum_{n=1}^N t_n  \mmu_1 = \sum_{n=1}^N t_n \x_n
+$$
+
+$\sum_{n=1}^N t_n = N_1$から(4.75)を得る。
+<hr/>
+
+同様に$\mmu_2$について最大化すると
+$$
+\mmu_2 = \frac{1}{N_2} \sum_{n=1}^N (1 - t_n) \x_n
+\tag{4.76}
+$$
+<hr/>
+
+共分散行列$\Sigma$について最大化するため、(4.71)の対数をとると
+$$
+\ln \prod_{n=1}^N [\pi \N(\x_n | \v{\mu}_1, \Sigma) ]^{t_n} [(1 - \pi) \N(\x_n | \v{\mu}_2, \Sigma) ]^{1 - t_n}
+$$
+
+$$
+= \sum_{n=1}^N t_n \ln(\pi \N(\x_n | \v{\mu}_1, \Sigma) ) + (1 - t_n) \ln( (1 - \pi) \N(\x_n | \v{\mu}_2, \Sigma) )
+$$
+
+$$
+= \sum_{n=1}^N t_n (\ln \pi + \ln \N(\x_n | \v{\mu}_1, \Sigma) ) + (1 - t_n) ( \ln(1 - \pi) + \ln \N(\x_n | \v{\mu}_2, \Sigma) )
+$$
+
+$$
+= \sum_{n=1}^N t_n (\ln \pi 
+- \frac{1}{2} \ln {|\Sigma|}
+- \frac{1}{2} (\x_n - \mmu_1)\T \Sigma^{-1} (\x_n - \mmu_1)
+ ) 
+ \\
+ + (1 - t_n) ( \ln(1 - \pi)
+
+ - \frac{1}{2} \ln {|\Sigma|}
+ - \frac{1}{2} (\x_n - \mmu_2)\T \Sigma^{-1} (\x_n - \mmu_2)
+    )
+$$
+
+$\Sigma$に関する項を取り出すと
+$$
+= \sum_{n=1}^N t_n (
+- \frac{1}{2} \ln {|\Sigma|}
+- \frac{1}{2} (\x_n - \mmu_1)\T \Sigma^{-1} (\x_n - \mmu_1)
+ ) 
+ \\
+ + (1 - t_n) (
+ - \frac{1}{2} \ln {|\Sigma|}
+ - \frac{1}{2} (\x_n - \mmu_2)\T \Sigma^{-1} (\x_n - \mmu_2)
+    )
+$$
+
+整理して
+$$
+= - \frac{N}{2} \ln {|\Sigma|}
+- \frac{1}{2}
+\sum_{n=1}^N [
+t_n (\x_n - \mmu_1)\T \Sigma^{-1} (\x_n - \mmu_1) 
+ \\
+ + (1 - t_n) (\x_n - \mmu_2)\T \Sigma^{-1} (\x_n - \mmu_2) ]
+$$
+
+$$
+= - \frac{N}{2} \ln {|\Sigma|}
+- \frac{1}{2} \sum_{n \in C_1} (\x_n - \mmu_1)\T \Sigma^{-1} (\x_n - \mmu_1)
+\\
+- \frac{1}{2} \sum_{n \in C_2} (\x_n - \mmu_2)\T \Sigma^{-1} (\x_n - \mmu_2)
+$$
+
+$$
+\m{S} \eqdef \frac{N_1}{N} \m{S}_1 + \frac{N_2}{N} \m{S}_2
+\tag{4.78}
+$$
+
+$$
+\m{S}_1 \eqdef \frac{1}{N_1} \sum_{n \in C_1} (\x_n - \mmu_1) (\x_n - \mmu_1)\T
+\tag{4.79}
+$$
+
+$$
+\m{S}_2 \eqdef \frac{1}{N_2} \sum_{n \in C_2} (\x_n - \mmu_2) (\x_n - \mmu_2)\T
+\tag{4.80}
+$$
+
+$$
+= \Tr(\Sigma^{-1} \m{S}) = \Tr(\Sigma^{-1} ( \frac{N_1}{N} \m{S}_1 + \frac{N_2}{N} \m{S}_2))
+$$
+
+$$
+= \frac{N_1}{N} \Tr(\Sigma^{-1} \m{S}_1) + \frac{N_2}{N} \Tr(\Sigma^{-1} \m{S}_2)
+$$
+
+$$
+= \frac{N_1}{N} \Tr(\Sigma^{-1} \frac{1}{N_1} \sum_{n \in C_1} (\x_n - \mmu_1) (\x_n - \mmu_1)\T)
+\\
++ \frac{N_2}{N} \Tr(\Sigma^{-1} \frac{1}{N_2} \sum_{n \in C_2} (\x_n - \mmu_2) (\x_n - \mmu_2)\T)
+$$
+
+$$
+= \frac{1}{N} \sum_{n \in C_1} \Tr(\Sigma^{-1} (\x_n - \mmu_1) (\x_n - \mmu_1)\T)
+\\
++ \frac{1}{N} \sum_{n \in C_2} \Tr(\Sigma^{-1} (\x_n - \mmu_2) (\x_n - \mmu_2)\T)
+$$
+
+<hr/>
+<h5>演習 4.10</h5>
+
+$$
+p(\v{\phi} | C_k) = \N(\v{\phi} | \mmu_k, \Sigma)
+\tag{4.160}
+$$
+
+平均の最尤解は以下になる。
+$$
+\mmu_k = \frac{1}{N_k} \sum_{n=1}^N t_{nk} \v{\phi}_n
+\tag{4.161}
+$$
+
+共通の共分散行列の最尤解は以下になる。
+$$
+\Sigma = \sum_{k=1}^K \frac{N_k}{N} \m{S}_k
+\tag{4.162}
+$$
+
+ここで
+$$
+\m{S}_k \eqdef \frac{1}{N_k} \sum_{n=1}^N t_{nk}(\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T
+\tag{4.163}
+$$
+
+<h5>証明</h5>
+(4.160)を(155)に代入して
+$$
+\ln p(\{ \phi_n, t_n \} | \{\pi_k\}  ) = \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln \N(\v{\phi}_n | \mmu_k, \Sigma) + \ln \pi_k]
+$$
+
+ガウス分布$\N$の定義を使い、$\mmu_k$と$\Sigma$に関する項のみ取り出し
+$$
+= - \frac{1}{2} \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln{|\Sigma|} + (\v{\phi}_n - \mmu_k)^T \Sigma^{-1} (\v{\phi}_n - \mmu_k) ] + const
+\tag{157}
+$$
+
+右辺を$\mmu_k$で微分して0とおくと
+$$
+\sum_{n=1}^N t_{nk} \Sigma^{-1} (\v{\phi}_n - \mmu_k) = 0
+$$
+
+$\Sigma$をかけて
+$$
+\sum_{n=1}^N t_{nk} (\v{\phi}_n - \mmu_k) = 0
+$$
+
+変形して
+$$
+\sum_{n=1}^N t_{nk} \mmu_k = \sum_{n=1}^N t_{nk} \v{\phi}_n 
+$$
+
+(156)を使うと(4.161)になる。<br/>
+<br/>
+一般に$\x\T \A \y = \Tr(\A \y \x\T)$なので、(157)は以下になる。
+$$
+- \frac{1}{2} \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln{|\Sigma|} + \Tr( \Sigma^{-1} (\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T) ] + const
+$$
+
+$\Sigma$で微分して0とおき、$\frac{\partial}{\partial \A} \ln {| \A |} = {(\A^{-1})}^T$を使うと
+$$
+- \frac{1}{2} \sum_{n=1}^N \sum_{k=1}^K t_{nk} [{(\Sigma^{-1})}^T + \frac{\partial}{\partial \Sigma} \Tr( \Sigma^{-1} (\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T) ] = 0
+$$
+
+$\frac{\partial}{\partial \A} \Tr(\A^{-1} \B ) = - (\A^{-1} \B \A^{-1})\T $ を使うと
+$$
+- \frac{1}{2} \sum_{n=1}^N \sum_{k=1}^K t_{nk} [{(\Sigma^{-1})}^T - (\Sigma^{-1} (\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T) \Sigma^{-1})\T ] = 0
+$$
+
+$\Sigma$を左と右からかけ、整理すると
+$$
+\sum_{n=1}^N \sum_{k=1}^K t_{nk} \{ \Sigma - (\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T \}  = 0
+$$
+
+(156)を使って
+$$
+\Sigma = \frac{1}{N}  \sum_{k=1}^K \sum_{n=1}^N t_{nk} (\v{\phi}_n - \mmu_k) (\v{\phi}_n - \mmu_k)^T
+$$
+
+(4.163)から
+$$
+\Sigma = \frac{1}{N} \sum_{k=1}^K N_k \m{S}_k 
+$$
+
+これから(4.162)を得る。
+
+</body></html>

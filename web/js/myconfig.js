@@ -11,6 +11,7 @@ MathJax.Hub.Config({
         v  : ["\\boldsymbol{#1}", 1],
         m  : ["\\boldsymbol{#1}", 1],
         vv : ["\\mathsf{#1}", 1],
+        mmu : ["\\v{\\mu}"],
         E  : ["\\mathbb{E}"],
         jp : ["\\small{#1}", 1],
         eqdef : ["\\ \\overset{\\mathrm{def}}{=\\mathrel{\\mkern-3mu}=} \\"],
