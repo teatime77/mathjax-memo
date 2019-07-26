@@ -4,24 +4,40 @@
 <head>
     <meta charset="utf-8" />
     <title>2.4 指数型分布族</title>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX","output/HTML-CSS"],
-        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-      });
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <!-- <script type="text/javascript" src="MathJax/MathJax.js" ></script> -->
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
 </head>
 <body>
-  <h1>2.4 指数型分布族</h1>
 $$
-\newcommand{\v}[1]{\mathrm{#1}}
+\newcommand{\det}{\mathrm{det}}
 \\
 \newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
 $$
-<hr/>
+
+<h1>2.4 指数型分布族</h1>
+
+$$
+p(\x | \v{\eta}) = h(\x) g(\v{\eta}) \exp(\v{\eta}\T \v{u}(\x))
+\tag{2.194}
+$$
+
+
+  <hr/>
 <h3>2.199</h3>
 $$
 \eta = \ln(\frac{\mu}{1 - \mu})

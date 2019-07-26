@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.3.2 ロジスティック回帰</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>4.3.2 ロジスティック回帰</h1>
+2クラス識別問題を考える。<br/>
+クラス$C_1$の事後確率は
+$$
+p(C_1 | \v{\phi}) = y(\v{\phi}) = \sigma(\w\T \v{\phi})
+\tag{4.87}
+$$
+
+$$
+p(C_2 | \v{\phi}) = 1 - p(C_1 | \v{\phi})
+$$
+
+シグモイド関数の微分
+$$
+\frac{d \sigma}{d a} = \sigma(1 - \sigma)
+\tag{4.88}
+$$
+<h5>証明</h5>
+シグモイド関数の定義(4.59)から
+$$
+\frac{d \sigma}{d a} = \frac{d}{d a} \frac{1}{1 + \exp(-a)}
+\\
+= \frac{1}{(1 + \exp(-a))^2} \exp(-a)
+\\
+= \frac{1}{1 + \exp(-a)} \frac{ \exp(-a) }{1 + \exp(-a)}  
+\\
+= \frac{1}{1 + \exp(-a)} \frac{ 1 + \exp(-a) - 1 }{1 + \exp(-a)}  
+\\
+\sigma(a) (1 - \sigma(a))
+$$
+<hr/>
+
+$$
+p(\vv{t} | \w) = \prod_{n=1}^N y_n^{t_n} (1 - y_n)^{1 - t_n}
+\tag{4.89}
+$$
+ここで
+$$
+\vv{t} = (t_1, \ldots, t_N)^T \ t_n \in \{0,1\}
+\\
+\v{\phi}_n = \v{\phi}(\x_n)
+\\
+y_n = p(C_1 | \v{\phi}_n) = y(\v{\phi}_n) = \sigma(\w\T \v{\phi}_n)
+$$
+
+負の対数尤度を誤差関数とすると、交差エントロピー誤差関数になる。
+$$
+E(\w) = - \ln p(\vv{t} | \w) = - \sum_{n=1}^N \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+\tag{4.90}
+$$
+
+<hr/>
+
+誤差関数の$\w$についての勾配は
+$$
+\nabla E(\w) = \sum_{n=1}^N (y_n - t_n) \v{\phi}_n
+\tag{4.91}
+$$
+
+<h5>証明</h5>
+連鎖律から
+$$
+\frac{\partial E}{\partial \w} = \sum_{n=1}^N \frac{\partial E}{\partial y_n} \frac{\partial y_n}{\partial \w}
+\tag{ex 4.13.1}
+$$
+
+まず(4.90)から
+$$
+\frac{\partial E}{\partial y_n} = - \frac{\partial}{\partial y_n}  \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+$$
+
+$\ln$の微分から
+$$
+= - \frac{t_n}{y_n} + (1 - t_n) \frac{1}{1 - y_n}
+$$
+
+分母をそろえて
+$$
+= \frac{- t_n (1 - y_n) + (1 - t_n) y_n }{y_n (1 - y_n) } 
+$$
+
+整理して
+$$
+= \frac{y_n - t_n }{y_n (1 - y_n) } 
+\tag{ex 4.13.2}
+$$
+
+
+次に
+$$
+\frac{\partial y_n}{\partial \w} = \frac{\partial \sigma(\w\T \v{\phi}_n)}{\partial \w}
+$$
+
+(4.88)を使い
+$$
+= \sigma(\w\T \v{\phi}_n)(1 - \sigma(\w\T \v{\phi}_n)) \v{\phi}_n = y_n (1 - y_n) \v{\phi}_n
+\tag{ex 4.13.3}
+$$
+
+(ex 4.13.2)と(ex 4.13.3)を(ex 4.13.1)代入して
+$$
+\frac{\partial E}{\partial \w} = \sum_{n=1}^N \frac{y_n - t_n }{y_n (1 - y_n) } y_n (1 - y_n) \v{\phi}_n
+\\
+= \sum_{n=1}^N (y_n - t_n) \v{\phi}_n
+$$
+
+
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.2.3 離散特徴</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>4.2.3 離散特徴</h1>
+
+$x_i$をi番目の特徴とし、各特徴は2値とする。
+$$
+x_i \in \{ 0, 1 \}
+$$
+
+特徴の次元を$D$とすると、$2^D$個の特徴がある。<br/>
+これら$2^D$個の特徴に確率を割り当てると、独立な確率変数は$2^D - 1$個ある。(確率の総和 = 1の制約のため)<br/>
+<br/>
+ナイーブベイズの仮定をおくと
+$$
+p(\x | C_k) = \prod_{i=1}^D \mu_{ki}^{x_i} (1 - \mu_{ki})^{1 - x_i}
+\tag{4.81}
+$$
+
+(4.63)に代入して、整理すると
+$$
+a_k(\x) = \ln( p(\x | C_k) p(C_k) ) = \ln( \prod_{i=1}^D \mu_{ki}^{x_i} (1 - \mu_{ki})^{1 - x_i} p(C_k) )
+\\
+= \sum_{i=1}^D \{ x_i \ln \mu_{ki} + (1 - x_i) \ln(1 - \mu_{ki}) \} + \ln p(C_k)
+\tag{4.82}
+$$
+
+<hr/>
+<h5>演習 4.11</h5>
+Kクラスの識別問題で$\v{\phi}$はM次元の特徴ベクトルとし、各特徴はL個の離散状態を持つとする。<br/>
+特徴の各次元は独立とすると
+$$
+p(\v{\phi} | C_k) = \prod_{m=1}^M p(\phi_m | C_k)
+\tag{ex 4.11.1}
+$$
+
+ここで
+$$
+p(\phi_m | C_k) = \prod_{l=1}^L \mu_{kml}^{\phi_{ml}}
+\tag{ex 4.11.2}
+$$
+
+$\mu_{kml}$はk番目のクラスのm番目の次元のl番目の状態が1になる確率。<br/>
+$\phi_{ml}$はm番目の次元のl番目の状態で、値は0か1。<br/>
+(ex 4.11.2)の中で、$\phi_{ml} = 1$となる$l$は1つだけで、それ以外はすべて0。<br/>
+<br/>
+(ex 4.11.1)を(4.63)に代入して
+$$
+a_k = \ln( p(\v{\phi} | C_k) p(C_k) )
+\\
+= \ln( \prod_{m=1}^M p(\phi_m | C_k) p(C_k) )
+$$
+
+整理して
+$$
+= \sum_{m=1}^M \ln p(\phi_m | C_k) + \ln p(C_k)
+$$
+
+(ex 4.11.2)を代入して
+$$
+= \sum_{m=1}^M \ln \prod_{l=1}^L \mu_{kml}^{\phi_{ml}} + \ln p(C_k)
+$$
+
+整理して
+$$
+= \sum_{m=1}^M \sum_{l=1}^L \phi_{ml} \ln \mu_{kml} + \ln p(C_k)
+$$
+
+$a_k$ は $\phi_{ml}$ の線形になる。
+</body></html>
