@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.3.3 反復再重み付け最小二乗</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>4.3.3 反復再重み付け最小二乗</h1>
+
+$$
+\w^{(new)} = \w^{(old)} - \m{H}^{-1} \nabla E(\w)
+\tag{4.92}
+$$
+ここで$\m{H}$は$E(\w)$を$\w$で2階微分したヘッセ行列。<br/>
+<br/>
+
+$$
+\m{\Phi}\T \eqdef (\v{\phi}_1, \ldots, \v{\phi}_N)
+$$
+
+<hr/>
+誤差関数の勾配は
+$$
+\nabla E(\w) = \sum_{n=1}^N (\w\T \v{\phi}_n - t_n) \v{\phi}_n
+\\
+= (\v{\phi}_1, \ldots, \v{\phi}_N)
+\left( \begin{array}{c} \v{\phi}_1^T \\ \vdots \\ \v{\phi}_N^T  \end{array}\right)
+\w - (\v{\phi}_1, \ldots, \v{\phi}_N) 
+\left( \begin{array}{c} t_1 \\ \vdots \\ t_n  \end{array}\right)
+$$
+
+$\m{\Phi}$の定義から
+$$
+= \m{\Phi}\T \m{\Phi} \w - \m{\Phi}\T \vv{t}
+\tag{4.93}
+$$
+
+<hr/>
+ヘッセ行列は(4.93)から
+$$
+\m{H} \eqdef \nabla \nabla E(\w) = \sum_{n=1}^N \v{\phi}_n \v{\phi}_n\T
+\\
+= (\v{\phi}_1, \ldots, \v{\phi}_N)
+\left( \begin{array}{c} \v{\phi}_1^T \\ \vdots \\ \v{\phi}_N^T  \end{array}\right)
+= \m{\Phi}\T \m{\Phi}
+\tag{4.94}
+$$
+
+(4.92)に(4.93)と(4.94)を代入して
+$$
+\w^{(new)} = \w^{(old)} - (\m{\Phi}\T \m{\Phi})^{-1} ( \m{\Phi}\T \m{\Phi} \w^{(old)} - \m{\Phi}\T \vv{t} )
+$$
+
+展開して
+$$
+= \w^{(old)} - \m{\Phi}^{-1} (\m{\Phi}\T)^{-1} \m{\Phi}\T \m{\Phi} \w^{(old)} + (\m{\Phi}\T \m{\Phi})^{-1} \m{\Phi}\T \vv{t} 
+$$
+
+整理して
+$$
+= (\m{\Phi}\T \m{\Phi})^{-1} \m{\Phi}\T \vv{t} 
+$$
+
+<hr/>
+交差エントロピー誤差関数の勾配は(4.91)から
+$$
+\nabla E(\w) = \sum_{n=1}^N (y_n - t_n) \v{\phi}_n
+$$
+
+$$
+= (\v{\phi}_1, \ldots, \v{\phi}_N)
+\left( \begin{array}{c} y_1 - t_1 \\ \vdots \\ y_N - t_N  \end{array}\right)
+= \m{\Phi}\T(\vv{y} - \vv{t})
+\tag{4.96}
+$$
+
+ヘッセ行列は
+$$
+\m{H} \eqdef \nabla \nabla E(\w) = \frac{\partial}{\partial \w} \sum_{n=1}^N (y_n - t_n) \v{\phi}_n
+$$
+
+(4.87)と(4.88)から
+$$
+= \sum_{n=1}^N y_n (1 - y_n) \frac{\partial}{\partial \w} \w\T \v{\phi} \v{\phi}_n
+$$
+
+ベクトル$\v{\phi}_n$をベクトル$\w$で微分するので結果は行列になって
+$$
+= \sum_{n=1}^N y_n (1 - y_n) \v{\phi} \v{\phi}_n^T
+= \m{\Phi}\T \m{R} \m{\Phi}
+\tag{4.97}
+$$
+
+ここで$\m{R}$は $N \times N$の対角行列で対角成分は
+$$
+R_{nn} \eqdef y_n(1 - y_n)
+\tag{4.98}
+$$
+
+<h5>(4.97)の最後の式の証明</h5>
+$$
+\m{\Phi}\T \m{R} \m{\Phi} 
+= (\v{\phi}_1, \ldots, \v{\phi}_N)
+
+\left(  
+    \begin{array}{ccc}
+        R_{11} & \ldots & 0 \\    
+        \vdots & \ddots & \vdots \\    
+        0 & \ldots & R_{NN}
+    \end{array}
+\right)
+
+\left( \begin{array}{c} \v{\phi}_1^T \\ \vdots \\ \v{\phi}_N^T  \end{array}\right)
+\\
+= (R_{11} \v{\phi}_1, \ \ldots \ , R_{NN} \v{\phi}_N)
+\left( \begin{array}{c} \v{\phi}_1^T \\ \vdots \\ \v{\phi}_N^T  \end{array}\right)
+\\
+= \sum_{n=1}^N R_{nn} \v{\phi} \v{\phi}_n^T
+$$
+</body></html>
