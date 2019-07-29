@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.1 双対表現</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.1 双対表現</h1>
+
+$$
+J(\w) = \frac{1}{2} \sum_{n=1}^N \{ \w\T \v{\phi}(\x_n) - t_n \}^2 + \frac{\lambda}{2} \w\T \w
+\tag{6.2}
+$$
+
+$\w$で微分して0とおくと
+$$
+\w = - \frac{1}{\lambda} \sum_{n=1}^N \{ \w\T \v{\phi}(\x_n) - t_n \} \v{\phi}(\x_n)
+\\
+= \sum_{n=1}^N a_n \v{\phi}(\x_n) = \m{\Phi}\T \v{a}
+\tag{6.3}
+$$
+
+ここで
+$$
+\m{\Phi}\T = (\v{\phi}(\x_1), \ldots, \v{\phi}(\x_N))
+\\
+\v{a} = (a_1, \ldots, a_N)\T
+$$
+$$
+a_n = \frac{1}{\lambda}(\w\T \v{\phi}(\x_n) - t_n)
+\tag{6.4}
+$$
+
+</body></html>
