@@ -141,4 +141,83 @@ $$
 \\
 = \sum_{n=1}^N R_{nn} \v{\phi} \v{\phi}_n^T
 $$
+
+<hr/>
+<h5>演習 4.15</h5>
+$\m{\Phi}\T \m{R} \m{\Phi}$は正定値。
+<h5>証明</h5>
+任意のベクトル$\v{v}$に対し
+$$
+\v{v}\T \m{\Phi}\T \m{R} \m{\Phi} \v{v} = (\v{v}\T \m{\Phi}\T \m{R}^{1/2})(\m{R}^{1/2} \m{\Phi} \v{v}) = \| \m{R}^{1/2} \m{\Phi} \v{v} \|^2 > 0
+\tag{ex 4.15.1}
+$$
+
+ここで$\m{R}$は対角成分が$(y_n (1 - y_n))^{1/2}  $の対角行列。$\qed$<br/>
+<br/>
+$\w^\ast$を最小値とするとTaylor展開をすると、$\w^\ast$が最小値なので1次の項は消えて
+$$
+E(\w) = E(\w^\ast) + \frac{1}{2}(\w - \w^\ast)\T \m{H} (\w - \w^\ast)
+\tag{ex 4.15.1}
+$$
+
+以下のようにおくと
+$$
+\w = \w^\ast + \lambda \v{v}
+\tag{ex 4.15.2}
+$$
+
+(ex 4.15.1)から
+$$
+\frac{\partial^2 E}{\partial \lambda^2} = \frac{\partial^2}{\partial \lambda^2} ( E(\w^\ast) + \frac{1}{2}(\w - \w^\ast)\T \m{H} (\w - \w^\ast) )
+$$
+
+(ex 4.15.2)から
+$$
+= \frac{\partial^2}{\partial \lambda^2} \{ E(\w^\ast) + \frac{1}{2}(\lambda \v{v})\T \m{H} (\lambda \v{v}) \}
+\\
+= \v{v}\T \m{H} \v{v}
+$$
+
+$\m{H}$は正定値なので
+$$
+> 0
+$$
+
+$E$は2階微分が正なので凸関数。
+<hr/>
+
+(4.92)に(4.96)と(4.97)を代入すると
+$$
+\w^{(new)} = \w^{(old)} - (\m{\Phi}\T \m{R} \m{\Phi})^{-1} \m{\Phi}\T(\vv{y} - \vv{t})
+\\
+= (\m{\Phi}\T \m{R} \m{\Phi})^{-1}(\m{\Phi}\T \m{R} \m{\Phi} \w^{(old)} - \m{\Phi}\T(\vv{y} - \vv{t}) )
+\\
+= (\m{\Phi}\T \m{R} \m{\Phi})^{-1} \m{\Phi}\T \m{R} ( \m{\Phi} \w^{(old)} - \m{R}^{-1} (\vv{y} - \vv{t}) )
+\\
+= (\m{\Phi}\T \m{R} \m{\Phi})^{-1} \m{\Phi}\T \m{R} \vv{z}
+\tag{4.99}
+$$
+
+ここで
+$$
+\vv{z} \eqdef \m{\Phi} \w^{(old)} - \m{R}^{-1} (\vv{y} - \vv{t})
+\tag{4.100}
+$$
+
+$$
+\E[t] = 1 \cdot p(t=1) + 0 \cdot p(t=0) = p(t=1) = y = \sigma(\x)
+\tag{4.101}
+$$
+
+
+$$
+\mathrm{var}[t] = \E[t^2] - \E[t]^2 = \sigma(\x) - \sigma(\x)^2 = y(1 - y)
+\tag{4.102}
+$$
+
+$\vv{z}$のn番目の成分を$z_n$とすると、(4.98)と(4.100)から
+$$
+z_n = \v{\phi}_n\T \w^{(old)} - \frac{y_n - t_n}{y_n (1 - y_n)}
+\tag{4.103}
+$$
 </body></html>

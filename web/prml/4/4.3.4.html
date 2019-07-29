@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>4.3.4 多クラスロジスティック回帰</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>4.3.4 多クラスロジスティック回帰</h1>
+
+$$
+p(C_k | \v{\phi}) = y_k(\v{\phi}) = \frac{\exp(a_k)}{\sum_j \exp(a_j)}
+\tag{4.104}
+$$
+
+$$
+a_k = \w_k\T \v{\phi}
+\tag{4.105}
+$$
+
+$$
+\frac{\partial y_k}{\partial a_j} = y_k(I_{kj} - y_j)
+\tag{4.106}
+$$
+<h5>証明</h5>
+$$
+\frac{\partial y_k}{\partial a_k} = \frac{\exp(a_k)}{\sum_i \exp(a_i)} - \exp(a_k) \frac{1}{(\sum_i \exp(a_i))^2} \exp(a_k)
+\\
+= \frac{\exp(a_k)}{\sum_i \exp(a_i)}(1 - \frac{\exp(a_k)}{\sum_i \exp(a_i)} = y_k(1 - y_k)
+$$
+
+$j \ne k$の場合は
+$$
+\frac{\partial y_k}{\partial a_j} = - \exp(a_k) \frac{1}{(\sum_i \exp(a_i))^2} \exp(a_j)
+\\
+= - \frac{\exp(a_k)}{\sum_i \exp(a_i)} \frac{\exp(a_j)}{\sum_i \exp(a_i)}
+= - y_k y_j
+\qed
+$$
+
+<hr/>
+$$
+p(\m{T} | \w_1, \ldots, \w_K) = \prod_{n=1}^N \prod_{k=1}^K p(C_k | \v{\phi}_n)^{t_{nk}}
+\\
+= \prod_{n=1}^N \prod_{k=1}^K y_{nk}^{t_{nk}}
+\tag{4.107}
+$$
+
+ここで
+$$
+y_{nk} \eqdef y_k(\v{\phi}_n) = p(C_k | \v{\phi})
+\\
+t_{nk} = \m{T}_{nk}
+$$
+
+交差エントロピー誤差関数$E$は
+$$
+E(\w_1, \ldots, \w_K) \eqdef - \ln p(\m{T} | \w_1, \ldots, \w_K)
+\\
+= - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \ln y_{nk}
+\tag{4.108}
+$$
+
+$E$の$\w_j$に関する勾配は
+$$
+\nabla_{\w_j} E(\w_1, \ldots, \w_K) = \sum_{n=1}^N (y_{nj} - t_{nj})\v{\phi}_n
+\tag{4.109}
+$$
+<h5>証明</h5>
+(4.108)から
+$$
+\frac{\partial E}{\partial \w_j} = - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \frac{\partial \ln y_{nk} }{\partial y_{nk}}  \frac{\partial y_{nk}}{\partial a_j} \frac{\partial a_j}{\partial \w_j}
+$$
+
+(4.106)から
+$$
+= - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \frac{1}{y_{nk}} y_{nk}(I_{kj} - y_{nj}) \frac{\partial a_j}{\partial \w_j}
+$$
+
+(4.105)から
+$$
+= - \sum_{n=1}^N \sum_{k=1}^K t_{nk} (I_{kj} - y_{nj}) \v{\phi}_n
+$$
+
+$$
+= - \sum_{n=1}^N ( \sum_{k=1}^K t_{nk} I_{kj} - \sum_{k=1}^K t_{nk} y_{nj} ) \v{\phi}_n
+$$
+
+$\sum_{k=1}^K t_{nk} = 1$なので
+$$
+= - \sum_{n=1}^N ( t_{nj} - y_{nj} ) \v{\phi}_n
+\\
+= \sum_{n=1}^N ( y_{nj} - t_{nj} ) \v{\phi}_n
+\qed
+$$
+
+ニュートン・ラフソン法のヘッセ行列は
+$$
+\m{H} \eqdef \nabla_{\w_k} \nabla_{\w_j} E(\w_1, \ldots, \w_K) = \sum_{n=1}^N y_{nk} (I_{kj} - y_{nj}) \v{\phi}_n \v{\phi}_n\T
+\tag{4.110}
+$$
+
+<h5>証明</h5>
+(4.105)から
+$$
+a_{nk} \eqdef = \w_k^T \v{\phi}_n
+\tag{4.110.1}
+$$
+
+$$
+\frac{\partial y_{nj}}{\partial \w_k} = \frac{\partial y_{nj}}{\partial a_{nk}} \frac{\partial a_{nk}}{\partial \w_k} 
+$$
+
+(4.106)と(4.110.1)から
+$$
+= y_{nj}(I_{jk} - y_{nk}) \frac{\partial \w_k^T \v{\phi}_n}{\partial \w_k} 
+\\
+= y_{nj}(I_{jk} - y_{nk}) \v{\phi}_n
+\\
+= y_{nk}(I_{kj} - y_{nj}) \v{\phi}_n
+\tag{4.110.2}
+$$
+
+(4.109)と(4.110.2)から(4.110)が求まる。$\qed$<br/>
+
+<h5>演習 4.20</h5>
+(4.110)の$\m{H}$は正定値行列。
+<h5>証明</h5>
+$\w$の次元を$M$、クラスの数を$K$とすると、$\m{H}$のサイズは$MK \times MK$で要素は以下になる。
+$$
+\m{H}_{ki, jl} = \frac{\partial^2 E}{\partial w_{ki} \partial w_{jl}}
+= \sum_{n=1}^N y_{nk}(I_{kj} - y_{nj})\phi_{ni} \phi_{nl}
+\\
+1 \le k, j \le K \quad 1 \le i, l \le M
+$$
+
+次元が$MK$の任意のベクトル$\v{u}$に対し
+$$
+\v{u} \m{H} \v{u}^T = \sum_{n=1}^N [ \sum_{i,j,k,l} u_{ki}y_{nk}(I_{kj} - y_{nj}) \phi_{ni} \phi_{nl} u_{jl} ]
+$$
+
+$i, l$についてまとめて
+$$
+= \sum_{n=1}^N [ \sum_{j,k} ( \sum_{i=1}^M u_{ki} \phi_{ni}) y_{nk}(I_{kj} - y_{nj} )  ( \sum_{l=1}^M u_{jl} \phi_{nl}) ]
+$$
+
+$b_k = \sum_{i=1}^M u_{ki} \phi_{ni}$ とおくと
+$$
+= \sum_{n=1}^N [ \sum_{j,k} b_k y_{nk}(I_{kj} - y_{nj} )  b_j ]
+$$
+
+展開して
+$$
+= \sum_{n=1}^N [ \sum_{j,k} b_k y_{nk} I_{kj} b_j - b_k y_{nk} y_{nj} b_j  ]
+$$
+
+整理して
+$$
+= \sum_{n=1}^N [ \sum_k y_{nk} b_k^2 - (\sum_k b_k y_{nk})^2 ]
+$$
+
+$0 \le y_{nk} \le 1$ で $\sum_k y_{nk} = 1$ で $f(x) = x^2$は凸関数なので、イェンセンの不等式から
+$$
+\sum_k y_{nk} b_k^2 = \sum_k y_{nk} f(b_k) \ge  f(\sum_k y_{nk} b_k) = (\sum_k y_{nk} b_k)^2
+$$
+
+したがって
+$$
+\v{u}\T \m{H} \v{u} \ge 0 \qed
+$$
+</body></html>
