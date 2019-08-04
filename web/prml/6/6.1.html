@@ -55,4 +55,12 @@ a_n = \frac{1}{\lambda}(\w\T \v{\phi}(\x_n) - t_n)
 \tag{6.4}
 $$
 
+(6.3)を(6.2)に代入して
+$$
+J(\v{a}) = \frac{1}{2} \sum_{n=1}^N \{ (\m{\Phi}\T \v{a})\T \v{\phi}(\x_n) - t_n \}^2 + \frac{\lambda}{2} (\m{\Phi}\T \v{a})\T \m{\Phi}\T \v{a}
+\\
+= \frac{1}{2} \sum_{n=1}^N ((\m{\Phi}\T \v{a})\T \v{\phi}(\x_n))^2 - \sum_{n=1}^N t_n ((\m{\Phi}\T \v{a})\T \v{\phi}(\x_n)) + \frac{1}{2} \sum_{n=1}^N t_n^2 
+\\
++ \frac{\lambda}{2} (\m{\Phi}\T \v{a})\T \m{\Phi}\T \v{a}
+$$
 </body></html>
