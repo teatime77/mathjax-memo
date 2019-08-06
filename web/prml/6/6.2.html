@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.2 カーネル関数の構成</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.2 カーネル関数の構成</h1>
+
+$$
+k(x, x') = \v{\phi}(x)\T \v{\phi}(x') = \sum_{i=1}^M \phi_i(x) \phi_i(x')
+\tag{6.10}
+$$
+
+$$
+k(\x, \v{z}) = (\x\T \v{z})^2
+\tag{6.11}
+$$
+
+2次元の場合は
+$$
+k(\x, \v{z}) = (\x\T \v{z})^2 = (x_1 z_1 + x_2 z_2)^2
+\\
+= x_1^2 z_1^2 + 2 x_1 z_1 x_2 z_2 + x_2^2 z_2^2
+\\
+= (x_1^2, \sqrt{2}x_1 x_2, x_2^2) (z_1^2, \sqrt{2}z_1 z_2, z_2^2)\T
+\\
+= \v{\phi}(\x)\T \v{\phi}(\v{z})
+\tag{6.12}
+$$
+
+ガウスカーネル
+$$
+k(\x, \x') = \exp(- \frac{\| \x - \x' \|^2}{2 \sigma^2} )
+\tag{6.23}
+$$
+
+二乗を展開して
+$$
+\| \x - \x' \|^2 = \x\T\x - 2 \x\T\x' + (\x')\T\x'
+\tag{6.24}
+$$
+
+(6.23)に代入して
+$$
+k(\x, \x') = \exp(- \frac{\x\T\x}{2 \sigma^2} ) \exp(\frac{\x\T\x'}{\sigma^2} ) \exp(- \frac{(\x')\T\x'}{2 \sigma^2} )
+\tag{6.25}
+$$
+
+$$
+k(\x, \x') = \exp(- \frac{1}{2}(k(\x,\x) + k(\x',\x') - 2k(\x,\x'))  )
+\tag{6.26}
+$$
+
+$$
+k(A_1, A_2) = 2^{|A_1 \cap A_2|}
+\tag{6.27}
+$$
+
+<h5>演習 6.12</h5>
+$$
+\phi_U(A) = 
+\begin{cases}    1 & ( U \subset A ) \\ 0 & ( otherwise )  \end{cases}
+\tag{6.95}
+$$
+
+$$
+k(\x, \x') = p(\x) p(\x')
+\tag{6.28}
+$$
+
+$$
+k(\x, \x') = \sum_i p(\x | i) p(\x' |i)p(i)
+\tag{6.29}
+$$
+
+$$
+k(\x, \x') = \int p(\x | \v{z}) p(\x' |\v{z})p(\v{z}) d \v{z}
+\tag{6.30}
+$$
+
+$$
+\X = \{ \x_1, \ldots, \x_L \}
+\\
+\m{Z} = \{ \v{z}_1, \ldots, \v{z}_L \}
+$$
+
+$$
+k(\X, \X') = \sum_{\m{Z}} p(\X | \m{Z}) p(\X' |\m{Z})p(\m{Z})
+\tag{6.31}
+$$
+
+フィッシャースコア(Fisher score)
+$$
+\v{g}(\v{\theta}, \x) \eqdef \nabla_\v{\theta} \ln p(\x | \v{\theta})
+\tag{6.32}
+$$
+
+フィッシャーカーネル(Fisher kernel)
+$$
+k(\x, \x') \eqdef \v{g}(\v{\theta}, \x)\T \m{F}^{-1} \v{g}(\v{\theta}, \x')
+\tag{6.33}
+$$
+
+フィッシャー情報行列(Fisher information matrix)
+$$
+\m{F} = \E_x[ \v{g}(\v{\theta}, \x) \v{g}(\v{\theta}, \x)\T ]
+\tag{6.34}
+$$
+
+<h5>演習 6.13</h5>
+$$
+\v{g}(\v{\theta}, \x) = \m{M} \v{g}_\psi
+\tag{202}
+$$
+
+$$
+M_{ij} = \frac{\partial \psi_i}{\partial \theta_j}
+$$
+
+$$
+\v{g}_\psi = \nabla_\psi \ln p(\x | \v{\psi}(\v{\theta}))
+$$
+
+$$
+\m{F} = \E_x[ \m{M} \v{g}_\psi \v{g}_\psi\T \m{M}\T ]
+\\
+= \m{M} \ \E_x[ \v{g}_\psi \v{g}_\psi\T ] \ \m{M}\T
+\tag{203}
+$$
+
+(6.33)に(202)と(203)を代入すると
+$$
+k(\x, \x') = \v{g}_\psi\T \m{M}\T  (\m{M} \ \E_x[ \v{g}_\psi \v{g}_\psi\T ] \ \m{M}\T)^{-1} \m{M} \v{g}_\psi
+$$
+
+$$
+= \v{g}_\psi\T \m{M}\T (\m{M}\T)^{-1} \E_x[ \v{g}_\psi \v{g}_\psi\T ]^{-1} \m{M}^{-1} \m{M} \v{g}_\psi
+$$
+
+$$
+= \v{g}_\psi\T \ \E_x[ \v{g}_\psi \v{g}_\psi\T ]^{-1} \ \v{g}_\psi
+\tag{204}
+$$
+
+$$
+\m{F} \simeq \frac{1}{N} \sum_{n=1}^N \v{g}(\v{\theta}, \x_n) \v{g}(\v{\theta}, \x_n)\T
+\tag{6.35}
+$$
+
+$$
+k(\x, \x') = \v{g}(\v{\theta}, \x)\T \v{g}(\v{\theta}, \x')
+\tag{6.36}
+$$
+
+$$
+k(\x, \x') = \mathrm{tanh}(a \x\T \x' + b)
+\tag{6.37}
+$$
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.3 RBFネットワーク</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.3 RBFネットワーク</h1>
+
+$$
+\phi_j(\x) = h(\| \x - \mmu_j \|)
+$$
+
+$$
+f(\x) = \sum_{n=1}^N w_n h(\| \x - \x_n \|)
+\tag{6.38}
+$$
+
+$$
+E = \frac{1}{2} \sum_{n=1}^N \int (y(\x_n + \v{\xi}) - t_n)^2 \nu(\v{\xi}) d \v{\xi}
+\tag{6.39}
+$$
+
+$$
+y(\x) = \sum_{n=1}^N t_n h(\x - \x_n)
+\tag{6.40}
+$$
+
+$$
+h(\x - \x_n) = \frac{\nu(\x - \x_n)}{ \sum_{n=1}^N \nu(\x - \x_n) }
+\tag{6.41}
+$$
+
+<h5>演習 6.17</h5>
+$$
+y(\x) \rightarrow y(\x) + \epsilon \eta(\x)
+$$
+
+(6.39)に代入して
+$$
+E[y + \epsilon \eta] = \frac{1}{2} \sum_{n=1}^N \int (y(\x_n + \v{\xi}) + \epsilon \eta (\x_n + \v{\xi}) - t_n)^2 \nu(\v{\xi}) d \v{\xi}
+\tag{6.39}
+$$
+
+展開して
+$$
+= \frac{1}{2} \sum_{n=1}^N \int \{
+     \eta (\x_n + \v{\xi})^2 \epsilon^2 + 2 (y(\x_n + \v{\xi}) - t_n) \eta(\x_n + \v{\xi}) \epsilon
+     + (y(\x_n + \v{\xi}) - t_n)^2
+     \} \nu(\v{\xi}) d \v{\xi}
+$$
+
+停留条件が$\epsilon$の1次の係数が0とおくと
+$$
+\sum_{n=1}^N \int 
+     (y(\x_n + \v{\xi}) - t_n) \eta(\x_n + \v{\xi}) 
+     \nu(\v{\xi}) d \v{\xi}
+= 0
+$$
+
+<hr/>
+
+</body></html>

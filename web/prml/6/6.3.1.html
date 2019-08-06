@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.3.1 Nadaraya-Watsonモデル</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.3.1 Nadaraya-Watsonモデル</h1>
+
+$$
+p(\x, t) = \frac{1}{N} \sum_{n=1}^N f(\x - \x_n, t - t_n)
+\tag{6.42}
+$$
+
+$$
+y(\x) = \E[t | \x] = \int_{-\infty}^\infty t \ p(t|\x) dt
+\\
+= \int_{-\infty}^\infty t \ \frac{p(\x, t)}{p(\x)} dt
+\\
+= \frac{ \int t p(\x,t) dt }{ \int p(\x,t) dt }
+\\
+= \frac{ \sum_n \int t f(\x - \x_n, t - t_n) dt }{ \sum_m \int f(\x - \x_m, t - t_m) dt }
+\tag{6.43}
+$$
+
+任意の$\x$に対して以下を仮定する。
+$$
+\int_{-\infty}^\infty f(\x, t) t dt = 0
+\tag{6.44}
+$$
+
+分子で$t = u + t_n$、分母で$t = u + t_m$とおくと
+$$
+= \frac{ \sum_n \int (u + t_n) f(\x - \x_n, u) du }{ \sum_m \int f(\x - \x_m, u) du }
+$$
+
+$$
+= \frac{ \sum_n \int u f(\x - \x_n, u) du + \sum_n t_n \int f(\x - \x_n, u) du }{ \sum_m \int f(\x - \x_m, u) du }
+$$
+
+(6.44)から分母の最初の項は消えて
+$$
+= \frac{ \sum_n t_n \int f(\x - \x_n, u) du }{ \sum_m \int f(\x - \x_m, u) du }
+$$
+
+(6.47)を使い
+$$
+= \frac{ \sum_n g(\x - \x_n)  t_n }{ \sum_m g(\x - \x_m) }
+$$
+
+(6.46)を使い
+$$
+= \sum_n k(\x, \x_n) t_n
+\tag{6.45}
+$$
+
+$$
+k(\x, \x_n) = \frac{g(\x - \x_n)}{\sum_m g(\x - \x_m)}
+\tag{6.46}
+$$
+
+$$
+g(\x) = \int_{-\infty}^\infty f(\x, t) dt
+\tag{6.47}
+$$
+
+$$
+\sum_{n=1}^N k(\x, \x_n) = 1
+$$
+
+$$
+p(t | \x) = \frac{p(t,\x)}{\int p(t,\x) dt}
+= \frac{ \sum_n f(\x - \x_n, t - t_n) }{\sum_m \int f(\x - \x_m, t - t_m) dt} 
+\tag{6.48}
+$$
+
+<h5>演習 6.18</h5>
+$$
+p(t | x) = \frac{p(t,x)}{p(x)}
+\tag{6.18.1}
+$$
+
+$$
+f(x - x_n, t - t_n) = \N((x - x_n, t - t_n)\T | \v{0}, \sigma^2 \m{I})
+\tag{6.18.2}
+$$
+
+(6.48)の$f$に代入して
+$$
+p(t | x) 
+= \frac{ \sum_{n=1}^N \N((x - x_n, t - t_n)\T | \v{0}, \sigma^2 \m{I}) }{\sum_{m=1}^N \int \N((x - x_m, t - t_m)\T | \v{0}, \sigma^2 \m{I}) dt} 
+$$
+
+$$
+= \frac{ \sum_{n=1}^N \N(x - x_n | 0, \sigma^2) \N(t - t_n | 0, \sigma^2) }
+{\sum_{m=1}^N \N(x - x_m | 0, \sigma^2)} 
+\tag{6.18.3}
+$$
+
+$k$を以下のように定義する。
+$$
+k(x, x_n) = \frac{ \N(x - x_n | 0, \sigma^2) }
+{\sum_{m=1}^N \N(x - x_m | 0, \sigma^2)} 
+\tag{6.18.4}
+$$
+
+(6.18.3)は
+$$
+p(t | x) = \sum_{n=1}^N k(x, x_n) \N(t - t_n | 0, \sigma^2)
+$$
+
+$$
+= \sum_{n=1}^N k(x, x_n) \N(t | t_n, \sigma^2)
+\tag{208}
+$$
+
+平均は
+$$
+\E[t | x] = \int t p(t | x) dt
+$$
+
+(208)から
+$$
+= \int t \sum_{n=1}^N k(x, x_n) \N(t | t_n, \sigma^2) dt
+$$
+
+$t$に関係ない項を積分の外に出して
+$$
+= \sum_{n=1}^N k(x, x_n) \int t \N(t | t_n, \sigma^2) dt
+$$
+
+積分はガウス分布の平均なので
+$$
+= \sum_{n=1}^N k(x, x_n) t_n
+\tag{6.18.5}
+$$
+
+分散は
+$$
+\mathrm{var}[t|x] = \E[(t - \E[t|x])^2]
+$$
+
+$$
+= \int (t - \E[t|x])^2 p(t | x)dt
+$$
+
+(208)から
+$$
+= \sum_{n=1}^N k(x, x_n) \int (t - \E[t|x])^2 \N(t | t_n, \sigma^2) dt
+$$
+
+二乗を展開して
+$$
+= \sum_{n=1}^N k(x, x_n) \int (t^2 - 2 t \E[t|x] + \E[t|x]^2) \N(t | t_n, \sigma^2) dt
+$$
+
+$$
+= \sum_{n=1}^N k(x, x_n) \{ \int t^2 \N(t | t_n, \sigma^2) dt - 2 \E[t|x] \int t \N(t | t_n, \sigma^2) dt + \E[t|x]^2 \} 
+$$
+
+$$
+= \sum_{n=1}^N k(x, x_n) \{ \sigma^2 + t_n^2 - 2 t_n \E[t|x] + \E[t|x]^2 \} 
+$$
+
+$$
+= \sigma^2 +  \sum_{n=1}^N k(x, x_n) t_n^2 - 2 \E[t|x] \sum_{n=1}^N k(x, x_n) t_n + \E[t|x]^2
+$$
+
+右辺の第3項は(6.18.5)から
+$$
+= \sigma^2 +  \sum_{n=1}^N k(x, x_n) t_n^2 - 2 \E[t|x] \E[t|x] + \E[t|x]^2
+$$
+
+整理して
+$$
+= \sigma^2 +  \sum_{n=1}^N k(x, x_n) t_n^2 - \E[t|x]^2
+$$
+</body></html>
