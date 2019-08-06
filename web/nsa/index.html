@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>超準解析入門</title>
+    <script type="text/javascript" src="js/mymathjax.js" ></script>
+    <style>
+        li {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      </style>  
+</head>
+<body>
+$$
+\newcommand{\P}{\mathcal{P}}
+\\
+\newcommand{\F}{\mathcal{F}}
+\\
+\newcommand{\L}{\mathcal{L}}
+\newcommand{\U}{{}^\ast U}
+$$
+  <h1>超準解析入門</h1>
+<ol>
+<li>$a \in U, \ b \in a$ なら $b \in U$</li>
+<li>$a \in U, \ b \in U$ なら \{a, b\} \in U</li>
+<li>$a \in U$ なら $ \cup a \in U $ <br/>
+  ここで $\cup a = \cup_{x \in a} x$</li>
+<li>$a \in U$ なら $\P(a) \in U$ <br/>
+   ここで $\P(a)$は$a$の部分集合全体 $\P(a) = {x | x \subset a} $</li>
+</ol>
+
+順序対$\langle a, b \rangle$ 以下のように定義する。
+$$
+\langle a, b \rangle \eqdef \{ \{ a \} \{ a,b \} \}
+$$
+
+<h5>移行原理(transfer principle)</h5>
+$$
+\models \phi \iff \models {}^\ast \phi
+$$
+
+<h5>有限共起的</h5>
+$\phi(x,y)$ を $\L$ の論理式、$A$を$U$に属する集合とする。<br/>
+$A$の任意の有限個の元$\{a_i\}_{i=1,2,\ldots,n}$ $a_1, a_2, \ldots, a_n$対し、$U$の元$b$が存在して
+$\models \phi(a_i, b) \quad i = 1,2,\ldots,n$ となる。
+
+<h5>広大性または弱い共起性</h5>
+$\phi(x,y)$が$A$で有限共起的であれば、$\U$の元$\beta$が存在して、
+$A$の任意の元$a$に対して ${}^\ast \models \phi(a, \beta)$となる。
+
+<h5>フィルター</h5>
+$\F$は空集合でない。
+$$
+\F \ne \varnothing
+$$
+
+空集合は$\F$の元でない。
+$$
+\varnothing \notin \F
+$$
+
+$\F$の2つの要素の共通集合も$\F$の要素になる。
+$$
+J, K \in \F \implies J \cap K \in \F
+$$
+
+$$
+J \in \F , \  K \in X, \ J \subset K \implies K \in \F
+$$
+
+<h5>フレシェフィルター(Fréchet filter)</h5>
+集合$X$の部分集合族$\F$が
+
+$$
+\F = \{ A | A \subset X, \ A^c \jp{は有限集合} \}
+$$
+
+<h5>超フィルター(ultrafilter)</h5>
+$$
+\F \subset \mathcal{G} \implies \F = \mathcal{G}
+$$
+
+<h5>超冪(ultra­power)</h5>
+</body></html>

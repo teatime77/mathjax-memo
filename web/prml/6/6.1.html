@@ -58,9 +58,205 @@ $$
 (6.3)を(6.2)に代入して
 $$
 J(\v{a}) = \frac{1}{2} \sum_{n=1}^N \{ (\m{\Phi}\T \v{a})\T \v{\phi}(\x_n) - t_n \}^2 + \frac{\lambda}{2} (\m{\Phi}\T \v{a})\T \m{\Phi}\T \v{a}
-\\
+$$
+
+二乗を展開して
+$$
 = \frac{1}{2} \sum_{n=1}^N ((\m{\Phi}\T \v{a})\T \v{\phi}(\x_n))^2 - \sum_{n=1}^N t_n ((\m{\Phi}\T \v{a})\T \v{\phi}(\x_n)) + \frac{1}{2} \sum_{n=1}^N t_n^2 
 \\
 + \frac{\lambda}{2} (\m{\Phi}\T \v{a})\T \m{\Phi}\T \v{a}
+$$
+
+右辺の第1項は
+$$
+= \frac{1}{2} \sum_{n=1}^N (\m{\Phi}\T \v{a})\T \v{\phi}(\x_n) (\m{\Phi}\T \v{a})\T \v{\phi}(\x_n)
+$$
+
+$$
+= \frac{1}{2} \sum_{n=1}^N (\m{\Phi}\T \v{a})\T \v{\phi}(\x_n) \v{\phi}(\x_n)\T \m{\Phi}\T \v{a}
+$$
+
+
+$$
+= \frac{1}{2} \v{a}\T \m{\Phi} ( \sum_{n=1}^N  \v{\phi}(\x_n) \v{\phi}(\x_n)\T ) \m{\Phi}\T \v{a}
+$$
+
+$$
+= \frac{1}{2} \v{a}\T \m{\Phi}
+(\v{\phi}(\x_1), \ldots, \v{\phi}(\x_N))
+\left( \begin{array}{c}    \v{\phi}(\x_1)\T \\  \vdots \\ \v{\phi}(\x_N)\T  \end{array}\right)
+\m{\Phi}\T \v{a}
+$$
+
+(6.4)から
+$$
+= \frac{1}{2} \v{a}\T \m{\Phi} \m{\Phi}\T \m{\Phi} \m{\Phi}\T \v{a}
+$$
+
+右辺の第2項は
+$$
+= - \v{a}\T \m{\Phi} \sum_{n=1}^N t_n \v{\phi}(\x_n)
+$$
+
+内積で書くと
+$$
+= - \v{a}\T \m{\Phi} (\v{\phi}(\x_1), \ldots, \v{\phi}(\x_N)) \left( \begin{array}{c}    t_1 \\  t_2 \\ \vdots \\ t_n  \end{array}\right)
+$$
+
+(6.4)から
+$$
+= - \v{a}\T \m{\Phi} \m{\Phi}\T \vv{t}
+$$
+
+右辺の第3項は
+$$
+= \frac{1}{2} \vv{t}\T \vv{t} 
+$$
+
+右辺の第4項は
+$$
+= \frac{\lambda}{2} \v{a}\T \m{\Phi} \m{\Phi}\T \v{a}
+$$
+
+第1項から第4項の結果をまとめると
+$$
+= \frac{1}{2} \v{a}\T \m{\Phi} \m{\Phi}\T \m{\Phi} \m{\Phi}\T \v{a}
+ - \v{a}\T \m{\Phi} \m{\Phi}\T \vv{t}
++ \frac{1}{2} \vv{t}\T \vv{t} 
++ \frac{\lambda}{2} \v{a}\T \m{\Phi} \m{\Phi}\T \v{a}
+$$
+
+<hr/>
+グラム行列を定義する。
+$$
+\m{K} = \m{\Phi} \m{\Phi}\T
+$$
+
+(6.1)のカーネル関数$k$を使うと
+$$
+K_{nm} = \v{\phi}(\x_n)\T \v{\phi}(\x_m) = k(\x_n, \x_m)
+\tag{6.6}
+$$
+
+$\m{K}$を(6.5)に代入すると
+$$
+J(\v{a}) = \frac{1}{2} \v{a}\T \m{K} \m{K} \v{a}
+ - \v{a}\T \m{K} \vv{t}
++ \frac{1}{2} \vv{t}\T \vv{t} 
++ \frac{\lambda}{2} \v{a}\T \m{K} \v{a}
+\tag{6.7}
+$$
+
+(6.7)を$\v{a}$で微分して0とおくと
+$$
+\m{K} \m{K} \v{a} - \m{K} \vv{t} + \lambda \m{K} \v{a} = 0
+$$
+
+$\m{K}^{-1}$をかけて
+$$
+\m{K} \v{a} - \vv{t} + \lambda \v{a} = 0
+$$
+
+$\v{a}$でまとめて
+$$
+(\m{K} + \lambda \m{I}_N) \v{a} = \vv{t}
+$$
+
+したがって
+$$
+\v{a} = (\m{K} + \lambda \m{I}_N)^{-1} \vv{t}
+\tag{6.8}
+$$
+<hr/>
+
+線形回帰モデルに代入すると
+$$
+y(\x) = \w\T\v{\phi}(\x)
+$$
+
+(6.3)から
+$$
+= (\m{\Phi}\T \v{a})\T\v{\phi}(\x)
+= \v{a}\T \m{\Phi} \v{\phi}(\x)
+$$
+
+(6.8)から
+$$
+= ((\m{K} + \lambda \m{I}_N)^{-1} \vv{t})\T \m{\Phi} \v{\phi}(\x)
+\\
+= \v{\phi}(\x)\T \m{\Phi}\T  (\m{K} + \lambda \m{I}_N)^{-1} \vv{t}
+$$
+
+(6.4)から
+$$
+= \v{\phi}(\x)\T (\v{\phi}(\x_1), \ldots, \v{\phi}(\x_N))  (\m{K} + \lambda \m{I}_N)^{-1} \vv{t}
+$$
+
+(6.1)から
+$$
+= (k(\x_1, \x), \ldots, k(\x_N, \x))  (\m{K} + \lambda \m{I}_N)^{-1} \vv{t}
+$$
+
+$k_n(\x) = k(\x_n, \x)$とすると
+$$
+= \v{k}(\x)\T (\m{K} + \lambda \m{I}_N)^{-1} \vv{t}
+\tag{6.9}
+$$
+
+<h5>演習 6.1</h5>
+$$
+a_n = \sum_{i=1}^M u_i \phi_i(\x_n)
+$$
+
+$$
+\v{a} = \m{\Phi} \v{u}
+\tag{199}
+$$
+
+(199)を(6.7)に代入すると
+$$
+J(\v{u}) = \frac{1}{2} (\m{\Phi} \v{u})\T \m{K} \m{K} \m{\Phi} \v{u}
+ - (\m{\Phi} \v{u})\T \m{K} \vv{t}
++ \frac{1}{2} \vv{t}\T \vv{t} 
++ \frac{\lambda}{2} (\m{\Phi} \v{u})\T \m{K} \m{\Phi} \v{u}
+\tag{6.7}
+$$
+
+$\m{K}\m{\Phi} \v{u}$についてまとめると
+$$
+ = \frac{1}{2} (\m{K} \m{\Phi} \v{u})\T \m{K} \m{\Phi} \v{u}
+ - (\m{K} \m{\Phi} \v{u})\T \vv{t}
++ \frac{1}{2} \vv{t}\T \vv{t} 
++ \frac{\lambda}{2} \v{u}\T \m{\Phi}\T \m{K} \m{\Phi} \v{u}
+\tag{6.7}
+$$
+
+整理して
+$$
+= \frac{1}{2} (\m{K} \m{\Phi} \v{u} - \vv{t})\T (\m{K} \m{\Phi} \v{u} - \vv{t})
++ \frac{\lambda}{2} \v{u}\T \m{\Phi}\T \m{K} \m{\Phi} \v{u}
+$$
+
+$\m{K}$の定義から
+$$
+= \frac{1}{2} (\m{\Phi} \m{\Phi}\T \m{\Phi} \v{u} - \vv{t})\T (\m{\Phi} \m{\Phi}\T \m{\Phi} \v{u} - \vv{t})
++ \frac{\lambda}{2} \v{u}\T \m{\Phi}\T \m{\Phi} \m{\Phi}\T \m{\Phi} \v{u}
+\tag{200}
+$$
+
+$\w$を以下で定義する。
+$$
+\w = \m{\Phi}\T\m{\Phi} \v{u}
+$$
+
+これを(200)に代入して
+$$
+= \frac{1}{2} (\m{\Phi} \w - \vv{t})\T (\m{\Phi} \w - \vv{t})
++ \frac{\lambda}{2} \w\T \w
+$$
+
+$$
+= \frac{1}{2} (\left( \begin{array}{c}    \v{\phi}(\x_1)\T \\  \vdots \\ \v{\phi}(\x_N)\T  \end{array}\right) \w - \vv{t})\T (\left( \begin{array}{c}    \v{\phi}(\x_1)\T \\  \vdots \\ \v{\phi}(\x_N)\T  \end{array}\right) \w - \vv{t})
++ \frac{\lambda}{2} \w\T \w
 $$
 </body></html>
