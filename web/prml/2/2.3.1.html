@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.3.1 条件付きガウス分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>2.3.1 条件付きガウス分布</h1>
+
+$$
+\x = \begin{pmatrix} \x_a \\ \x_b \end{pmatrix}
+\tag{2.65}
+$$
+
+$$
+\v{\mu} = \begin{pmatrix} \v{\mu}_a \\ \v{\mu}_b \end{pmatrix}
+\tag{2.66}
+$$
+
+$$
+\m{\Sigma} = \begin{pmatrix} \m{\Sigma}_{aa} & \m{\Sigma}_{ab} \\ \m{\Sigma}_{ba} & \m{\Sigma}_{bb} \end{pmatrix}
+\tag{2.67}
+$$
+
+$$
+\v{\mu}_{a|b} = \v{\mu}_a + \m{\Sigma}_{ab} \m{\Sigma}_{bb}^{-1} (\x_b - \v{\mu}_b)
+\tag{2.81}
+$$
+
+$$
+\m{\Sigma}_{a|b} = \m{\Sigma}_{aa} - \m{\Sigma}_{ab} \m{\Sigma}_{bb}^{-1} \m{\Sigma}_{ba}
+\tag{2.82}
+$$
+</body></html>

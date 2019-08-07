@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.4.1 線形回帰再訪</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.4.1 線形回帰再訪</h1>
+
+$\x$を入力ベクトル、$\w$を$M$次元の重みベクトルとして
+$$
+y(\x) = \w\T \v{\phi}(\x)
+\tag{6.49}
+$$
+
+$\w$の事前分布は平均が0の等方的なガウス分布とする。
+$$
+p(\w) = /N(\w | \v{0}, \alpha^{-1}\m{I})
+$$
+
+$$
+\vv{y} = \m{\Phi}\w
+\tag{6.51}
+$$
+
+$\m{\Phi}$は計画行列。
+$$
+\Phi_{nk} = \phi_k(\x_n)
+$$
+
+$$
+\E[\vv{y}] = \E[\m{\Phi}\w] = \m{\Phi} \E[\w] = \v{0}
+\tag{6.52}
+$$
+
+$$
+\mathrm{\vv{y}} = \E[\vv{y} \vv{y}\T] = \E[\m{\Phi}\w (\m{\Phi}\w)\T]
+= \m{\Phi} \E[\w \w\T ] \m{\Phi}\T = \frac{1}{\alpha} \m{\Phi} \m{\Phi}\T = \m{K}
+\tag{6.53}
+$$
+
+ここで$\m{K}$はグラム行列で
+$$
+K_{nm} = k(\x_n, \x_m) = \frac{1}{\alpha} \phi(\x_n)\T \phi(\x_m)
+\tag{6.54}
+$$
+
+$$
+\E[y(\x_n)y(\x_m)] = k(\x_n, \x_m)
+\tag{6.55}
+$$
+
+$$
+k(x, x') = \exp(- \theta |x - x'|)
+\tag{6.56}
+$$
+
+
+</body></html>
