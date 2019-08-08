@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2.3.3 ガウス変数に対するベイズの定理</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+<h1>2.3.3 ガウス変数に対するベイズの定理</h1>
+
+<h5>ガウス分布の周辺分布と条件付き分布</h5>
+$$
+p(\x) = \N(\x | \v{\mu}, \m{\Lambda}^{-1})
+\tag{2.113}
+$$
+
+$$
+p(\y | \x) = \N(\y | \m{A} \x + \v{b} , \m{L}^{-1})
+
+\tag{2.114}
+$$
+
+$$
+p(\y) = \N(\y | \m{A} \v{\mu} + \v{b}, \m{L}^{-1} + \m{A} \m{\Lambda}^{-1} \m{A}\T)
+\tag{2.115}
+$$
+
+$$
+p(\x | \y) = \N(\x | \m{\Sigma}\{ \m{A}\T \m{L} (\y - \v{b}) + \m{\Lambda} \v{\mu} \}, \m{\Sigma})
+\tag{2.116}
+$$
+
+$$
+\m{\Sigma} = (\m{\Lambda} + \m{A}\T \m{L} \m{A})^{-1}
+\tag{2.117}
+$$
+
+</body></html>

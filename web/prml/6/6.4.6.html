@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>6.4.6 ラプラス近似</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>6.4.6 ラプラス近似</h1>
+
+$$
+p(a_{N+1} | \vv{t}_N) = \int p(a_{N+1}, \v{a}_N | \vv{t}_N) d \v{a}_N
+$$
+
+ベイズの定理から
+$$
+ = \frac{1}{p(\vv{t}_N)} \int p(a_{N+1}, \v{a}_N) p(\vv{t}_N | a_{N+1}, \v{a}_N) d \v{a}_N
+$$
+
+$p(\vv{t}_N | a_{N+1}, \v{a}_N) = p(\vv{t}_N | \v{a}_N) $ なので
+$$
+ = \frac{1}{p(\vv{t}_N)} \int p(a_{N+1}, \v{a}_N) p(\vv{t}_N | \v{a}_N) d \v{a}_N
+$$
+
+$$
+ = \frac{1}{p(\vv{t}_N)} \int p(a_{N+1} | \v{a}_N) p(\v{a}_N) p(\vv{t}_N | \v{a}_N) d \v{a}_N
+$$
+
+$$
+ = \frac{1}{p(\vv{t}_N)} \int p(a_{N+1} | \v{a}_N) p(\vv{t}_N) p(\v{a}_N | \vv{t}_N) d \v{a}_N
+$$
+
+$$
+ = \int p(a_{N+1} | \v{a}_N) p(\v{a}_N | \vv{t}_N) d \v{a}_N
+\tag{6.77}
+$$
+
+(6.66)と(6.67)から
+$$
+p(a_{N+1} | \v{a}_N) = \N(a_{N+1} | \v{k}\T \m{C}_N^{-1} \v{a}_N, c - \v{k}\T \m{C}_N^{-1} \v{k})
+\tag{6.78}
+$$
+
+$$
+p(\vv{t}_N | \v{a}_N) = \prod_{n=1}^N \sigma(a_n)^{t_n} (1 - \sigma(a_n))^{1 - t_n}
+\\
+= \prod_{n=1}^N (\frac{1}{1 + e^{-a_n}})^{t_n}(1 - \frac{1}{1 + e^{-a_n}})^{1 - t_n}
+$$
+
+$$
+= \prod_{n=1}^N (\frac{1}{1 + e^{-a_n}})^{t_n}(\frac{e^{-a_n}}{1 + e^{-a_n}})^{1 - t_n}
+$$
+
+$$
+= \prod_{n=1}^N e^{-a_n(1 - t_n)} (\frac{1}{1 + e^{-a_n}})^{t_n}(\frac{1}{1 + e^{-a_n}})^{1 - t_n}
+$$
+
+$$
+= \prod_{n=1}^N e^{a_n t_n - a_n} \frac{1}{1 + e^{-a_n}}
+$$
+
+$$
+= \prod_{n=1}^N e^{a_n t_n} \frac{e^{- a_n}}{1 + e^{-a_n}}
+$$
+
+$$
+= \prod_{n=1}^N e^{a_n t_n} \frac{1}{1 + e^{a_n}}
+$$
+
+$$
+= \prod_{n=1}^N e^{a_n t_n} \sigma(-a_n)
+\tag{6.79}
+$$
+
+<hr/>
+$$
+\Psi(\v{a}_N) = \ln p(\v{a}_N) + \ln p(\vv{t}_N | \v{a}_N)
+\\
+= - \frac{N}{2} \ln(2\pi) - \frac{1}{2} \ln |\m{C}_N | -\frac{1}{2} \v{a}_N\T \m{C}_N^{-1} \v{a}_N
+\\
++ \vv{t}_N\T \v{a}_N - \sum_{n=1}^N \ln(1 + e^{a_n})
+\tag{6.80}
+$$
+
+<h5>証明</h5>
+$p(\v{a}_N) = \N(\v{a}_N | \v{0}, \m{C}_N) $ なので
+$$
+\ln p(\v{a}_N) = \ln \{ \frac{1}{(2\pi)^{N/2}} \frac{1}{|\m{C}_N|^{1/2}} \exp(-\frac{1}{2} \v{a}_N\T \m{C}_N^{-1} \v{a}_N) \}
+\\
+= - \frac{N}{2} \ln(2\pi) - \frac{1}{2} \ln |\m{C}_N | -\frac{1}{2} \v{a}_N\T \m{C}_N^{-1} \v{a}_N
+\tag{6.80.1}
+$$
+
+(6.79)から
+$$
+\ln p(\vv{t}_N | \v{a}_N) = \ln \{ \prod_{n=1}^N e^{a_n t_n} \sigma(-a_n) \}
+\\ = \sum_{n=1}^N (a_n t_n - \ln(1 + e^{a_n}))
+\\
+= \vv{t}_N\T \v{a}_N - \sum_{n=1}^N \ln(1 + e^{a_n})
+\tag{6.80.2}
+$$
+
+(6.80)を$\v{a}_N$で微分すると
+$$
+\nabla \Psi(\v{a}_N) = \vv{t}_N - \v{\sigma}_N - \m{C}_N^{-1} \v{a}_N
+\tag{6.81}
+$$
+ここで
+$$
+\v{\sigma}_N = (\sigma(a_1), \ldots, \sigma(a_N))\T
+$$
+
+<h5>証明</h5>
+$$
+\frac{\partial }{\partial a_n } \sum_{n=1}^N \ln(1 + e^{a_n})
+= \frac{1}{1 + e^{a_n}} e^{a_n}
+= \frac{1}{1 + e^{-a_n}} = \sigma(a_n)
+$$
+
+<hr/>
+
+$$
+\nabla \nabla \Psi(\v{a}_N) = - \m{W}_N - \m{C}_N^{-1}
+\tag{6.82}
+$$
+
+<h5>演習 6.25</h5>
+$$
+\v{a}_N^{new} = \m{C}_N (\m{I} + \m{W}_N \m{C}_N)^{-1}(\vv{t}_N - \v{\sigma}_N + \m{W}_N \v{a}_N)
+\tag{6.83}
+$$
+<h5>証明</h5>
+(4.92)に(6.81)と(6.82)を代入して
+$$
+\v{a}_N^{new} = \v{a}_N - (- \m{W}_N - \m{C}_N^{-1})^{-1}(\vv{t}_N - \v{\sigma}_N - \m{C}_N^{-1} \v{a}_N)
+$$
+
+$$
+= \v{a}_N + (\m{W}_N + \m{C}_N^{-1})^{-1}(\vv{t}_N - \v{\sigma}_N - \m{C}_N^{-1} \v{a}_N)
+$$
+
+$$
+= (\m{W}_N + \m{C}_N^{-1})^{-1}((\m{W}_N + \m{C}_N^{-1}) \v{a}_N + \vv{t}_N - \v{\sigma}_N - \m{C}_N^{-1} \v{a}_N)
+$$
+
+$$
+= (\m{W}_N + \m{C}_N^{-1})^{-1}(\m{W}_N \v{a}_N + \vv{t}_N - \v{\sigma}_N )
+$$
+
+$$
+= \{(\m{W}_N \m{C}_N + \m{I})\m{C}_N^{-1} \}^{-1}(\m{W}_N \v{a}_N + \vv{t}_N - \v{\sigma}_N )
+$$
+
+$$
+= \m{C}_N (\m{W}_N \m{C}_N + \m{I})^{-1} (\m{W}_N \v{a}_N + \vv{t}_N - \v{\sigma}_N )
+$$
+
+<hr/>
+(6.81)の値を0とすると
+$$
+\vv{t}_N - \v{\sigma}_N - \m{C}_N^{-1} \v{a}_N^\ast = 0
+$$
+
+変形して
+$$
+\v{a}_N^\ast = \m{C}_N (\vv{t}_N - \v{\sigma}_N)
+\tag{6.84}
+$$
+
+$$
+\m{H} = - \nabla \nabla \Psi(\v{a}_N) = \m{W}_N + \m{C}_N^{-1}
+\tag{6.85}
+$$
+
+ラプラス近似を使い
+$$
+q(\v{a}_N) = \N(\v{a}_N | \v{a}_N^\ast, \m{H}^{-1})
+\tag{6.86}
+$$
+
+<h5>演習 6.26</h5>
+$$
+\E[a_{N+1} | \vv{t}_N] = \v{k}\T (\vv{t}_N - \v{\sigma}_N)
+\tag{6.87}
+$$
+
+$$
+\mathrm{var}[a_{N+1} | \vv{t}_N] = c - \v{k}\T(\m{W}_N^{-1} + \m{C}_N)^{-1} \v{k}
+\tag{6.88}
+$$
+<h5>証明</h5>
+
+(6.86)が(2.113)、(6.778)が(2.114)とすると、各項目は以下のように対応する。
+$$
+\begin{array}{ccccccc}
+  \hline
+  \x         & \v{\mu}      & \m{\Lambda}^{-1} & \y          & \A                   & \b         & \m{L}^{-1} \\
+  \downarrow & \downarrow   & \downarrow       & \downarrow  & \downarrow           & \downarrow & \downarrow \\
+  \v{a}_N    & \v{a}_N^\ast & \m{H}^{-1}       & \v{a}_{N+1} & \v{k}\T \m{C}_N^{-1} & \v{0}      & c - \v{k}\T \m{C}_N^{-1} \v{k} \\
+  \hline
+\end{array}
+$$
+
+(2.115)にこの対応表を適用すると
+$$
+\begin{array}{c}
+  \hline
+  (2.115) \\
+  \N(\y | \A \v{\mu} + \v{b}, \m{L}^{-1} + \A \m{\Lambda}^{-1} \A\T) \\
+  \downarrow  \\
+  \N(\v{a}_{N+1} | \v{k}\T \m{C}_N^{-1} \v{a}_N^\ast, c - \v{k}\T \m{C}_N^{-1} \v{k} + \v{k}\T \m{C}_N^{-1} \m{H}^{-1} (\v{k}\T \m{C}_N^{-1})\T) \\
+  \hline
+\end{array}
+\tag{6.88.1}
+$$
+
+(6.88.1)から平均は
+$$
+\E[a_{N+1} | \vv{t}_N] = \v{k}\T \m{C}_N^{-1} \v{a}_N^\ast
+$$
+
+(6.84)を使い
+$$
+= \v{k}\T \m{C}_N^{-1} \m{C}_N (\vv{t}_N - \v{\sigma}_N)
+$$
+
+整理して
+$$
+= \v{k}\T (\vv{t}_N - \v{\sigma}_N)
+$$
+
+(6.88.1)から分散は
+$$
+\mathrm{var}[a_{N+1} | \vv{t}_N] = c - \v{k}\T \m{C}_N^{-1} \v{k} + \v{k}\T \m{C}_N^{-1} \m{H}^{-1} (\v{k}\T \m{C}_N^{-1})\T
+$$
+
+(6.85)から
+$$
+= c - \v{k}\T \m{C}_N^{-1} \v{k} + \v{k}\T \m{C}_N^{-1} (\m{W}_N + \m{C}_N^{-1})^{-1} \m{C}_N^{-1} \v{k}
+$$
+
+整理して
+$$
+= c - \v{k}\T \m{C}_N^{-1}(\m{I} - (\m{W}_N + \m{C}_N^{-1})^{-1} \m{C}_N^{-1} ) \v{k}
+\tag{6.88.2}
+$$
+
+ここで
+$$
+\m{I} - (\m{W}_N + \m{C}_N^{-1})^{-1} \m{C}_N^{-1}
+\\
+=
+\m{I} - \m{I} \cdot \m{I}(\m{W}_N + \m{C}_N^{-1} \cdot \m{I} \cdot \m{I} )^{-1} \m{C}_N^{-1} \cdot \m{I}
+$$
+
+(C.7)を使い
+$$
+= (\m{I}  + \m{W}_N^{-1} \m{C}_N^{-1})^{-1}
+\tag{6.88.3}
+$$
+
+(6.88.3)を(6.88.2)に入れて
+$$
+= c - \v{k}\T \m{C}_N^{-1} (\m{I}  + \m{W}_N^{-1} \m{C}_N^{-1})^{-1} \v{k}
+$$
+
+$$
+= c - \v{k}\T \m{C}_N^{-1} ((\m{C}_N  + \m{W}_N^{-1}) \m{C}_N^{-1})^{-1} \v{k}
+$$
+
+$$
+= c - \v{k}\T (\m{C}_N  + \m{W}_N^{-1})^{-1} \v{k}
+$$
+<hr/>
+</body></html>
