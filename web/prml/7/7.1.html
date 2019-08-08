@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>7.1 最大マージン分類器</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>7.1 最大マージン分類器</h1>
+
+$$
+y(\x) = \w\T\v{\phi}(\x) + b
+\tag{7.1}
+$$
+
+分類境界から点$\x_n$までの距離は
+$$
+\frac{t_n y(\x_n)}{\|\w\|} = \frac{t_n (\w\T \v{\phi}(\x_n) + b)}{\|\w\|}
+\tag{7.2}
+$$
+
+最大マージンの解は
+$$
+\argmax_{\w, b} \{ \frac{1}{\|\w\|} \argmin_n  [t_n (\w\T \v{\phi}(\x_n) + b)] \}
+\tag{7.3}
+$$
+
+$\w$と$b$を定数倍しても(7.3)の値は変わらないので、境界に最も近い点$\x_n$で以下が成り立つようにする。
+$$
+t_n(\w\T \v{\phi}(\x_n) + b) = 1
+\tag{7.4}
+$$
+
+すべての点で以下が成り立つ。
+$$
+t_n (\w\T \v{\phi}(\x_n) + b) \ge 1, \quad n = 1, \ldots, \N
+\tag{7.5}
+$$
+
+(7.4)の条件で(7.3)を最大化するのは、$\|\w\|^{-1}$の最大化、つまり$\|\w\|^2$の最小化と同じになる。<br/>
+最適化問題は以下になる。
+$$
+\argmin_{\w,b} \frac{1}{2} \|\w\|^2
+\tag{7.6}
+$$
+
+$$
+L(\w, b, \v{a}) = \frac{1}{2}\|\w\|^2 - \sum_{n=1}^N a_n(t_n(\w\T \v{\phi}(\x_n) + b) -1)
+\tag{7.7}
+$$
+
+(7.7)を$\w$で微分して0とおくと
+$$
+\w = \sum_{n=1}^N a_n t_n \v{\phi}(\x_n)
+\tag{7.8}
+$$
+
+(7.7)を$b$で微分して0とおくと
+$$
+0 = \sum_{n=1}^N a_n t_n
+\tag{7.9}
+$$
+
+(7.10)の右辺の第2項は
+$$
+- \sum_{n=1}^N a_n(t_n(\w\T \v{\phi}(\x_n) + b) - 1)
+\\
+= - \w\T \sum_{n=1}^N a_n t_n \v{\phi}(\x_n)
+- b \sum_{n=1}^N a_n t_n
++ \sum_{n=1}^N a_n
+$$
+
+(7.8)と(7.9)から
+$$
+= - \|\w\|^2 + \sum_{n=1}^N a_n
+$$
+
+これを(7.10)に代入すると
+$$
+L(\w, b, \v{a}) = \sum_{n=1}^N a_n - \frac{1}{2}\|\w\|^2
+$$
+
+(7.8)を代入すると以下の双対表現になる。
+$$
+\tilde{L}(\v{a}) = \sum_{n=1}^N a_n - \frac{1}{2} \sum_{n=1}^N \sum_{m=1}^N a_n a_m t_n t_m k(\x_n, \x_m)
+\tag{7.10}
+$$
+
+ただし
+$$
+a_n \ge 0, \quad n = 1, \ldots, N
+\tag{7.11}
+$$
+
+$$
+\sum_{n=1}^N a_n t_n = 0
+\tag{7.12}
+$$
+
+カーネル関数$k$は
+$$
+k(\x, \x') = \v{\phi}(\x)\T \v{\phi}(\x')
+\tag{7.12.1}
+$$
+
+(7.1)から
+$$
+y(\x) = \w\T\v{\phi}(\x) + b
+$$
+
+(7.8)から
+$$
+= (\sum_{n=1}^N a_n t_n \v{\phi}(\x_n))\T\v{\phi}(\x) + b
+$$
+
+(7.12.1)から
+$$
+= \sum_{n=1}^N a_n t_n (\x, \x_n) + b
+\tag{7.13}
+$$
+
+Karush-Kuhn-Tucker(KKT)条件
+$$
+a_n \ge 0
+\tag{7.14}
+$$
+
+$$
+t_n y(\x_n) - 1 \ge 0
+\tag{7.15}
+$$
+
+$$
+a_n(t_n y(\x_n) - 1) = 0
+\tag{7.16}
+$$
+
+(7.16)から以下のどちらかが成り立つ。
+$$
+a_n = 0
+\tag{7.16.1}
+$$
+
+$$
+t_n y(\x_n) -1 = 0
+\tag{7.16.2}
+$$
+
+(7.16.1)の点は(7.13)の値に影響しないので、(7.16.2)の点(サポートベクトル)のみを考えればよい。<br/>
+(7.16.2)に(7.13)を代入すると
+$$
+t_n(\sum_{m \in S} a_m t_m k(\x_n, \x_m) + b) = 1
+\tag{7.17}
+$$
+ここで、$S$をサポートベクトルの添え字の集合。<br/>
+<br/>
+両辺に$t_n$をかけると$t_n^2 = 1$なので
+$$
+\sum_{m \in S} a_m t_m k(\x_n, \x_m) + b = t_n
+\tag{7.17}
+$$
+
+変形して
+$$
+b = t_n - \sum_{m \in S} a_m t_m k(\x_n, \x_m)
+$$
+
+すべてのサポートベクトル$\x_n$について足し合わせて
+$$
+b = \frac{1}{N_S} \sum_{n \in S} (t_n - \sum_{m \in S} a_m t_m k(\x_n, \x_m))
+\tag{7.18}
+$$
+ここで$N_S$はサポートベクトルの数。
+
+$$
+\sum_{n=1}^N E_\infty(y(\x_n) t_n - 1) + \lambda \| \w \|^2
+\tag{7.19}
+$$
+</body></html>
