@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>7.1.1 重なりのあるクラス分類</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>7.1.1 重なりのあるクラス分類</h1>
+
+$$
+t_n y(\x_n) \ge 1 - \xi_n, \quad n = 1, \ldots, N
+\tag{7.20}
+$$
+
+以下を最小化する。
+$$
+C \sum_{n=1}^N \xi_n + \frac{1}{2} \|\w\|^2
+\tag{7.21}
+$$
+ただし
+$$
+C \gt 0
+$$
+
+ラグランジュ関数は
+$$
+L(\w, b, \v{a}) = \frac{1}{2} \|\w\|^2 + C \sum_{n=1}^N \xi_n
+- \sum_{n=1}^N a_n(t_n y(\x_n) - 1 + \xi_n) - \sum_{n=1}^N \mu_n \xi_n
+\tag{7.22}
+$$
+ここで$\{a_n \ge 0\} $と$\{\mu_n \ge 0\}$はラグランジュ乗数。<br/>
+
+(7.1)を代入すると
+$$
+L(\w, b, \v{a}) = \frac{1}{2} \|\w\|^2 + C \sum_{n=1}^N \xi_n
+- \sum_{n=1}^N a_n(t_n (\w\T \v{\phi}(\x_n) + b) - 1 + \xi_n) - \sum_{n=1}^N \mu_n \xi_n
+\tag{7.22.1}
+$$
+
+<br/>
+KKT条件は
+
+$$
+a_n \ge 0
+\tag{7.23}
+$$
+
+$$
+t_n y(\x_n) - 1 + \xi_n \ge 0
+\tag{7.24}
+$$
+
+$$
+a_n (t_n y(\x_n) - 1 + \xi_n) = 0
+\tag{7.25}
+$$
+
+$$
+\mu_n \ge 0
+\tag{7.26}
+$$
+
+$$
+\xi_n \ge 0
+\tag{7.27}
+$$
+
+$$
+\mu_n \xi_n = 0
+\tag{7.28}
+$$
+
+(7.22.1)を$\w$で微分して0とおくと
+$$
+\frac{\partial L}{\partial \w} = \w - \sum_{n=1}^N a_n t_n \v{\phi}(\x_n) = 0 \implies \w = \sum_{n=1}^N a_n t_n \v{\phi}(\x_n)
+\tag{7.29}
+$$
+
+同様に$b$で微分して
+$$
+\frac{\partial L}{\partial b} = 0 \implies \sum_{n=1}^N a_n t_n = 0
+\tag{7.30}
+$$
+
+同様に$\xi_n$で微分して
+$$
+\frac{\partial L}{\partial \xi_n} = C - a_n - \mu_n = 0 \implies a_n = C - \mu_n
+\tag{7.31}
+$$
+
+(7.29), (7.30), (7.31)を(7.22.1)に代入して
+$$
+\tilde{L}(\v{a}) = \frac{1}{2} (\sum_{n=1}^N a_n t_n \v{\phi}(\x_n))^2 + C \sum_{n=1}^N \xi_n
+- \sum_{n=1}^N a_n(t_n ((\sum_{m=1}^N a_m t_m \v{\phi}(\x_m))\T \v{\phi}(\x_n) + b) - 1 + \xi_n) - \sum_{n=1}^N (C - a_n) \xi_n
+\tag{7.31.1}
+$$
+
+(7.31.1)の以下の項は正負でキャンセルされて消える。
+$$
+\sum_{n=1}^N C \xi_n, \quad \sum_{n=1}^N a_n \xi_n
+$$
+
+(7.31.1)の以下の項は(7.30)により消える。
+$$
+b \sum_{n=1}^N a_n t_n
+$$
+
+(7.31.1)は以下になる。
+$$
+= \sum_{n=1}^N a_n - \frac{1}{2} \sum_{n=1}^N \sum_{m=1}^N a_n a_m t_n t_m k(\x_n, \x_m)
+\tag{7.32}
+$$
+
+$a_n$と$\mu_n$はラグランジュ乗数なので
+$$
+0 \le a_n
+\tag{7.32.1}
+$$
+
+$$
+0 \le \mu_n
+\tag{7.32.2}
+$$
+
+(7.31)と(7.32.2)から
+$$
+0 \le C - a_n
+$$
+したがって
+$$
+a_n \le C
+\tag{7.32.3}
+$$
+
+(7.32.1)と(7.32.3)から
+$$
+0 \le a_n \le C
+\tag{7.33}
+$$
+
+$$
+\sum_{n=1}^N a_n t_n = 0
+\tag{7.34}
+$$
+
+$a_n = 0$の点は(7.13)の値に影響しない。<br/>
+$a_n \gt 0$の点は(7.25)から以下を満たす。
+$$
+t_n y(\x_n) = 1 - \xi_n
+\tag{7.35}
+$$
+
+$a_n \lt C$の場合は(7.31)から$\mu_n \ge 0$となり、(7.28)から$\xi_n = 0$となり、マージン上にある。<br/>
+$a_n = C$の場合はマージンを越えていて、$\xi_n \le 1$なら分類境界の正しい側にあるが、$\xi_n \gt 1$なら分類境界の誤り側にある。<br/>
+<br/>
+サポートベクトルは$0 \lt a_n \lt C$で、 $\xi_n = 0$なので $t_n y(\x_n) = 1$となり、以下を満たす。
+$$
+t_n(\sum_{m \in X} a_m t_m k(\x_n, \x_m) + b) = 1
+\tag{7.36}
+$$
+
+(7.36)の両辺に$t_n$をかけると$t_n^2 = 1$なので
+$$
+\sum_{m \in X} a_m t_m k(\x_n, \x_m) + b = t_n
+\tag{7.36.1}
+$$
+
+移項して
+$$
+b = t_n - \sum_{m \in X} a_m t_m k(\x_n, \x_m)
+\tag{7.36.2}
+$$
+
+$0 \lt a_n \lt C$となる点の添え字の集合を$M$、$M$の要素数を$N_M$とすると
+$$
+b = \frac{1}{N_M} \sum_{n \in M} (t_n - \sum_{m \in X} a_m t_m k(\x_n, \x_m))
+\tag{7.37}
+$$
+
+</body></html>

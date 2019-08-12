@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>第8章 グラフィカルモデル</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>第8章 グラフィカルモデル</h1>
+
+$$
+x_i = \sum_{j \in pa_i} w_{ij} x_j + b_i + \sqrt{v_i} \epsilon_i
+\tag{8.14}
+$$
+
+$$
+\E[x_i] = \sum_{j \in pa_i} w_{ij} \E[x_j] + b_i
+\tag{8.15}
+$$
+
+(8.14)から
+$$
+x_j - \E[x_j] = \sum_{k \in pa_j} w_{jk} x_k + b_j + \sqrt{v_j} \epsilon_j - (\sum_{k \in pa_j} w_{jk} \E[x_k] + b_j)
+$$
+
+$$
+= \sum_{k \in pa_j} w_{jk} (x_k - \E[x_k]) + \sqrt{v_j} \epsilon_j
+\tag{8.15.1}
+$$
+
+$$
+\mathrm{cov}[x_i, x_j] = \E[(x_i - \E[x_i])(x_j - \E[x_j])]
+$$
+
+(8.15.1)を代入して
+$$
+= \E[(x_i - \E[x_i])(\sum_{k \in pa_j} w_{jk} (x_k - \E[x_k]) + \sqrt{v_j} \epsilon_j)]
+$$
+
+変形して
+$$
+= \sum_{k \in pa_j} w_{jk} \E[(x_i - \E[x_i]) (x_k - \E[x_k])]
+\\
++ \E[(x_i - \E[x_i]) \sqrt{v_j} \epsilon_j ]
+$$
+
+$$
+= \sum_{k \in pa_j} w_{jk} \mathrm{cov}[x_i, x_k]
++ \E[\sqrt{v_i} \epsilon_i \sqrt{v_j} \epsilon_j ]
+$$
+
+$$
+= \sum_{k \in pa_j} w_{jk} \mathrm{cov}[x_i, x_k]
++ \m{I}_{ij} v_j
+\tag{8.16}
+$$
+<hr/>
+
+$$
+p(x) = \sum_{\x \backslash x} p(\x)
+\tag{8.61}
+$$
+
+$$
+p(\x) = \prod_{s \in ne(x)} F_s(x, X_s)
+\tag{8.62}
+$$
+
+(8.62)を (8.61)に代入して
+$$
+p(x) = \sum_{\x \backslash x} [ \prod_{s \in ne(x)} F_s(x, X_s) ]
+$$
+
+</body></html>

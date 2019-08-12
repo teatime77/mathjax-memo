@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>9.1 K-meansクラスタリング</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>9.1 K-meansクラスタリング</h1>
+
+$$
+J = \sum_{n=1}^N \sum_{k=1}^K r_{nk} \|\x_n - \v{\mu}_k\|^2
+\tag{9.1}
+$$
+
+$$
+r_{nk} = 
+\begin{cases}
+    1 & k = \argmin_j \| \x_n - \v{\mu}_j \|^2
+    \\    
+    0 & \jp{それ以外}
+\end{cases}
+\tag{9.2}
+$$
+
+$J$を$\v{\mu}_k$で微分して0とおくと
+$$
+\frac{\partial J}{\partial \v{\mu}_k} = 2 \sum_{n=1}^N r_{nk}(\x_n - \v{\mu}_k) = 0
+\tag{9.3}
+$$
+
+展開して
+$$
+\sum_{n=1}^N r_{nk} \x_n = \sum_{n=1}^N r_{nk} \v{\mu}_k
+$$
+
+$\v{\mu}_k$について解くと
+$$
+\v{\mu}_k = \frac{\sum_{n=1}^N r_{nk} \x_n}{ \sum_{n=1}^N r_{nk} }
+\tag{9.4}
+$$
+
+$$
+\tilde{J} = \sum_{n=1}^N \sum_{k=1}^K r_{nk} \nu(\x_n, \v{\mu}_k)
+\tag{9.6}
+$$
+</body></html>
