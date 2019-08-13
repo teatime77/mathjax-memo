@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>9.2 混合ガウス分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>9.2 混合ガウス分布</h1>
+
+$$
+p(\x) = \sum_{k=1}^K \N(\x | \v{\mu}_k, \m{\Sigma}_k)
+\tag{9.7}
+$$
+
+$$
+p(z_k = 1) = \pi_k
+\tag{9.7.1}
+$$
+
+$$
+0 \le \pi_k \le 1
+\tag{9.8}
+$$
+
+$$
+\sum_{k=1}^K \pi_k = 1
+\tag{9.9}
+$$
+
+$$
+p(\v{z}) = \prod_{k=1}^K \pi_k^{z_k}
+\tag{9.10}
+$$
+
+$$
+p(\x | z_k = 1) = \N(\x | \v{\mu}_k, \m{\Sigma}_k)
+\tag{9.10.1}
+$$
+
+$$
+p(\x | \v{z}) = \prod_{k=1}^K \N(\x | \v{\mu}_k, \m{\Sigma}_k)^{z_k}
+\tag{9.11}
+$$
+
+$\v{z}$で周辺化して
+$$
+p(\x) = \sum_{\v{z}} p(\v{z}) p(\x | \v{z})
+$$
+
+(9.10)と(9.11)を代入すると  
+$$
+= \sum_{\v{z}} (\prod_{k=1}^K \pi_k^{z_k}) (\prod_{k=1}^K \N(\x | \v{\mu}_k, \m{\Sigma}_k)^{z_k})
+$$
+
+整理して
+$$
+= \sum_{\v{z}} \prod_{k=1}^K ( \pi_k \N(\x | \v{\mu}_k, \m{\Sigma}_k))^{z_k}
+$$
+
+$$
+= \sum_{j=1}^K \prod_{k=1}^K (\pi_k \N(\x | \v{\mu}_k, \m{\Sigma}_k))^{I_{kj}}
+$$
+
+$$
+= \sum_{j=1}^K \pi_j \N(\x | \v{\mu}_j, \m{\Sigma}_j)
+$$
+
+$$
+= \sum_{k=1}^K \pi_k \N(\x | \v{\mu}_k, \m{\Sigma}_k)
+\tag{9.12}
+$$
+<hr/>
+$$
+\gamma(z_k) \eqdef p(z_k = 1 | \x)
+$$
+
+ベイズの定理から
+$$
+= \frac{ p(z_k = 1) p(\x | z_k = 1) }{p(\x)}
+$$
+
+分母を周辺化して
+$$
+= \frac{ p(z_k = 1) p(\x | z_k = 1) }{ \sum_{j=1}^K p(z_j = 1) p(\x | z_j=1) }
+$$
+
+(9.7.1)と(9.10.1)を代入して
+$$
+= \frac{ \pi_k \N(\x | \v{\mu}_k, \m{\Sigma}_k) }{ \sum_{j=1}^K \pi_j \N(\x | \v{\mu}_j, \m{\Sigma}_j) }
+\tag{9.13}
+$$
+</body></html>

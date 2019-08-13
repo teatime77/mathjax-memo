@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>9.2.2 混合ガウス分布のEMアルゴリズム</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>9.2.2 混合ガウス分布のEMアルゴリズム</h1>
+
+$$
+\X \eqdef \begin{pmatrix} \x_1\T \\ \vdots \\ \x_N\T \end{pmatrix}
+$$
+
+(9.7)から対数尤度関数は
+$$
+\ln p(\X | \v{\pi}, \v{\mu}, \m{\Sigma}) = \sum_{n=1}^N \ln(\sum_{k=1}^K \pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k))
+\tag{9.14}
+$$
+
+(9.14)を$\v{\mu}_k $で微分して0とおくと
+$$
+\frac{\partial }{\partial \v{\mu}_k} \ln p(\X | \v{\pi}, \v{\mu}, \m{\Sigma})
+$$
+
+$$
+= \sum_{n=1}^N \frac{1}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} \pi_k \frac{\partial }{\partial \v{\mu}_k} \N(\x_n | \v{\mu}_k, \m{\Sigma}_k)
+$$
+
+(2.43)から
+$$
+= \sum_{n=1}^N \frac{1}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} \pi_k \frac{\partial }{\partial \v{\mu}_k} 
+\frac{1}{(2 \pi)^{D/2} \ {| \m{\Sigma}_k |}^{1/2} }
+\exp(- \frac{1}{2}(\x_n - \v{\mu}_k)\T \m{\Sigma}_k^{-1}(\x_n - \v{\mu}_k))
+$$
+
+$$
+= \sum_{n=1}^N \frac{1}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} \pi_k 
+\frac{1}{(2 \pi)^{D/2} \ {| \m{\Sigma}_k |}^{1/2} }
+\exp(- \frac{1}{2}(\x_n - \v{\mu}_k)\T \m{\Sigma}_k^{-1}(\x_n - \v{\mu}_k))
+\m{\Sigma}_k^{-1}(\x_n - \v{\mu}_k)
+$$
+
+(2.43)から
+$$
+= \sum_{n=1}^N \frac{\pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k)}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} 
+\m{\Sigma}_k^{-1}(\x_n - \v{\mu}_k)
+$$
+
+(9.13)から
+$$
+= \sum_{n=1}^N \gamma(z_{nk}) \m{\Sigma}_k^{-1}(\x_n - \v{\mu}_k) = 0
+$$
+
+$\m{\Sigma}_k$をかけて変形すると
+$$
+\sum_{n=1}^N \gamma(z_{nk}) \v{\mu}_k = \sum_{n=1}^N \gamma(z_{nk}) \x_n 
+$$
+
+$$
+\v{\mu}_k = \frac{1}{ \sum_{n=1}^N \gamma(z_{nk}) } \sum_{n=1}^N \gamma(z_{nk}) \x_n 
+= \frac{1}{N_k} \sum_{n=1}^N \gamma(z_{nk}) \x_n 
+\tag{9.17}
+$$
+
+ここで
+$$
+N_k \eqdef \sum_{n=1}^N \gamma(z_{nk})
+\tag{9.18}
+$$
+
+$\gamma(z_{nk})$を固定したときの$\m{\Sigma}_k$の最尤推定は(2.122)から
+$$
+\m{\Sigma}_k = \frac{1}{N_k} \sum_{n=1}^N \gamma(z_{nk}) (\x_n - \v{\mu}_k) (\x_n - \v{\mu}_k)\T
+\tag{9.19}
+$$
+
+$\pi_k$の最尤推定は(9.9)の制約があるので、ラグランジュ乗数を使い以下を最大化する。
+$$
+\ln p(\X | \v{\pi}, \v{\mu}, \m{\Sigma}) + \lambda(\sum_{k=1}^K \pi_k - 1)
+\tag{9.20}
+$$
+
+(9.20)を$\pi_k$で微分して0とおくと
+$$
+\frac{\partial }{\partial \pi_k} \{ \ln p(\X | \v{\pi}, \v{\mu}, \m{\Sigma}) + \lambda(\sum_{k=1}^K \pi_k - 1) \}
+$$
+
+(9.14)を代入して
+$$
+= \frac{\partial }{\partial \pi_k} \{ \sum_{n=1}^N \ln(\sum_{k=1}^K \pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k)) + \lambda(\sum_{k=1}^K \pi_k - 1) \}
+$$
+
+$$
+= \sum_{n=1}^N \frac{\N(\x_n | \v{\mu}_k, \m{\Sigma}_k)}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} + \lambda = 0
+\tag{9.21}
+$$
+
+$\pi_k$をかけて変形すると
+$$
+\sum_{n=1}^N \frac{\pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k)}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j} + \pi_k \lambda = 0
+$$
+
+(9.13)から
+$$
+\sum_{n=1}^N \gamma(z_{nk}) + \pi_k \lambda = 0
+$$
+
+(9.18)から
+$$
+N_k + \pi_k \lambda = 0
+\tag{9.21.1}
+$$
+
+$k$のついて足し合わせると
+$$
+\sum_{k=1}^K N_k + \sum_{k=1}^K \pi_k \lambda = 0
+$$
+
+$N_k$の定義と(9.9)から
+$$
+N + \lambda = 0
+$$
+
+よって
+$$
+\lambda = -N
+$$
+
+これを(9.21.1)に代入すると
+$$
+\pi_k = \frac{N_k}{N}
+\tag{9.22}
+$$
+
+<hr/>
+<h4>混合ガウス分布のためのEMアルゴリズム</h4>
+<h5>Eステップ</h5>
+$$
+\gamma(z_{nk}) = \frac{\pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k)}{\sum_{j=1}^K \pi_j \N(\x_n | \v{\mu}_j, \m{\Sigma}_j)}
+\tag{9.23}
+$$
+
+<h5>Mステップ</h5>
+$$
+\v{\mu}_k^{new} = 
+= \frac{1}{N_k} \sum_{n=1}^N \gamma(z_{nk}) \x_n 
+\tag{9.24}
+$$
+
+$$
+\m{\Sigma}_k^{new} = \frac{1}{N_k} \sum_{n=1}^N \gamma(z_{nk}) (\x_n - \v{\mu}_k^{new}) (\x_n - \v{\mu}_k^{new})\T
+\tag{9.25}
+$$
+
+$$
+\pi_k^{new} = \frac{N_k}{N}
+\tag{9.26}
+$$
+
+$$
+N_k = \sum_{n=1}^N \gamma(z_{nk})
+\tag{9.27}
+$$
+
+$$
+\ln p(\X | \v{\pi}, \v{\mu}, \m{\Sigma}) = \sum_{n=1}^N \ln(\sum_{k=1}^K \pi_k \N(\x_n | \v{\mu}_k, \m{\Sigma}_k))
+\tag{9.28}
+$$
+
+</body></html>
