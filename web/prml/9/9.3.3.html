@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>9.3.3 混合ベルヌーイ分布</title>
+    <script type="text/javascript" src="../../js/mymathjax.js" ></script>
+</head>
+<body>
+$$
+\newcommand{\det}{\mathrm{det}}
+\\
+\newcommand{\tri}{\mathrm{tri}}
+\\
+\newcommand{\A}{\m{A}}
+\\
+\newcommand{\B}{\m{B}}
+\\
+\newcommand{\X}{\m{X}}
+\\
+\newcommand{\Y}{\m{Y}}
+\\
+\newcommand{\x}{\m{x}}
+\\
+\newcommand{\y}{\m{y}}
+\\
+\newcommand{\b}{\m{b}}
+\\
+\newcommand{\w}{\m{w}}
+$$
+
+<h1>9.3.3 混合ベルヌーイ分布</h1>
+
+$$
+p(\x | \v{\mu}) = \prod_{i=1}^D \v{\mu}_k^{x_i} (1 - \v{\mu}_k)^{1 - x_i}
+\tag{9.44}
+$$
+
+$$
+\E[\x] = \v{\mu}
+\tag{9.45}
+$$
+
+$$
+\mathrm{cov}[\x] = \mathrm{diag}\{\v{\mu}_i(1 - \v{\mu}_i) \}
+\tag{9.46}
+$$
+
+$$
+p(\x | \v{\mu}, \v{\pi}) = \sum_{k=1}^K \pi_k p(\x | \v{\mu}_k)
+\tag{9.47}
+$$
+
+$$
+p(\x | \v{\mu}_k) = \prod_{i=1}^D \mu_{ki}^{x_i} (1 - \mu_{ki})^{1 - x_i}
+\tag{9.48}
+$$
+
+$$
+\E[\x] = \sum_{k=1}^K \pi_k \v{\mu}_k
+\tag{9.49}
+$$
+
+$$
+\mathrm{cov}[\x] = \sum_{k=1}^K \pi_k(\m{\Sigma}_k + \v{\mu}_k\v{\mu}_k\T) - \E[\x] \E[\x]\T
+\tag{9.50}
+$$
+
+<h5>演習 9.12</h5>
+$$
+p(\x) = \sum_{k=1}^K \pi_k p(\x | k)
+\tag{9.82}
+$$
+
+$$
+\E[\x] = \sum_{k=1}^K \pi_k \E_k[\x] = \sum_{k=1}^K \pi_k \v{\mu}_k
+$$
+
+ただし
+$$
+\E_k[\x] = \E_{p(\x|k)}[\x]
+$$
+
+$$
+\mathrm{cov}[\x] = \E[\x\x\T] - \E[\x]\E[\x]\T
+$$
+
+$$
+= \sum_{k=1}^K \pi_k \E_k[\x\x\T] - \E[\x]\E[\x]\T
+$$
+
+$$
+= \sum_{k=1}^K \pi_k (\m{\Sigma}_k + \v{\mu}_k\v{\mu}_k\T) - \E[\x]\E[\x]\T
+$$
+<hr/>
+
+$$
+\ln p(\X | \v{\mu}, \v{\pi}) = \sum_{n=1}^N \ln(\sum_{k=1}^K \pi_k p(\x_n | \v{\mu}_k))
+\tag{9.51}
+$$
+
+$$
+p(\x | \v{z}, \v{\mu}) = \prod_{k=1}^K p(\x | \v{\mu}_k)^{z_k}
+\tag{9.52}
+$$
+
+$$
+p(\v{z} | \v{\pi}) = \prod_{k=1}^K \pi_k^{z_k}
+\tag{9.53}
+$$
+
+<h5>演習 9.14</h5>
+$$
+ = 
+\frac{p(\x, \v{\mu} | \v{z})p(\v{z})}{p(\v{\mu} | \v{z})p(\v{z})}
+\frac{p(\v{\pi} | \v{z})p(\v{z})}{p(\v{\pi})}
+$$
+
+(9.52)と(9.53)から
+$$
+p(\x | \v{z}, \v{\mu}) p(\v{z} | \v{\pi}) = \prod_{k=1}^K p(\x | \v{\mu}_k)^{z_k}
+ \prod_{k=1}^K \pi_k^{z_k}
+$$
+
+$$
+= \prod_{k=1}^K (p(\x | \v{\mu}_k)\pi_k)^{z_k}
+$$
+
+これを$\v{z}$ で周辺化すると
+$$
+\sum_{\v{z}} \prod_{k=1}^K (p(\x | \v{\mu}_k)\pi_k)^{z_k}
+$$
+
+
+</body></html>
